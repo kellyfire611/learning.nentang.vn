@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" class="h-100">
 
 <head>
     <!-- Required meta tags -->
@@ -15,31 +15,16 @@
     <title>Nền tảng - Kiến thức cơ bản về WEB</title>
 </head>
 
-<body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Nền tảng</a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Tìm kiếm" aria-label="Search">
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Đăng xuất</a>
-            </li>
-        </ul>
-    </nav>
+<body class="d-flex flex-column h-100">
+    <!-- header -->
+    {{ include('backend/layouts/includes/header.html.twig') }}
+    <!-- end header -->
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                <span data-feather="home"></span>
-                                Bảng tin <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <!-- sidebar -->
+            {{ include('backend/layouts/includes/sidebar.html.twig') }}
+            <!-- end sidebar -->
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div
@@ -54,6 +39,10 @@
             </main>
         </div>
     </div>
+
+    <!-- footer -->
+    {{ include('backend/layouts/includes/footer.html.twig') }}
+    <!-- end footer -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

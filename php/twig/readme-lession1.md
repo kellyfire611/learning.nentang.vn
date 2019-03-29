@@ -85,7 +85,7 @@ echo $twig->render('vidu1.html.twig', ['products' => $products] );
 - Nội dung file:
 ```html
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="vi-VN">
     <head>
         <meta charset="UTF-8">
         <title>Twig Example</title>
