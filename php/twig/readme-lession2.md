@@ -230,7 +230,12 @@ body {
     <!-- Custom css - Các file css do chúng ta tự viết -->
     <link rel="stylesheet" href="/php/twig/assets/backend/css/style.css" type="text/css" />
 
-    <title>Nền tảng - Kiến thức cơ bản về WEB</title>
+    <title>Nền tảng - Kiến thức cơ bản về WEB | 
+        <!-- Block title - Đục lỗ trên giao diện bố cục chung, đặt tên là `title` -->
+        {% block title %}
+        {% endblock %}
+        <!-- End block title -->
+    </title>
 </head>
 
 <body>
@@ -262,7 +267,10 @@ body {
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Bảng tin</h1>
+                      <!-- Block headline - Đục lỗ trên giao diện bố cục chung, đặt tên là `headline` -->
+                      {% block headline %}
+                      {% endblock %}
+                      <!-- End block headline -->
                 </div>
 
                 <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
@@ -347,6 +355,18 @@ echo $twig->render('backend/pages/dashboard.html.twig', ['products' => $products
 ```html
 {# Kế thừa layout backend #}
 {% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Bảng tin
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Bảng tin
+{% endblock %}
+{# End Nội dung trong block headline #}
 
 {# Nội dung trong block content #}
 {% block content %}
