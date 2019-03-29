@@ -3,6 +3,11 @@
 - Tạo mới file `bootstrap.php` cùng cấp với `thư mục gốc` của bạn. 
 - Ví dụ thư mục gốc hiện tại trong bài học là `/php/twig/`
 - Tạo file `/bootstrap.php`
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       +---bootstrap.php       <- Tạo file
+```
 - Nội dung như sau:
 ```php
 <?php
@@ -18,6 +23,11 @@ $twig = new Twig_Environment($loader);
 
 ## Step 2: tạo thư mục để chứa các templates sử dụng Twig
 - Tạo mới thư mục `/templates`
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       +---templates           <- Tạo thư mục
+```
 
 # 3.Tạo ví dụ 1 làm quen `Twig Template Engine`
 ## Luồng xử lý của Template Engine thường thấy
@@ -25,6 +35,11 @@ $twig = new Twig_Environment($loader);
 
 ## Step 1:
 - Tạo file `/vidu1.php`
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       +---vidu1.php           <- Tạo file
+```
 - Nội dung file:
 ```php
 <?php

@@ -21,15 +21,15 @@ composer require twig/twig
 - Cấu trúc thư mục sau khi cài đặt:
 ```
 +---php
-|   \---twig
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
 |       \---vendor
 |           +---composer
 |           +---symfony
 |           +---twig
 |           +---twig
 |           \---autoload.php
-|   +---composer.json
-|   \---composer.lock
+|       +---composer.json
+|       \---composer.lock
 ```
 
 # Bài học tiếp theo

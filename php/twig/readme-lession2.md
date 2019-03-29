@@ -206,6 +206,14 @@ body {
 ## Step 2: tạo file template quản lý bố cục ứng dụng web
 - Để dễ dàng quản lý các file template về bố cục. Chúng ta tạo mới thư mục `/templates/backend/layouts`
 - Tạo file `/templates/backend/layouts/layout.html.twig`
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       \---templates
+|           \---backend
+|               \---layouts
+|                   \---layout.html.twig    <- Tạo file
+```
 - Nội dung file:
 ```html
 <!doctype html>
@@ -283,6 +291,13 @@ body {
 - Để dễ dàng quản lý các trang tĩnh (static). Ta sẽ tạo thư mục `/pages/` để quản lý các trang này.
 - Trang `Dashboard (bảng tin)` đơn giản là một nội dung tĩnh; hoặc nếu làm tốt hơn, các bạn có thể lưu nội dung trang trong database và truy xuất; hiển thị vài báo cáo thông số cần thiết trong hệ thống...
 - Tạo file `/backend/pages/dashboard.php`
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       \---backend
+|           \---pages
+|               \---dashboard.php    <- Tạo file
+```
 - Nội dung file:
 ```php
 <?php
@@ -320,6 +335,14 @@ echo $twig->render('backend/pages/dashboard.html.twig', ['products' => $products
 ## Step 4: tạo file template `Dashboard` kế thừa giao diện `layout chung`
 - Để dễ dàng quản lý các chức năng tương ứng. Chúng ta sẽ tạo thư mục tương ứng với chức năng
 - Tạo file `/templates/backend/pages/dashboard.html.twig`
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       \---templates
+|           \---backend
+|               \---pages
+|                   \---dashboard.html.twig    <- Tạo file
+```
 - Nội dung file:
 ```html
 {# Kế thừa layout backend #}
