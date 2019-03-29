@@ -406,13 +406,13 @@ header('location:index.php');
                 </a>
                 <ul class="collapse" id="loaisanphamSubMenu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig//backend/loaisanpham/index.php">
+                        <a class="nav-link" href="/php/twig/backend/loaisanpham/index.php">
                             <span data-feather="list"></span>
                             Danh sách
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig//backend/loaisanpham/create.php">
+                        <a class="nav-link" href="/php/twig/backend/loaisanpham/create.php">
                             <span data-feather="plus"></span>
                             Thêm mới
                         </a>
