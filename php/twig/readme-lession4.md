@@ -34,12 +34,24 @@ $conn->query("SET SESSION collation_connection = 'utf8_unicode_ci'");
 
 ## Step 2: tạo cấu trúc thư mục cho chức năng CRUD `Loại sản phẩm`
 - Để tiện cho việc quản lý, ta sẽ tạo cấu trúc thư mục tương ứng với tên của từng chức năng
-- Tạo thư mục `/php/twig/backend/loaisanpham`
+
+[![../../assets/php/twig/CachToChucSourceCode_Logic_TuongUng_Template.png](../../assets/php/twig/CachToChucSourceCode_Logic_TuongUng_Template.png)](../../assets/php/twig/CachToChucSourceCode_Logic_TuongUng_Template.png)
+
+- Tạo thư mục `/php/twig/backend/loaisanpham` quản lý code logic/nghiệp vụ PHP
 ```
 +---php
 |   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
 |       \---backend
 |           \---loaisanpham     <- Tạo thư mục
+```
+
+- Tạo thư mục `/php/twig/templates/backend/loaisanpham` quản lý template giao diện tương ứng
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       \---templates
+|           \---backend
+|               \---loaisanpham     <- Tạo thư mục
 ```
 
 ## Step 3: tạo chức năng `index` dùng để hiển thị màn hình danh sách các Loại sản phẩm có trong database
