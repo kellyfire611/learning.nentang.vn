@@ -12,7 +12,12 @@
     <!-- Custom css - Các file css do chúng ta tự viết -->
     <link rel="stylesheet" href="/php/twig/assets/backend/css/style.css" type="text/css" />
 
-    <title>Nền tảng - Kiến thức cơ bản về WEB</title>
+    <title>Nền tảng - Kiến thức cơ bản về WEB | 
+        <!-- Block title - Đục lỗ trên giao diện bố cục chung, đặt tên là `title` -->
+        {% block title %}
+        {% endblock %}
+        <!-- End block title -->
+    </title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -29,7 +34,12 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Bảng tin</h1>
+                    <h1 class="h2">
+                        <!-- Block headline - Đục lỗ trên giao diện bố cục chung, đặt tên là `headline` -->
+                        {% block headline %}
+                        {% endblock %}
+                        <!-- End block headline -->
+                    </h1>
                 </div>
 
                 <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->

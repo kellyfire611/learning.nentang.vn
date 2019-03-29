@@ -6,10 +6,11 @@
   - `footer`: chân trang, chứa thông tin phiên bản hệ thống, chứng nhận bản quyền,...
 - Chúng ta sẽ tiến hành tách các thành phần từ bố cục ra để dễ dàng quản lý
 
-## Step 1: phân tích các thành phần bố cục layout backend
-
+## Step 1: phân tích backend layout và tạo cấu trúc thư mục
 ### Step 1.1: phân tích các thành phần bố cục layout backend
+- Xem xét `SampleLayout` sau để phân tách các thành phần
 
+[![../../assets/php/twig/SampleLayout.png](../../assets/php/twig/SampleLayout.png)](../../assets/php/twig/SampleLayout.png)
 
 ### Step 1.2: tạo thư mục để quản lý các thành phần
 - Tạo thư mục `/templates/backend/layouts/includes` để chứa các thành phần của layout backend
