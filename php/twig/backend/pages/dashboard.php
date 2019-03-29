@@ -25,6 +25,6 @@ $products = [
     ],
 ];
 
-// Yêu cầu `Twig` vẽ giao diện được viết trong file `pages/gioithieu.html.twig`
+// Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/pages/dashboard.html.twig`
 // với dữ liệu truyền vào file giao diện được đặt tên là `products`
-echo $twig->render('backend/pages/gioithieu.html.twig', ['products' => $products] );
+echo $twig->render('backend/pages/dashboard.html.twig', ['products' => $products] );
