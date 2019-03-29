@@ -3,19 +3,19 @@
 
 {# Nội dung trong block title #}
 {% block title %}
-Sửa Loại sản phẩm
+Thêm mới Loại sản phẩm
 {% endblock %}
 {# End Nội dung trong block title #}
 
 {# Nội dung trong block headline #}
 {% block headline %}
-Sửa Loại sản phẩm
+Thêm mới Loại sản phẩm
 {% endblock %}
 {# End Nội dung trong block headline #}
 
 {# Nội dung trong block content #}
 {% block content %}
-<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig//backend/loaisanpham/create.php">
+<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig/backend/loaisanpham/create.php">
     <div class="form-group">
         <label for="lsp_ma">Mã loại sản phẩm</label>
         <input type="text" class="form-control" id="lsp_ma" name="lsp_ma" placeholder="Mã loại sản phẩm" readonly>

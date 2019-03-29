@@ -222,19 +222,19 @@ echo $twig->render('backend/loaisanpham/create.html.twig');
 
 {# Nội dung trong block title #}
 {% block title %}
-Sửa Loại sản phẩm
+Thêm mới Loại sản phẩm
 {% endblock %}
 {# End Nội dung trong block title #}
 
 {# Nội dung trong block headline #}
 {% block headline %}
-Sửa Loại sản phẩm
+Thêm mới Loại sản phẩm
 {% endblock %}
 {# End Nội dung trong block headline #}
 
 {# Nội dung trong block content #}
 {% block content %}
-<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig//backend/loaisanpham/create.php">
+<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig/backend/loaisanpham/create.php">
     <div class="form-group">
         <label for="lsp_ma">Mã loại sản phẩm</label>
         <input type="text" class="form-control" id="lsp_ma" name="lsp_ma" placeholder="Mã loại sản phẩm" readonly>
@@ -335,7 +335,7 @@ Sửa Loại sản phẩm
 
 {# Nội dung trong block content #}
 {% block content %}
-<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig//backend/loaisanpham/edit.php?lsp_ma={{ loaisanpham.lsp_ma }}">
+<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig/backend/loaisanpham/edit.php?lsp_ma={{ loaisanpham.lsp_ma }}">
     <div class="form-group">
         <label for="lsp_ma">Mã loại sản phẩm</label>
         <input type="text" class="form-control" id="lsp_ma" name="lsp_ma" placeholder="Mã loại sản phẩm" readonly value="{{ loaisanpham.lsp_ma }}">
@@ -384,6 +384,45 @@ mysqli_close($conn);
     
 // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
 header('location:index.php');
+```
+
+## Step 7: tạo menu chức năng Loại sản phẩm bên thành phần `sidebar`
+- Hiệu chỉnh file `/php/twig/templates/backend/layouts/includes/sidebar.html.twig`
+```html
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">
+                    <span data-feather="home"></span>
+                    Bảng tin <span class="sr-only">(current)</span>
+                </a>
+            </li>
+          
+            <!-- Menu Loại sản phẩm -->
+            <li class="nav-item">
+                <a href="#loaisanphamSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Loại sản phẩm
+                </a>
+                <ul class="collapse" id="loaisanphamSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/php/twig//backend/loaisanpham/index.php">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/php/twig//backend/loaisanpham/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Loại sản phẩm -->
+        </ul>
+    </div>
+</nav>
 ```
 
 ## Kiểm tra ứng dụng
