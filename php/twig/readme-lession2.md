@@ -22,7 +22,7 @@
 ```
 +---assets
 |   \---vendor
-|       \---bootstrap
+|       \---bootstrap   <- copy thư mục `dist`, đổi tên thành `bootstrap`
 |           +---css
 |           \---js
 |       ...
@@ -35,8 +35,8 @@
 ```
 +---assets
 |   \---vendor
-|       \---jquery
-|           +---jquery.min.js
+|       \---jquery              <- tạo thư mục jquery để tiện quản lý
+|           +---jquery.min.js   <- download file về
 |       ...
 |       \***Các gói thư viện frontend khác
 ```
@@ -47,8 +47,8 @@
 ```
 +---assets
 |   \---vendor
-|       \---popperjs
-|           +---jquery.min.js
+|       \---popperjs            <- tạo thư mục popperjs để tiện quản lý
+|           +---popper.min.js   <- download file về
 |       ...
 |       \***Các gói thư viện frontend khác
 ```
@@ -59,8 +59,8 @@
 ```
 +---assets
 |   \---vendor
-|       \---feather
-|           +---feather.min.js
+|       \---feather             <- tạo thư mục feather để tiện quản lý
+|           +---feather.min.js  <- download file về
 |       ...
 |       \***Các gói thư viện frontend khác
 ```
