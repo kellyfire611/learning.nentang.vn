@@ -9,6 +9,8 @@
 - Chúng ta sẽ sử dụng một số thư viện giao diện nổi tiếng như sau:
     - Bootstrap 4.3 (mới nhất hiện nay). [Bootstrap 4 examples](https://getbootstrap.com/docs/4.3/examples/)
     - Jquery 3.3.1 (mới nhất hiện nay). [Jquery 3.3.1](https://jquery.com/download/)
+    - PopperJS. [PopperJS](https://popper.js.org/)
+    - Feather icon. [Feather icon](https://feathericons.com/)
 
 ### Step 1.1. Cài đặt Bootstrap 4.3.1
 - Truy cập trang chủ để xem hướng dẫn - [Starter template](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
@@ -49,9 +51,21 @@
 |       \***Các gói thư viện frontend khác
 ```
 
+### Step 1.4. Cài đặt FeatherIcon
+- [Feather Icon Javascript](https://unpkg.com/feather-icons/dist/feather.min.js)
+- Download về, chép vào thư mục như cấu trúc sau:
+```
++---assets
+|   \---vendor
+|       \---feather
+|           +---feather.min.js
+|       ...
+|       \***Các gói thư viện frontend khác
+```
+
 ## Step 2: tạo file template quản lý bố cục ứng dụng web
-- Để dễ dàng quản lý các file template về bố cục. Chúng ta tạo mới thư mục `/templates/layouts`
-- Tạo file `/templates/layouts/layout.html.twig`
+- Để dễ dàng quản lý các file template về bố cục. Chúng ta tạo mới thư mục `/templates/backend/layouts`
+- Tạo file `/templates/backend/layouts/layout.html.twig`
 - Nội dung file:
 ```html
 <!DOCTYPE html>
