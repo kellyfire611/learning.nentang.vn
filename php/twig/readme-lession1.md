@@ -74,7 +74,48 @@ $products = [
 echo $twig->render('vidu1.html.twig', ['products' => $products] );
 ```
 
-## Step 2: Kiểm tra ứng dụng
+## Step 2:
+- Tạo file `/vidu1.php`
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       +---templates           
+|           +---vidu1.html.twig           <- Tạo file
+```
+- Nội dung file:
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Twig Example</title>
+    </head>
+    <body>
+    <table border="1" style="width: 80%;">
+        <thead>
+            <tr>
+                <td>Product</td>
+                <td>Description</td>
+                <td>Value</td>
+                <td>Date</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.value }}</td>
+                    <td>{{ product.date_register|date("m/d/Y") }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </body>
+</html>
+```
+
+## Step 3: Kiểm tra ứng dụng
 - Truy cập địa chỉ: [http://learning.nentang.vn/php/twig/vidu1.php](http://learning.nentang.vn/php/twig/vidu1.php)
 
 # Bài học trước
