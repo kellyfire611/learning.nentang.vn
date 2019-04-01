@@ -1,0 +1,31 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Sửa Nhà sản xuất
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Sửa Nhà sản xuất
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<form name="frmnhasanxuat" id="frmnhasanxuat" method="post" action="/php/twig/backend/nhasanxuat/edit.php?nsx_ma={{ nhasanxuat.nsx_ma }}">
+    <div class="form-group">
+        <label for="nsx_ma">Mã Nhà sản xuất</label>
+        <input type="text" class="form-control" id="nsx_ma" name="nsx_ma" placeholder="Mã Nhà sản xuất" readonly value="{{ nhasanxuat.nsx_ma }}">
+        <small id="nsx_maHelp" class="form-text text-muted">Mã Nhà sản xuất không được hiệu chỉnh.</small>
+    </div>
+    <div class="form-group">
+        <label for="nsx_ten">Tên Nhà sản xuất</label>
+        <input type="text" class="form-control" id="nsx_ten" name="nsx_ten" placeholder="Tên Nhà sản xuất" value="{{ nhasanxuat.nsx_ten }}">
+    </div>
+    <button type="submit" class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+</form>
+{% endblock %}
+{# End Nội dung trong block content #}
