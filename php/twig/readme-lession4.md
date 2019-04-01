@@ -428,6 +428,13 @@ header('location:index.php');
 ## Kiểm tra ứng dụng
 - Truy cập địa chỉ: [http://learning.nentang.vn/php/twig//backend/loaisanpham/index.php](http://learning.nentang.vn/php/twig//backend/loaisanpham/index.php)
 
+## Yêu cầu
+- Thực hiện tạo các chức năng Danh mục phẳng tương tự:
+    - `chudegopy`
+    - `hinhthucthanhtoan`
+    - `khuyenmai`
+    - `nhasanxuat`
+
 # Bài học trước
 [Bài học 3](./readme-lession3.md)
 
