@@ -1,0 +1,72 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Danh sách Sản phẩm
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Danh sách Sản phẩm
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<!-- Nút thêm mới, bấm vào sẽ hiển thị form nhập thông tin Thêm mới -->
+<a href="create.php" class="btn btn-primary">
+    <span data-feather="plus"></span> Thêm mới
+</a>
+<table class="table table-bordered table-hover mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã Sản phẩm</th>
+            <th>Tên Sản phẩm</th>
+            <th>Giá</th>
+            <th>Giá cũ</th>
+            <th>Mô tả</th>
+            <th>Ngày cập nhật</th>
+            <th>Số lượng</th>
+            <th>Loại sản phẩm</th>
+            <th>Nhà sản xuất</th>
+            <th>Khuyến mãi</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sanpham in ds_sanpham %}
+        <tr>
+            <td>{{ sanpham.sp_ma }}</td>
+            <td>{{ sanpham.sp_ten }}</td>
+            <td>{{ sanpham.sp_gia }}</td>
+            <td>{{ sanpham.sp_giacu }}</td>
+            <td>
+                {{ sanpham.sp_mota_ngan }}
+                <p>
+                    {{ sanpham.sp_mota_chitiet }}
+                </p>
+            </td>
+            <td>{{ sanpham.sp_ngaycapnhat }}</td>
+            <td>{{ sanpham.sp_soluong }}</td>
+            <td>{{ sanpham.lsp_ten }}</td>
+            <td>{{ sanpham.nsx_ten }}</td>
+            <td>{{ sanpham.km_tomtat }}</td>
+            <td>
+                <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `sp_ma` -->
+                <a href="edit.php?sp_ma={{ sanpham.sp_ma }}" class="btn btn-warning">
+                    <span data-feather="edit"></span> Sửa
+                </a>
+
+                <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
+                <a href="delete.php?sp_ma={{ sanpham.sp_ma }}" class="btn btn-danger">
+                    <span data-feather="delete"></span> Xóa
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{# End Nội dung trong block content #}
