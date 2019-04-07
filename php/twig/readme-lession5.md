@@ -30,7 +30,7 @@
 
 [![../../assets/php/twig/SanPhamIndex_Logic_To_Template_DataFlow.png](../../assets/php/twig/SanPhamIndex_Logic_To_Template_DataFlow.png)](../../assets/php/twig/SanPhamIndex_Logic_To_Template_DataFlow.png)
 
-- Tạo file `/php/twig/backend/sanphamsanpham/index.php` để xử lý logic/nghiệp vụ
+- Tạo file `/php/twig/backend/sanpham/index.php` để xử lý logic/nghiệp vụ
 ```
 +---php
 |   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
