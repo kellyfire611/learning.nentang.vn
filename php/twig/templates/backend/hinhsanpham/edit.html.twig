@@ -1,0 +1,43 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Sửa Hình Sản phẩm
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Sửa Hình Sản phẩm
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<form name="frmhinhsanpham" id="frmhinhanpham" method="post" action="/php/twig/backend/hinhsanpham/edit.php?hsp_ma={{ hinhsanpham.hsp_ma }}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="">Hình ảnh</label>
+        <br />
+        <img src="/php/twig/assets/uploads/{{ hinhsanpham.hsp_tentaptin }}" class="img-fluid" width="300px"/>
+    </div>
+    <div class="form-group">
+        <label for="sp_ma">Sản phẩm</label>
+        <select class="form-control" id="sp_ma" name="sp_ma">
+            {% for sanpham in ds_sanpham %}
+                {% if sanpham.sp_ma == hinhsanpham.sp_ma %}
+                <option value="{{ sanpham.sp_ma }}" selected>{{ sanpham.sp_tomtat }}</option>
+                {% else %}
+                <option value="{{ sanpham.sp_ma }}">{{ sanpham.sp_tomtat }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="hsp_tentaptin">Tập tin ảnh</label>
+        <input type="file" class="form-control" id="hsp_tentaptin" name="hsp_tentaptin">
+    </div>
+    <button type="submit" class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+</form>
+{% endblock %}
+{# End Nội dung trong block content #}
