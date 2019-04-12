@@ -58,6 +58,15 @@ if(isset($_POST['btnDangKy']))
         $mail->Port = 587;                                     // TCP port to connect to
         $mail->CharSet = "UTF-8";
     
+        // Bật chế bộ tự mình mã hóa SSL
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
         //Recipients
         $mail->setFrom('tester.mail.nentang@gmail.com', 'Test Mail');
         $mail->addAddress($kh_email);                          // Add a recipient
