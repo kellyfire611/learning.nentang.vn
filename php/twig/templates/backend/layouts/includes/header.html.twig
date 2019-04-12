@@ -3,7 +3,9 @@
     <input class="form-control form-control-dark w-100" type="text" placeholder="Tìm kiếm" aria-label="Search">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Đăng xuất</a>
+            <!-- Gắn liên kết đến trang xử lý đăng xuất -->
+            <a class="nav-link" href="/php/twig/backend/pages/logout.php">Đăng xuất</a>
+            <h1>{{ session['username'] }}</h1>
         </li>
     </ul>
 </nav>

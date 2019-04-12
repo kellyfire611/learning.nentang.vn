@@ -411,7 +411,7 @@ Thêm mới Sản phẩm
             {% endfor %}
         </select>
     </div>
-    <button type="submit" class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}
@@ -667,7 +667,7 @@ Sửa Sản phẩm
             {% endfor %}
         </select>
     </div>
-    <button type="submit" class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}

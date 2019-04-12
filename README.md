@@ -4,7 +4,15 @@
 - Xem nhiều hơn tại [https://nentang.vn](https://nentang.vn)
 
 # Danh sách các bài học
-- Học về Twig - Template Engine quản lý giao diện của Symfony PHP. [Xem hướng dẫn](./php/twig/readme.md)
+- Học về Twig - Template Engine quản lý giao diện của Symfony PHP.
+  - [Vi du 1](./php/twig/readme.md)
+  - [Bài học 1](./php/twig/readme-lession1.md)
+  - [Bài học 2](./php/twig/readme-lession2.md)
+  - [Bài học 3](./php/twig/readme-lession3.md)
+  - [Bài học 4](./php/twig/readme-lession4.md)
+  - [Bài học 5](./php/twig/readme-lession5.md)
+  - [Bài học 6](./php/twig/readme-lession6.md)
+  - [Bài học 7](./php/twig/readme-lession7.md)
 
 # Các chương trình cần thiết để lập trình web
 - [Git for window](https://git-scm.com/download/win)

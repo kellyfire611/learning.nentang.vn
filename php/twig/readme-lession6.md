@@ -163,7 +163,7 @@ Thêm mới Hình Sản phẩm
         <label for="hsp_tentaptin">Tập tin ảnh</label>
         <input type="file" class="form-control" id="hsp_tentaptin" name="hsp_tentaptin">
     </div>
-    <button type="submit" class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}
@@ -421,90 +421,41 @@ echo $twig->render('backend/hinhsanpham/edit.html.twig', [
 
 {# Nội dung trong block title #}
 {% block title %}
-Sửa Sản phẩm
+Sửa Hình Sản phẩm
 {% endblock %}
 {# End Nội dung trong block title #}
 
 {# Nội dung trong block headline #}
 {% block headline %}
-Sửa Sản phẩm
+Sửa Hình Sản phẩm
 {% endblock %}
 {# End Nội dung trong block headline #}
 
 {# Nội dung trong block content #}
 {% block content %}
-<form name="frmsanpham" id="frmsanpham" method="post" action="/php/twig/backend/sanpham/edit.php?sp_ma={{ sanpham.sp_ma }}">
+<form name="frmhinhsanpham" id="frmhinhanpham" method="post" action="/php/twig/backend/hinhsanpham/edit.php?hsp_ma={{ hinhsanpham.hsp_ma }}" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="sp_ma">Mã Sản phẩm</label>
-        <input type="text" class="form-control" id="sp_ma" name="sp_ma" placeholder="Mã Sản phẩm" readonly value="{{ sanpham.sp_ma }}">
-        <small id="sp_maHelp" class="form-text text-muted">Mã Sản phẩm không được hiệu chỉnh.</small>
+        <label for="">Hình ảnh</label>
+        <br />
+        <img src="/php/twig/assets/uploads/{{ hinhsanpham.hsp_tentaptin }}" class="img-fluid" width="300px"/>
     </div>
     <div class="form-group">
-        <label for="sp_ten">Tên Sản phẩm</label>
-        <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên Sản phẩm" value="{{ sanpham.sp_ten }}">
-    </div>
-    <div class="form-group">
-        <label for="sp_gia">Giá Sản phẩm</label>
-        <input type="text" class="form-control" id="sp_gia" name="sp_gia" placeholder="Giá Sản phẩm" value="{{ sanpham.sp_gia }}">
-    </div>
-    <div class="form-group">
-        <label for="sp_giacu">Giá cũ Sản phẩm</label>
-        <input type="text" class="form-control" id="sp_giacu" name="sp_giacu" placeholder="Giá cũ Sản phẩm" value="{{ sanpham.sp_giacu }}">
-    </div>
-    <div class="form-group">
-        <label for="sp_mota_ngan">Mô tả ngắn</label>
-        <input type="text" class="form-control" id="sp_mota_ngan" name="sp_mota_ngan" placeholder="Mô tả ngắn Sản phẩm" value="{{ sanpham.sp_mota_ngan }}">
-    </div>
-    <div class="form-group">
-        <label for="sp_mota_chitiet">Mô tả chi tiết</label>
-        <input type="text" class="form-control" id="sp_mota_chitiet" name="sp_mota_chitiet" placeholder="Mô tả chi tiết Sản phẩm" value="{{ sanpham.sp_mota_chitiet }}">
-    </div>
-    <div class="form-group">
-        <label for="sp_ngaycapnhat">Ngày cập nhật</label>
-        <input type="text" class="form-control" id="sp_ngaycapnhat" name="sp_ngaycapnhat" placeholder="Ngày cập nhật Sản phẩm" value="{{ sanpham.sp_ngaycapnhat }}">
-    </div>
-    <div class="form-group">
-        <label for="sp_soluong">Số lượng</label>
-        <input type="text" class="form-control" id="sp_soluong" name="sp_soluong" placeholder="Số lượng Sản phẩm" value="{{ sanpham.sp_soluong }}">
-    </div>
-    <div class="form-group">
-        <label for="lsp_ma">Loại sản phẩm</label>
-        <select class="form-control" id="lsp_ma" name="lsp_ma">
-            {% for loaisanpham in ds_loaisanpham %}
-                {% if loaisanpham.lsp_ma == sanpham.lsp_ma %}
-                <option value="{{ loaisanpham.lsp_ma }}" selected>{{ loaisanpham.lsp_ten }}</option>
+        <label for="sp_ma">Sản phẩm</label>
+        <select class="form-control" id="sp_ma" name="sp_ma">
+            {% for sanpham in ds_sanpham %}
+                {% if sanpham.sp_ma == hinhsanpham.sp_ma %}
+                <option value="{{ sanpham.sp_ma }}" selected>{{ sanpham.sp_tomtat }}</option>
                 {% else %}
-                <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</option>
+                <option value="{{ sanpham.sp_ma }}">{{ sanpham.sp_tomtat }}</option>
                 {% endif %}
             {% endfor %}
         </select>
     </div>
     <div class="form-group">
-        <label for="nsx_ma">Nhà sản xuất</label>
-        <select class="form-control" id="nsx_ma" name="nsx_ma">
-            {% for nhasanxuat in ds_nhasanxuat %}
-                {% if nhasanxuat.nsx_ma == sanpham.nsx_ma %}
-                <option value="{{ nhasanxuat.nsx_ma }}" selected>{{ nhasanxuat.nsx_ten }}</option>
-                {% else %}
-                <option value="{{ nhasanxuat.nsx_ma }}">{{ nhasanxuat.nsx_ten }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
+        <label for="hsp_tentaptin">Tập tin ảnh</label>
+        <input type="file" class="form-control" id="hsp_tentaptin" name="hsp_tentaptin">
     </div>
-    <div class="form-group">
-        <label for="km_ma">Khuyến mãi</label>
-        <select class="form-control" id="km_ma" name="km_ma">
-            <option value="">Không áp dụng khuyến mãi</option>
-            {% for khuyenmai in ds_khuyenmai %}
-                {% if khuyenmai.km_ma == sanpham.km_ma %}
-                <option value="{{ khuyenmai.km_ma }}" selected>{{ khuyenmai.km_tomtat }}</option>
-                {% else %}
-                <option value="{{ khuyenmai.km_ma }}">{{ khuyenmai.km_tomtat }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}
@@ -563,6 +514,76 @@ mysqli_close($conn);
     
 // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
 header('location:index.php');
+```
+
+## Step 6: tạo chức năng `delete` dùng để xóa Loại sản phẩm
+- Tạo file `/php/twig/backend/loaisanpham/delete.php` để xử lý logic/nghiệp vụ
+```
++---php
+|   \---twig                    <- Đây là thư mục gốc của dự án, các bạn có thể đặt tên các bạn...
+|       \---backend
+|           \---loaisanpham     
+|               \---delete.php   <- Tạo file
+```
+- Nội dung file:
+```php
+<?php
+// Truy vấn database
+// 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
+include_once(__DIR__.'/../../dbconnect.php');
+
+// 2. Chuẩn bị câu truy vấn $sql
+// Lấy giá trị khóa chính được truyền theo dạng QueryString Parameter key1=value1&key2=value2...
+$lsp_ma = $_GET['lsp_ma'];
+$sql = "DELETE FROM `loaisanpham` WHERE lsp_ma=" . $lsp_ma;
+
+// 3. Thực thi câu lệnh DELETE
+$result = mysqli_query($conn, $sql);
+
+// 4. Đóng kết nối
+mysqli_close($conn);
+    
+// Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
+header('location:index.php');
+```
+
+## Step 6: tạo menu chức năng Hinh sản phẩm bên thành phần `sidebar`
+- Hiệu chỉnh file `/php/twig/templates/backend/layouts/includes/sidebar.html.twig`
+```html
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="/php/twig/backend/pages/dashboard.php">
+                    <span data-feather="home"></span>
+                    Bảng tin <span class="sr-only">(current)</span>
+                </a>
+            </li>
+          
+            <!-- Menu Hình Sản phẩm -->
+            <li class="nav-item">
+                <a href="#hinhsanphamSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Hình sản phẩm
+                </a>
+                <ul class="collapse" id="hinhsanphamSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/php/twig/backend/hinhsanpham/index.php">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/php/twig/backend/hinhsanpham/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Hình Sản phẩm -->
+        </ul>
+    </div>
+</nav>
 ```
 
 ## Kiểm tra ứng dụng

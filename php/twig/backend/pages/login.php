@@ -19,6 +19,8 @@ if(isset($_POST['btnDangNhap']))
     // Thực thi SELECT
     $result = mysqli_query($conn, $sql);
 
+    // Sử dụng hàm `mysqli_num_rows()` để đếm số dòng SELECT được
+    // Nếu có bất kỳ dòng dữ liệu nào SELECT được <-> Người dùng có tồn tại và đã đúng thông tin USERNAME, PASSWORD
     if(mysqli_num_rows($result)>0) {
         echo 'Đăng nhập thành công!';
         $_SESSION['username'] = $username;
@@ -30,15 +32,14 @@ if(isset($_POST['btnDangNhap']))
 
     // Đóng kết nối
     mysqli_close($conn);
-
-    // // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
-    // header('location:index.php');
 }
 
+// Nếu trong SESSION có giá trị của key 'username' <-> người dùng đã đăng nhập thành công
+// Điều hướng người dùng về trang DASHBOARD
 if(isset($_SESSION['username'])) {
-    echo "<h1>Xin chào mừng ". $_SESSION['username'] ."</h1>";
-    echo session_save_path();
-    //header('location:dashboard.php');
+    // echo "<h1>Xin chào mừng ". $_SESSION['username'] ."</h1>";
+    // echo session_save_path();
+    header('location:dashboard.php');
 }
 else {
     // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/pages/login.html.twig`
