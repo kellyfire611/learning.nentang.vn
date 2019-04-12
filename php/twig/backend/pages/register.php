@@ -6,6 +6,9 @@ require_once __DIR__.'/../../bootstrap.php';
 // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
 include_once(__DIR__.'/../../dbconnect.php');
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh INSERT
 if(isset($_POST['btnDangKy'])) 
 {
@@ -40,8 +43,43 @@ if(isset($_POST['btnDangKy']))
     // Đóng kết nối
     mysqli_close($conn);
 
+    // Gởi mail kích hoạt tài khoản
+    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    try {
+        //Server settings
+        $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'tester.mail.nentang@gmail.com';    // SMTP username
+        $mail->Password = 'wpmhdjierkdngniu';                 // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to
+    
+        //Recipients
+        $mail->setFrom('tester.mail.nentang@gmail.com', 'Test Mail');
+        $mail->addAddress($kh_email);                         // Add a recipient
+        $mail->addReplyTo('tester.mail.nentang@gmail.com', 'Test Mail');
+        // $mail->addCC('cc@example.com');
+        // $mail->addBCC('bcc@example.com');
+    
+        //Attachments
+        // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+        // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+    
+        //Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Thông báo kích hoạt tài khoản';
+        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+        $mail->send();
+    } catch (Exception $e) {
+        echo 'Lỗi khi gởi mail: ', $mail->ErrorInfo;
+    }
+
     // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Đăng ký thành công
-    header("location:register-success.php?kh_tendangnhap=$kh_tendangnhap");
+    //header("location:register-success.php?kh_tendangnhap=$kh_tendangnhap");
 }
 
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/pages/register.html.twig`
