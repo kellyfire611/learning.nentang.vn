@@ -13,14 +13,3 @@ $twig = new Twig_Environment($loader);
 
 // Tạo biến global để có thể sử dụng trong tất cả các view được render bởi TWIG
 $twig->addGlobal('session', $_SESSION);
-
-// Bổ sung hàm để tiện debug code
-if (!function_exists('dd')) {
-    function dd()
-    {
-        array_map(function($x) { 
-            dump($x); 
-        }, func_get_args());
-        die;
-    }
- }
