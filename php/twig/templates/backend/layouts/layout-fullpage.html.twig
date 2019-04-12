@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <base href="./">
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/php/twig/assets/vendor/bootstrap/css/bootstrap.min.css" type="text/css" />
 
     <!-- Custom css - Các file css do chúng ta tự viết -->
     <link rel="stylesheet" href="/php/twig/assets/backend/css/style.css" type="text/css" />
+
+    <!-- Block title - Đục lỗ trên giao diện bố cục chung, đặt tên là `title` -->
+    <title>Nền tảng - Kiến thức cơ bản về WEB | 
+        {% block title %}
+        {% endblock %}
+    </title>
+    <!-- End block title -->
 
   </head>
   <body class="app flex-row align-items-center">
