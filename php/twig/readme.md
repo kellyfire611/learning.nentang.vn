@@ -32,5 +32,11 @@ composer require twig/twig
 |       \---composer.lock
 ```
 
+## Step 3: Cài đặt thư viện `symfony/var-dumper` thông qua `composer`:
+- Chạy câu lệnh sau:
+```
+composer require symfony/var-dumper
+```
+
 # Bài học tiếp theo
 [Bài học 1](./readme-lession1.md)
