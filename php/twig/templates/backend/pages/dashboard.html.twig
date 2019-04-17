@@ -20,13 +20,31 @@ Bảng tin
         <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-primary">
                 <div class="card-body pb-0">
-                    <div class="text-value">{{ baocaoSanPham.SoLuong }}</div>
+                    <div class="text-value" id="baocaoSanPham_SoLuong"><h1>{{ baocaoSanPham.SoLuong }}</h1></div>
                     <div>Tổng số mặt hàng</div>
                 </div>
             </div>
+            <br />
+            <button class="btn btn-danger btn-sm form-control" id="refreshBaoCaoSanPham">Refresh dữ liệu</button>
         </div>
-
     </div>
 </div>
 {% endblock %}
 {# End Nội dung trong block content #}
+
+{% block customscripts %}
+<script>
+    $('#refreshBaoCaoSanPham').click(function (event) {
+        event.preventDefault();
+
+        $.ajax('/php/twig/backend/ajax/baocao-tongsomathang-ajax.php', {
+            success: function (data) {
+                $('#baocaoSanPham_SoLuong').html(data.SoLuong);
+            },
+            error: function () {
+                $('#baocaoSanPham_SoLuong').html('Không thể xử lý');
+            }
+        });
+    });
+</script>
+{% endblock %}
