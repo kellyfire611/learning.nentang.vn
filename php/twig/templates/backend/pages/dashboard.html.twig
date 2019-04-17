@@ -15,25 +15,18 @@ Bảng tin
 
 {# Nội dung trong block content #}
 {% block content %}
-    <table border="1" style="width: 80%;">
-        <thead>
-            <tr>
-                <td>Product</td>
-                <td>Description</td>
-                <td>Value</td>
-                <td>Date</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>{{ product.value }}</td>
-                    <td>{{ product.date_register|date("m/d/Y") }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body pb-0">
+                    <div class="text-value">{{ baocaoSanPham.SoLuong }}</div>
+                    <div>Tổng số mặt hàng</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 {% endblock %}
 {# End Nội dung trong block content #}

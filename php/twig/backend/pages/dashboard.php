@@ -2,29 +2,30 @@
 // Include file cấu hình ban đầu của `Twig`
 require_once __DIR__.'/../../bootstrap.php';
 
-// Tạo danh sách sản phẩm mẫu
-// Các bạn có thể viết các câu lệnh truy xuất vào database để lấy dữ liệu, ...
-$products = [
-    [
-        'name'          => 'Notebook',
-        'description'   => 'Core i7',
-        'value'         =>  800.00,
-        'date_register' => '2017-06-22',
-    ],
-    [
-        'name'          => 'Mouse',
-        'description'   => 'Razer',
-        'value'         =>  125.00,
-        'date_register' => '2017-10-25',
-    ],
-    [
-        'name'          => 'Keyboard',
-        'description'   => 'Mechanical Keyboard',
-        'value'         =>  250.00,
-        'date_register' => '2017-06-23',
-    ],
-];
+// Truy vấn database để lấy danh sách
+// 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
+include_once(__DIR__.'/../../dbconnect.php');
+
+// 2. Chuẩn bị câu truy vấn $sql
+$stt=1;
+$sqlSoLuongSanPham = "select count(*) as SoLuong from `sanpham`";
+
+// 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
+$result = mysqli_query($conn, $sqlSoLuongSanPham);
+
+// 4. Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tích để sử dụng
+// Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
+// Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
+$dataSoLuongSanPham = [];
+while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+{
+    $dataSoLuongSanPham[] = array(
+        'SoLuong' => $row['SoLuong']
+    );
+}
 
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/pages/dashboard.html.twig`
 // với dữ liệu truyền vào file giao diện được đặt tên là `products`
-echo $twig->render('backend/pages/dashboard.html.twig', ['products' => $products] );
+echo $twig->render('backend/pages/dashboard.html.twig', [
+    'baocaoSanPham' => $dataSoLuongSanPham[0]
+]);
