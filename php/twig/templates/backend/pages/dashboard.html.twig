@@ -15,18 +15,57 @@ Bảng tin
 
 {# Nội dung trong block content #}
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     <div class="row">
+        
         <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-primary mb-2">
                 <div class="card-body pb-0">
-                    <div class="text-value" id="baocaoSanPham_SoLuong"><h1>{{ baocaoSanPham.SoLuong }}</h1></div>
+                    <div class="text-value" id="baocaoSanPham_SoLuong">
+                        <h1>{{ baocaoSanPham.SoLuong }}</h1>
+                    </div>
                     <div>Tổng số mặt hàng</div>
                 </div>
             </div>
-            <br />
-            <button class="btn btn-danger btn-sm form-control" id="refreshBaoCaoSanPham">Refresh dữ liệu</button>
-        </div>
+            <button class="btn btn-primary btn-sm form-control" id="refreshBaoCaoSanPham">Refresh dữ liệu</button>
+        </div> <!-- Tổng số mặt hàng -->
+        
+        <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-success mb-2">
+                <div class="card-body pb-0">
+                    <div class="text-value" id="baocaoKhachHang_SoLuong">
+                        <h1>{{ baocaoKhachHang.SoLuong }}</h1>
+                    </div>
+                    <div>Tổng số khách hàng</div>
+                </div>
+            </div>
+            <button class="btn btn-success btn-sm form-control" id="refreshBaoCaoKhachHang">Refresh dữ liệu</button>
+        </div> <!-- Tổng số khách hàng -->
+        
+        <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-warning mb-2">
+                <div class="card-body pb-0">
+                    <div class="text-value" id="baocaoDonHang_SoLuong">
+                        <h1>{{ baocaoDonHang.SoLuong }}</h1>
+                    </div>
+                    <div>Tổng số đơn hàng</div>
+                </div>
+            </div>
+            <button class="btn btn-warning btn-sm form-control" id="refreshBaoCaoDonHang">Refresh dữ liệu</button>
+        </div> <!-- Tổng số đơn hàng -->
+        
+        <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-danger mb-2">
+                <div class="card-body pb-0">
+                    <div class="text-value" id="baocaoGopY_SoLuong">
+                        <h1>{{ baocaoGopY.SoLuong }}</h1>
+                    </div>
+                    <div>Tổng số góp ý</div>
+                </div>
+            </div>
+            <button class="btn btn-danger btn-sm form-control" id="refreshBaoCaoGopY">Refresh dữ liệu</button>
+        </div> <!-- Tổng số góp ý -->
+
     </div>
 </div>
 {% endblock %}
@@ -34,17 +73,88 @@ Bảng tin
 
 {% block customscripts %}
 <script>
+    // Refresh dữ liệu báo cáo Số lượng Mặt hàng
     $('#refreshBaoCaoSanPham').click(function (event) {
         event.preventDefault();
 
         $.ajax('/php/twig/backend/ajax/baocao-tongsomathang-ajax.php', {
             success: function (data) {
-                $('#baocaoSanPham_SoLuong').html(data.SoLuong);
+                var dataObj = JSON.parse(data);
+                var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
+                $('#baocaoSanPham_SoLuong').html(htmlString);
             },
             error: function () {
-                $('#baocaoSanPham_SoLuong').html('Không thể xử lý');
+                var htmlString = `<h1>Không thể xử lý</h1>`;
+                $('#baocaoSanPham_SoLuong').html(htmlString);
             }
         });
+    });
+
+    // Refresh dữ liệu báo cáo Số lượng Khách hàng
+    function getDataBaoCaoKhachHang() {
+        $.ajax('/php/twig/backend/ajax/baocao-tongsokhachhang-ajax.php', {
+            success: function (data) {
+                var dataObj = JSON.parse(data);
+                var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
+                $('#baocaoKhachHang_SoLuong').html(htmlString);
+            },
+            error: function () {
+                var htmlString = `<h1>Không thể xử lý</h1>`;
+                $('#baocaoKhachHang_SoLuong').html(htmlString);
+            }
+        });
+    };
+
+    $('#refreshBaoCaoKhachHang').click(function (event) {
+        event.preventDefault();
+        getDataBaoCaoKhachHang();    
+    });
+
+    // Refresh dữ liệu báo cáo Số lượng Đơn hàng
+    function getDataBaoCaoDonHang() {
+        $.ajax('/php/twig/backend/ajax/baocao-tongsodonhang-ajax.php', {
+            success: function (data) {
+                var dataObj = JSON.parse(data);
+                var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
+                $('#baocaoDonHang_SoLuong').html(htmlString);
+            },
+            error: function () {
+                var htmlString = `<h1>Không thể xử lý</h1>`;
+                $('#baocaoDonHang_SoLuong').html(htmlString);
+            }
+        });
+    };
+
+    $('#refreshBaoCaoDonHang').click(function (event) {
+        event.preventDefault();
+        getDataBaoCaoDonHang();    
+    });
+
+    // Refresh dữ liệu báo cáo Số lượng Góp Ý
+    function getDataBaoCaoGopY() {
+        $.ajax('/php/twig/backend/ajax/baocao-tongsogopy-ajax.php', {
+            success: function (data) {
+                var dataObj = JSON.parse(data);
+                var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
+                $('#baocaoGopY_SoLuong').html(htmlString);
+            },
+            error: function () {
+                var htmlString = `<h1>Không thể xử lý</h1>`;
+                $('#baocaoGopY_SoLuong').html(htmlString);
+            }
+        });
+    };
+
+    $('#refreshBaoCaoGopY').click(function (event) {
+        event.preventDefault();
+        getDataBaoCaoGopY();    
+    });
+
+    // Init khi load trang
+    $(document).ready(function() {
+        getDataBaoCaoKhachHang();
+        getDataBaoCaoDonHang();
+        getDataBaoCaoGopY();
     });
 </script>
 {% endblock %}
