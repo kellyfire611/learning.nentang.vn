@@ -6,11 +6,14 @@ require_once __DIR__.'/../../bootstrap.php';
 // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
 include_once(__DIR__.'/../../dbconnect.php');
 
+// Include thư viện các hàm tiện ích
+include_once(__DIR__.'/../../app/helpers.php');
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh INSERT
-if(isset($_POST['btnDangKy'])) 
+if(isset($_POST['btnDangKy']))
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $kh_tendangnhap = $_POST['kh_tendangnhap'];
@@ -48,7 +51,7 @@ if(isset($_POST['btnDangKy']))
     $mail = new PHPMailer(true);                               // Passing `true` enables exceptions
     try {
         //Server settings
-        $mail->SMTPDebug = 2;                                  // Enable verbose debug output
+        //$mail->SMTPDebug = 2;                                // Enable verbose debug output
         $mail->isSMTP();                                       // Set mailer to use SMTP
         $mail->Host = 'smtp.gmail.com';                        // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                                // Enable SMTP authentication
@@ -81,6 +84,7 @@ if(isset($_POST['btnDangKy']))
         //Content
         $mail->isHTML(true);                                    // Set email format to HTML
         $mail->Subject = 'Thông báo kích hoạt tài khoản';
+        $siteUrl = siteURL();
         $body = <<<EOT
         <table>
             <tr>
@@ -91,7 +95,7 @@ if(isset($_POST['btnDangKy']))
             <tr>
                 <td>
                     Xin chào $kh_ten, cám ơn bạn đã đăng ký Hệ thống của chúng tôi. Vui lòng click vào liên kết sau để kích hoạt tài khoản!
-                    <a href="http://localhost:1000/php/twig/backend/pages/kichhoattaikhoan.php?kh_tendangnhap=$kh_tendangnhap&kh_makichhoat=$kh_makichhoat">Kích hoạt tài khoản</a>
+                    <a href="$siteUrl/php/twig/backend/pages/kichhoattaikhoan.php?kh_tendangnhap=$kh_tendangnhap&kh_makichhoat=$kh_makichhoat">Kích hoạt tài khoản</a>
                 </td>
             </tr>
             <tr>
@@ -112,7 +116,7 @@ EOT;
     }
 
     // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Đăng ký thành công
-    //header("location:register-success.php?kh_tendangnhap=$kh_tendangnhap");
+    header("location:register-success.php?kh_tendangnhap=$kh_tendangnhap");
 }
 
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/pages/register.html.twig`
