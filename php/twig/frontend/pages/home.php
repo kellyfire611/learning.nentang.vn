@@ -9,7 +9,7 @@ include_once(__DIR__.'/../../dbconnect.php');
 // 2. Chuẩn bị câu truy vấn $sql
 $stt=1;
 $sqlDanhSachSanPham = <<<EOT
-    SELECT *
+    SELECT sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_soluong, lsp.lsp_ten, hsp.hsp_tentaptin
     FROM `sanpham` sp
     JOIN `loaisanpham` lsp ON sp.lsp_ma = lsp.lsp_ma
     LEFT JOIN `hinhsanpham` hsp ON sp.sp_ma = hsp.sp_ma
@@ -25,18 +25,19 @@ $dataDanhSachSanPham = [];
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 {
     $dataDanhSachSanPham[] = array(
+        'sp_ma' => $row['sp_ma'],
         'sp_ten' => $row['sp_ten'],
-        'sp_gia' => $row['sp_gia'],
-        'sp_giacu' => $row['sp_giacu'],
+        'sp_gia' => number_format($row['sp_gia'], 2, ".", ",") . ' vnđ',
+        'sp_giacu' => number_format($row['sp_giacu'], 2, ".", ","),
         'sp_mota_ngan' => $row['sp_mota_ngan'],
         'sp_soluong' => $row['sp_soluong'],
         'lsp_ten' => $row['lsp_ten'],
-        'hsp_taptin' => $row['hsp_taptin'],
+        'hsp_tentaptin' => $row['hsp_tentaptin'],
     );
 }
 
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/pages/home.html.twig`
 // với dữ liệu truyền vào file giao diện được đặt tên
 echo $twig->render('frontend/pages/home.html.twig', [
-    'danhsachSanPham' => $dataDanhSachSanPham[0]
+    'danhsachsanpham' => $dataDanhSachSanPham
 ]);
