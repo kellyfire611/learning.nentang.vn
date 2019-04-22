@@ -1,0 +1,47 @@
+{# Kế thừa layout frontend #}
+{% extends "frontend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Liên hệ
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Liên hệ
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<div class="container mt-2">
+    <h1 class="text-center">Liên hệ với Salomon</h1>
+    <div class="row">
+        <div class="col col-md-6">
+            <img src="/php/twig/assets/frontend/img/marketing-1.png" />
+        </div>
+        <div class="col col-md-6">
+            <form method="post" action="/php/twig/frontend/pages/lienhe.php">
+                <div class="form-group">
+                    <label for="email">Email của bạn</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email của bạn">
+                </div>
+                <div class="form-group">
+                    <label for="title">Tiêu đề của bạn</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Tiêu đề của bạn">
+                </div>
+                <div class="form-group">
+                    <label for="message">Lời nhắn của bạn</label>
+                    <textarea name="message" class="form-control"></textarea>
+                </div>
+                <button class="btn btn-primary" name="btnGoiLoiNhan">Gởi lời nhắn</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{# End Nội dung trong block content #}
+
+{% block customscripts %}
+{% endblock %}
