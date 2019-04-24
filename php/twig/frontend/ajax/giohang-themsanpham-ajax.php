@@ -7,7 +7,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 include_once(__DIR__ . '/../../dbconnect.php');
 
 // Lấy thông tin người dùng gởi đến
-// dd($_POST);
 $sp_ma = $_POST['sp_ma'];
 $sp_ten = $_POST['sp_ten'];
 $soluong = $_POST['soluong'];

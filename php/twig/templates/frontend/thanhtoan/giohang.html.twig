@@ -1,0 +1,150 @@
+{# Kế thừa layout frontend #}
+{% extends "frontend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Giỏ hàng
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Giỏ hàng
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{% block customstyles %}
+<style>
+    .hinhdaidien {
+        width: 150px;
+        height: 150px;
+    }
+</style>
+{% endblock %}
+
+{# Nội dung trong block content #}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Giỏ hàng</h1>
+    <div class="row">
+        <div class="col col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Ảnh đại diện</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="datarow">
+                    {% for sanpham in giohangdata %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            {% set hinhsanphamdautien = sanpham.danhsachhinhanh|first %}
+                            {% if sanpham.danhsachhinhanh|length > 0 %}
+                            <img src="{{ hinhsanphamdautien.hsp_tentaptin }}" class="hinhdaidien" />
+                            {% else %}
+                            <img src="/php/twig/assets/shared/img/default-image_600.png" class="hinhdaidien" />
+                            {% endif %}
+                        </td>
+                        <td>{{ sanpham.sp_ten }}</td>
+                        <td>{{ sanpham.soluong }}</td>
+                        <td>{{ sanpham.gia }}</td>
+                        <td>{{ sanpham.soluong * sanpham.gia }}</td>
+                        <td>
+                            <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
+                            <a id="delete_{{ loop.index }}" data-sp-ma="{{ sanpham.sp_ma }}" class="btn btn-danger btn-delete-sanpham">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Xóa
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="/php/twig/" class="btn btn-warning btn-md"><i class="fa fa-arrow-left"
+                    aria-hidden="true"></i>&nbsp;Quay về trang chủ</a>
+            <a href="/php/twig/frontend/thanhtoan/thanhtoan.php" class="btn btn-primary btn-md"><i
+                    class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Thanh toán</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{# End Nội dung trong block content #}
+
+{% block customscripts %}
+<script>
+$(document).ready(function() {
+    function removeSanPhamVaoGioHang(id) {
+        var dulieugoi = {
+            sp_ma: id
+        };
+
+        $.ajax({
+            url: '/php/twig/frontend/ajax/giohang-xoasanpham-ajax.php',
+            method: "POST",
+            dataType: 'json',
+            data: dulieugoi,
+            success: function (data) {
+                console.log(data);
+                var htmlString = '';
+                $(data).each(function (index) {
+                    debugger;
+                    var html = '';
+                    var stt = index+1;
+                    var hinhdaidien = '/php/twig/assets/shared/img/default-image_600.png';
+                    var sp_ma = $(this).sp_ma;
+                    var sp_ten = $(this).sp_ten;
+                    var soluong = $(this).soluong;
+                    var gia = $(this).gia;
+                    var thanhtien = soluong * gia;
+
+                    html += `
+                    <tr>
+                        <td>${stt}</td>
+                        <td>
+                            <img src="${hinhdaidien}" class="hinhdaidien" />
+                        </td>
+                        <td>${sp_ten}</td>
+                        <td>${soluong}</td>
+                        <td>${gia}</td>
+                        <td>${thanhtien}</td>
+                        <td>
+                            <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính \`sp_ma\` -->
+                            <a id="delete_${stt}" data-sp-ma="${sp_ma}" class="btn btn-danger btn-delete-sanpham">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Xóa
+                            </a>
+                        </td>
+                    </tr>`;
+
+                    htmlString += html;
+                });
+
+                $('#datarow').html(htmlString);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+
+                var htmlString = `<h1>Không thể xử lý</h1>`;
+                $('#thongbao').html(htmlString);
+
+                // Hiện thông báo
+                $('.alert').removeClass('d-none').addClass('show');
+            }
+        });
+    };
+
+    $('.btn-delete-sanpham').on('click', function() {
+        event.preventDefault();
+        var id = $(this).data('sp-ma');
+        console.log(id);
+
+        removeSanPhamVaoGioHang(id);
+    });
+});
+</script>
+{% endblock %}
