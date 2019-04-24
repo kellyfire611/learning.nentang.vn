@@ -8,6 +8,8 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="/php/twig/assets/vendor/bootstrap/css/bootstrap.min.css" type="text/css" />
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="/php/twig/assets/vendor/font-awesome/css/font-awesome.min.css" type="text/css" />
 
   <!-- Custom css - Các file css do chúng ta tự viết -->
   <link rel="stylesheet" href="/php/twig/assets/frontend/css/style.css" type="text/css" />
@@ -18,6 +20,11 @@
     {% endblock %}
   </title>
   <!-- End block title -->
+
+  <!-- Block custom-styles - Đục lỗ trên giao diện bố cục chung, đặt tên là `custom-styles` -->
+  {% block customstyles %}
+  {% endblock %}
+  <!-- End block custom-styles -->
 </head>
 
 <body>

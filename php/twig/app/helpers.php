@@ -7,3 +7,14 @@ if (! function_exists('show_route')) {
         return $protocol.$domainName;
     }
 }
+
+if (! function_exists('print_mysqli_error')) {
+    function print_mysqli_error()
+    {
+        if (!$resultSelectSanPham) {
+            printf("Error: %s\n", mysqli_error($conn));
+            exit();
+        }
+    }
+}
+
