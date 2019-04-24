@@ -15,7 +15,7 @@ if (isset($_SESSION['giohangdata'])) {
     $data = $_SESSION['giohangdata'];
     
     if(isset($data[$sp_ma])) {
-        //unset($data[$sp_ma]);
+        unset($data[$sp_ma]);
     }
 
     // lưu dữ liệu giỏ hàng vào session
