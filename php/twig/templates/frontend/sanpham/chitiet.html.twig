@@ -254,15 +254,18 @@ Sản phẩm {{ sanpham.sp_ten }}
 
     <div class="card">
         <div class="container-fliud">
-            <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post" action="/php/twig/frontend/giohang/themvaogiohang.php">
+            <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post"
+                action="/php/twig/frontend/giohang/themvaogiohang.php">
                 {% set hinhsanphamdautien = sanpham.danhsachhinhanh|first %}
                 <input type="hidden" name="sp_ma" id="sp_ma" value="{{ sanpham.sp_ma }}" />
                 <input type="hidden" name="sp_ten" id="sp_ten" value="{{ sanpham.sp_ten }}" />
                 <input type="hidden" name="sp_gia" id="sp_gia" value="{{ sanpham.sp_gia }}" />
-                <input type="hidden" name="hinhdaidien" id="hinhdaidien" value="{{ hinhsanphamdautien.hsp_tentaptin }}" />
+                <input type="hidden" name="hinhdaidien" id="hinhdaidien"
+                    value="{{ hinhsanphamdautien.hsp_tentaptin }}" />
 
                 <div class="wrapper row">
                     <div class="preview col-md-6">
+                        {% if sanpham.danhsachhinhanh|length > 0 %}
                         <div class="preview-pic tab-content">
                             {% for hinhsanpham in sanpham.danhsachhinhanh %}
                             <div class="tab-pane {{ (hinhsanpham == hinhsanphamdautien) ? 'active' : '' }}"
@@ -280,6 +283,22 @@ Sản phẩm {{ sanpham.sp_ten }}
                             </li>
                             {% endfor %}
                         </ul>
+                        {% else %}
+                        <!-- Không có hình sản phẩm nào => lấy ảnh mặc định -->
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active"
+                                id="pic-1">
+                                <img src="/php/twig/assets/shared/img/default-image_600.png" />
+                            </div>
+                        </div>
+                        <ul class="preview-thumbnail nav nav-tabs">
+                            <li class="active">
+                                <a data-target="#pic-1" data-toggle="tab">
+                                    <img src="/php/twig/assets/shared/img/default-image_600.png" />
+                                </a>
+                            </li>
+                        </ul>
+                        {% endif %}
                     </div>
                     <div class="details col-md-6">
                         <h3 class="product-title">{{ sanpham.sp_ten }}</h3>
@@ -356,7 +375,8 @@ Sản phẩm {{ sanpham.sp_ten }}
             data: dulieugoi,
             success: function (data) {
                 console.log(data);
-                var htmlString = `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/php/twig/frontend/giohang/index.php">Xem Giỏ hàng</a>.`;
+                var htmlString =
+                    `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/php/twig/frontend/giohang/index.php">Xem Giỏ hàng</a>.`;
                 $('#thongbao').html(htmlString);
 
                 // Hiện thông báo

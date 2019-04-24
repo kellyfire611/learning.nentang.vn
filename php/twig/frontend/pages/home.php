@@ -9,10 +9,11 @@ include_once(__DIR__.'/../../dbconnect.php');
 // 2. Chuẩn bị câu truy vấn $sql
 $stt=1;
 $sqlDanhSachSanPham = <<<EOT
-    SELECT sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_soluong, lsp.lsp_ten, hsp.hsp_tentaptin
+    SELECT sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_soluong, lsp.lsp_ten, MAX(hsp.hsp_tentaptin) AS hsp_tentaptin
     FROM `sanpham` sp
     JOIN `loaisanpham` lsp ON sp.lsp_ma = lsp.lsp_ma
     LEFT JOIN `hinhsanpham` hsp ON sp.sp_ma = hsp.sp_ma
+    GROUP BY sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_soluong, lsp.lsp_ten
 EOT;
 
 // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
