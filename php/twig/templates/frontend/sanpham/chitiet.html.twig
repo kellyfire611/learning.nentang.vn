@@ -246,13 +246,24 @@ Sản phẩm {{ sanpham.sp_ten }}
 {# Nội dung trong block content #}
 {% block content %}
 <div class="container">
+    <div id="thongbao" class="alert alert-danger d-none face" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <div class="card">
         <div class="container-fliud">
-            <form name="frmsanphamchitiet" method="post" action="/php/twig/frontend/giohang/themvaogiohang.php">
+            <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post" action="/php/twig/frontend/giohang/themvaogiohang.php">
+                {% set hinhsanphamdautien = sanpham.danhsachhinhanh|first %}
+                <input type="hidden" name="sp_ma" id="sp_ma" value="{{ sanpham.sp_ma }}" />
+                <input type="hidden" name="sp_ten" id="sp_ten" value="{{ sanpham.sp_ten }}" />
+                <input type="hidden" name="sp_gia" id="sp_gia" value="{{ sanpham.sp_gia }}" />
+                <input type="hidden" name="hinhdaidien" id="hinhdaidien" value="{{ hinhsanphamdautien.hsp_tentaptin }}" />
+
                 <div class="wrapper row">
                     <div class="preview col-md-6">
                         <div class="preview-pic tab-content">
-                            {% set hinhsanphamdautien = sanpham.danhsachhinhanh|first %}
                             {% for hinhsanpham in sanpham.danhsachhinhanh %}
                             <div class="tab-pane {{ (hinhsanpham == hinhsanphamdautien) ? 'active' : '' }}"
                                 id="pic-{{ loop.index }}">
@@ -285,7 +296,6 @@ Sản phẩm {{ sanpham.sp_ten }}
                         <p class="product-description">{{ sanpham.sp_mota_ngan }}</p>
                         <small class="text-muted">Giá cũ: <s><span>{{ sanpham.sp_gia_formated }}</span></s></small>
                         <h4 class="price">Giá hiện tại: <span>{{ sanpham.sp_gia_formated }}</span></h4>
-                        <input type="hidden" name="gia" value="{{ sanpham.sp_gia }}" />
                         <p class="vote"><strong>100%</strong> hàng <strong>Chất lượng</strong>, đảm bảo <strong>Uy
                                 tín</strong>!</p>
                         <h5 class="sizes">sizes:
@@ -304,7 +314,7 @@ Sản phẩm {{ sanpham.sp_ten }}
                             <input type="number" class="form-control" id="soluong" name="soluong">
                         </div>
                         <div class="action">
-                            <button class="add-to-cart btn btn-default">Thêm vào giỏ hàng</button>
+                            <a class="add-to-cart btn btn-default" id="btnThemVaoGioHang">Thêm vào giỏ hàng</a>
                             <a class="like btn btn-default" href="#"><span class="fa fa-heart"></span></a>
                         </div>
                     </div>
@@ -328,4 +338,45 @@ Sản phẩm {{ sanpham.sp_ten }}
 {# End Nội dung trong block content #}
 
 {% block customscripts %}
+<script>
+    function addSanPhamVaoGioHang() {
+        var dulieugoi = {
+            sp_ma: $('#sp_ma').val(),
+            sp_ten: $('#sp_ten').val(),
+            sp_gia: $('#sp_gia').val(),
+            hinhdaidien: $('#hinhdaidien').val(),
+            soluong: $('#soluong').val(),
+        };
+        console.log((dulieugoi));
+
+        $.ajax({
+            url: '/php/twig/frontend/ajax/themsanpham-vaogiohang-ajax.php',
+            method: "POST",
+            dataType: 'json',
+            data: dulieugoi,
+            success: function (data) {
+                console.log(data);
+                var htmlString = `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/php/twig/frontend/giohang/index.php">Xem Giỏ hàng</a>.`;
+                $('#thongbao').html(htmlString);
+
+                // Hiện thông báo
+                $('.alert').removeClass('d-none').addClass('show');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+
+                var htmlString = `<h1>Không thể xử lý</h1>`;
+                $('#thongbao').html(htmlString);
+
+                // Hiện thông báo
+                $('.alert').removeClass('d-none').addClass('show');
+            }
+        });
+    };
+
+    $('#btnThemVaoGioHang').click(function (event) {
+        event.preventDefault();
+        addSanPhamVaoGioHang();
+    });
+</script>
 {% endblock %}
