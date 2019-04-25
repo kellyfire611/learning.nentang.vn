@@ -40,6 +40,10 @@ if (isset($_POST['btnDatHang'])) {
         mysqli_query($conn, $sqlSanPhamDonHang);
     }
 
+    // Thanh toán thành công, xóa Giỏ hàng trong SESSION
+    // lưu dữ liệu giỏ hàng vào session
+    $_SESSION['giohangdata'] = [];
+
     echo $twig->render('frontend/thanhtoan/thanhtoan-finish.html.twig');
 } else {
     // Nếu trong SESSION có giá trị của key 'username' <-> người dùng đã đăng nhập thành công
