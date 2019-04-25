@@ -1,0 +1,35 @@
+{# Kế thừa layout frontend #}
+{% extends "frontend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Liên hệ
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Liên hệ
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<div class="container mt-2">
+    <h1 class="text-center">Nền tảng - Hành trang tới Tương lai</h1>
+    <div class="row">
+        <div class="col col-md-12">
+            <h5 class="text-center">Cung cấp kiến thức nền tảng về Lập trình, Thiết kế Web, Cơ sở dữ liệu</h5>
+            <h5 class="text-center">Giúp các bạn có niềm tin, hành trang kiến thức vững vàng trên con đường trở thành
+                Nhà phát triển Phần mềm</h5>
+            <div class="text-center">
+                <a href="https://nentang.vn" class="btn btn-primary btn-lg">Ghé thăm Nền tảng <i class="fa fa-forward" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{# End Nội dung trong block content #}
+
+{% block customscripts %}
+{% endblock %}

@@ -1,0 +1,44 @@
+{# Kế thừa layout frontend #}
+{% extends "frontend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Thanh toán hoàn tất
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Thanh toán hoàn tất
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{% block customstyles %}
+<style>
+
+</style>
+{% endblock %}
+
+{# Nội dung trong block content #}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1>Đặt hàng hoàn tất!</h1>
+            <h3>Xin cám ơn quý khách...</h3>
+            <a href="/php/twig/" class="btn btn-warning btn-md"><i class="fa fa-arrow-left"
+                    aria-hidden="true"></i>&nbsp;Quay
+                về trang chủ</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{# End Nội dung trong block content #}
+
+{% block customscripts %}
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+{% endblock %}

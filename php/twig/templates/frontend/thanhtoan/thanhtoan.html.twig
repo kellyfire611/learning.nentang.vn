@@ -1,0 +1,141 @@
+{# Kế thừa layout frontend #}
+{% extends "frontend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Thanh toán
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Thanh toán
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{% block customstyles %}
+<style>
+
+</style>
+{% endblock %}
+
+{# Nội dung trong block content #}
+{% block content %}
+<div class="container mt-4">
+    <form class="needs-validation" name="frmthanhtoan" method="post" action="/php/twig/frontend/thanhtoan/thanhtoan.php">
+        <input type="hidden" name="kh_tendangnhap" value="{{ khachhang.kh_tendangnhap }}" />
+
+        <div class="py-5 text-center">
+            <i class="fa fa-credit-card fa-4x" aria-hidden="true"></i>
+            <h2>Thanh toán</h2>
+            <p class="lead">Vui lòng kiểm tra thông tin Khách hàng, thông tin Giỏ hàng trước khi Đặt hàng.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Giỏ hàng</span>
+                    <span class="badge badge-secondary badge-pill">{{ giohangdata|length }}</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    {% set tongthanhtien = 0 %}
+                    {% for sanpham in giohangdata %}
+                    <input type="hidden" name="sanphamgiohang[{{ loop.index }}][sp_ma]" value="{{ sanpham.sp_ma }}" />
+                    <input type="hidden" name="sanphamgiohang[{{ loop.index }}][gia]" value="{{ sanpham.gia }}" />
+                    <input type="hidden" name="sanphamgiohang[{{ loop.index }}][soluong]" value="{{ sanpham.soluong }}" />
+
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">{{ sanpham.sp_ten }}</h6>
+                            <small class="text-muted">{{ sanpham.gia }} x {{ sanpham.soluong }}</small>
+                        </div>
+                        {% set thanhtien = (sanpham.gia * sanpham.soluong) %}
+                        {% set tongthanhtien = tongthanhtien + thanhtien %}
+                        <span class="text-muted">{{ thanhtien }}</span>
+                    </li>
+                    {% endfor %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Tổng thành tiền</span>
+                        <strong>{{ tongthanhtien }}</strong>
+                    </li>
+                </ul>
+
+                <form class="card p-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Mã khuyến mãi">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-secondary">Xác nhận</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Thông tin khách hàng</h4>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="kh_ten">Họ tên</label>
+                        <input type="text" class="form-control" name="kh_ten" id="kh_ten" value="{{ khachhang.kh_ten }}"
+                            readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="kh_gioitinh">Giới tính</label>
+                        <input type="text" class="form-control" name="kh_gioitinh" id="kh_gioitinh"
+                            value="{{ khachhang.kh_gioitinh == 0 ? 'Nam' : 'Nữ' }}" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="kh_diachi">Địa chỉ</label>
+                        <input type="text" class="form-control" name="kh_diachi" id="kh_diachi"
+                            value="{{ khachhang.kh_diachi }}" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="kh_dienthoai">Điện thoại</label>
+                        <input type="text" class="form-control" name="kh_dienthoai" id="kh_dienthoai"
+                            value="{{ khachhang.kh_dienthoai }}" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="kh_email">Email</label>
+                        <input type="text" class="form-control" name="kh_email" id="kh_email"
+                            value="{{ khachhang.kh_email }}" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="kh_ngaysinh">Ngày sinh</label>
+                        <input type="text" class="form-control" name="kh_ngaysinh" id="kh_ngaysinh"
+                            value="{{ khachhang.kh_ngaysinh }}/{{ khachhang.kh_thangsinh }}/{{ khachhang.kh_namsinh }}"
+                            readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="kh_cmnd">CMND</label>
+                        <input type="text" class="form-control" name="kh_cmnd" id="kh_cmnd"
+                            value="{{ khachhang.kh_cmnd }}" readonly>
+                    </div>
+                </div>
+
+                <h4 class="mb-3">Hình thức thanh toán</h4>
+
+                <div class="d-block my-3">
+                    {% for hinhthuc in danhsachhinhthucthanhtoan %}
+                    <div class="custom-control custom-radio">
+                        <input id="httt-{{ hinhthuc.httt_ma }}" name="httt_ma" type="radio"
+                            class="custom-control-input" required="" value="{{ hinhthuc.httt_ma }}">
+                        <label class="custom-control-label"
+                            for="httt-{{ hinhthuc.httt_ma }}">{{ hinhthuc.httt_ten }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit" name="btnDatHang">Đặt hàng</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{# End Nội dung trong block content #}
+
+{% block customscripts %}
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+{% endblock %}

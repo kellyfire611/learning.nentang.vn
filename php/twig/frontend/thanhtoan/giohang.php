@@ -16,4 +16,5 @@ if (isset($_SESSION['giohangdata'])) {
 
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/thanhtoan/giohang.html.twig`
 // với dữ liệu truyền vào file giao diện được đặt tên là `giohangdata`
+// dd($data);
 echo $twig->render('frontend/thanhtoan/giohang.html.twig', ['giohangdata' => $data]);

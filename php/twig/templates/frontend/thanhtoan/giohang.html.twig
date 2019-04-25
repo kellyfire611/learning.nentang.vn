@@ -52,9 +52,8 @@ Giỏ hàng
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
-                            {% set hinhsanphamdautien = sanpham.danhsachhinhanh|first %}
-                            {% if sanpham.danhsachhinhanh|length > 0 %}
-                            <img src="{{ hinhsanphamdautien.hsp_tentaptin }}" class="hinhdaidien" />
+                            {% if sanpham.hinhdaidien %}
+                            <img src="/php/twig/assets/uploads/{{ sanpham.hinhdaidien }}" class="hinhdaidien" />
                             {% else %}
                             <img src="/php/twig/assets/shared/img/default-image_600.png" class="hinhdaidien" />
                             {% endif %}
