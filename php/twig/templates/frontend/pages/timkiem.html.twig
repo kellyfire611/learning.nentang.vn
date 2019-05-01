@@ -60,7 +60,8 @@ Liên hệ
                                     <span
                                         class="float-right badge badge-light round">{{ loaisanpham.soluongsanpham }}</span>
                                     <input type="checkbox" class="custom-control-input" name="keyword_loaisanpham[]"
-                                        value="{{ loaisanpham.lsp_ma }}" id="chk-loaisanpham-{{ loaisanpham.lsp_ma }}" {{ (loaisanpham.lsp_ma in keyword_loaisanpham) ? 'checked' : '' }}>
+                                        value="{{ loaisanpham.lsp_ma }}" id="chk-loaisanpham-{{ loaisanpham.lsp_ma }}"
+                                        {{ (loaisanpham.lsp_ma in keyword_loaisanpham) ? 'checked' : '' }}>
                                     <label class="custom-control-label"
                                         for="chk-loaisanpham-{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</label>
                                 </div> <!-- form-check.// -->
@@ -81,7 +82,8 @@ Liên hệ
                                     <span
                                         class="float-right badge badge-light round">{{ nhasanxuat.soluongsanpham }}</span>
                                     <input type="checkbox" class="custom-control-input" name="keyword_nhasanxuat[]"
-                                        value="{{ nhasanxuat.nsx_ma }}" id="chk-nhasanxuat-{{ nhasanxuat.nsx_ma }}" {{ (nhasanxuat.nsx_ma in keyword_nhasanxuat) ? 'checked' : '' }}>
+                                        value="{{ nhasanxuat.nsx_ma }}" id="chk-nhasanxuat-{{ nhasanxuat.nsx_ma }}"
+                                        {{ (nhasanxuat.nsx_ma in keyword_nhasanxuat) ? 'checked' : '' }}>
                                     <label class="custom-control-label"
                                         for="chk-nhasanxuat-{{ nhasanxuat.nsx_ma }}">{{ nhasanxuat.nsx_ten }}</label>
                                 </div> <!-- form-check.// -->
@@ -102,7 +104,8 @@ Liên hệ
                                     <span
                                         class="float-right badge badge-light round">{{ khuyenmai.soluongsanpham }}</span>
                                     <input type="checkbox" class="custom-control-input" name="keyword_khuyenmai[]"
-                                        value="{{ khuyenmai.km_ma }}" id="chk-khuyenmai-{{ khuyenmai.km_ma }}" {{ (khuyenmai.km_ma in keyword_khuyenmai) ? 'checked' : '' }}>
+                                        value="{{ khuyenmai.km_ma }}" id="chk-khuyenmai-{{ khuyenmai.km_ma }}"
+                                        {{ (khuyenmai.km_ma in keyword_khuyenmai) ? 'checked' : '' }}>
                                     <label class="custom-control-label"
                                         for="chk-khuyenmai-{{ khuyenmai.km_ma }}">{{ khuyenmai.km_ten }}</label>
                                 </div> <!-- form-check.// -->
@@ -122,13 +125,15 @@ Liên hệ
                                     <div class="form-group col-md-6">
                                         <label>Từ</label>
                                         <input type="range" class="custom-range" min="0" max="50000000" step="100000"
-                                            id="sotientu" name="keyword_sotientu" value="{{ keyword_sotientu ? keyword_sotientu : 0 }}">
+                                            id="sotientu" name="keyword_sotientu"
+                                            value="{{ keyword_sotientu ? keyword_sotientu : 0 }}">
                                         <span><span id="sotientu-text"></span></span>
                                     </div>
                                     <div class="form-group col-md-6 text-right">
                                         <label>Đến</label>
                                         <input type="range" class="custom-range" min="0" max="50000000" step="100000"
-                                            id="sotienden" name="keyword_sotienden" value="{{ keyword_sotienden ? keyword_sotienden : 50000000 }}">
+                                            id="sotienden" name="keyword_sotienden"
+                                            value="{{ keyword_sotienden ? keyword_sotienden : 50000000 }}">
                                         <span><span id="sotienden-text"></span></span>
                                     </div>
                                 </div>
@@ -166,7 +171,12 @@ Liên hệ
             {% set group = 2 %}
             {% set limit = danhsachsanpham|length %}
             {% set col_class_name = (12 / group) %}
-            <div class="col-sm-8 mt-4">
+            <div class="col-sm-8 mt-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Tìm kiếm được {{ danhsachsanpham|length }} sản phẩm</h6>
+                    </div>
+                </div>
                 <div class="row">
                     {% if danhsachsanpham|length >0 %}
 
@@ -188,6 +198,7 @@ Liên hệ
                                 <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
                                     <h5>{{ sanpham.sp_ten }}</h5>
                                 </a>
+                                <h6>{{ sanpham.lsp_ten }}</h6>
                                 <p class="card-text">{{ sanpham.sp_mota_ngan }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
@@ -260,10 +271,10 @@ Liên hệ
                         frm_elements[i].selectedIndex = -1;
                         break;
                     case "range":
-                        if(frm_elements[i].name == 'keyword_sotientu') {
+                        if (frm_elements[i].name == 'keyword_sotientu') {
                             frm_elements[i].value = frm_elements[i].min;
                             document.getElementById("sotientu-text").innerHTML = frm_elements[i].min;
-                        } else if(frm_elements[i].name == 'keyword_sotienden') {
+                        } else if (frm_elements[i].name == 'keyword_sotienden') {
                             frm_elements[i].value = frm_elements[i].max;
                             document.getElementById("sotienden-text").innerHTML = frm_elements[i].max;
                         }
