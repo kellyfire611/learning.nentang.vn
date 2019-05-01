@@ -1,0 +1,80 @@
+{# Kế thừa layout frontend #}
+{% extends "frontend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Bảng tin
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Bảng tin
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<!-- Danh sách sản phẩm -->
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Danh sách Sản phẩm</h1>
+        <p class="lead text-muted">Các sản phẩm với chất lượng, uy tín, cam kết từ nhà Sản xuất, phân phối và bảo hành
+            chính hãng.</p>
+    </div>
+</section>
+
+<!-- Giải thuật duyệt và render Danh sách sản phẩm theo dòng, cột của Bootstrap -->
+{% set counter = 0 %}
+{% set group = 3 %}
+{% set limit = danhsachsanpham|length %}
+{% set col_class_name = (12 / group) %}
+<div class="danhsachsanpham py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            {% for sanpham in danhsachsanpham %}
+            <div class="col-md-{{ col_class_name }}">
+                <div class="card mb-4 shadow-sm">
+                    {% if sanpham.hsp_tentaptin %}
+                    <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                            src="/php/twig/assets/uploads/{{ sanpham.hsp_tentaptin }}" />
+                    </a>
+                    {% else %}
+                    <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                            src="/php/twig/assets/shared/img/default-image_600.png" />
+                    </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                            <h5>{{ sanpham.sp_ten }}</h5>
+                        </a>
+                        <p class="card-text">{{ sanpham.sp_mota_ngan }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary" href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">Xem chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>{{ sanpham.sp_giacu }}</s>
+                                <b>{{ sanpham.sp_gia }}</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% set counter = counter + 1 %}
+            {% if (counter % group == 0 and counter < limit) %}
+            </div><div class="row">
+            {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{# End Nội dung trong block content #}
+
+{% block customscripts %}
+{% endblock %}
