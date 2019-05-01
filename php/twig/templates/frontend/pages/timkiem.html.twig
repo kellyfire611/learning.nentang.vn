@@ -1,0 +1,282 @@
+{# Kế thừa layout frontend #}
+{% extends "frontend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Liên hệ
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Liên hệ
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<div class="container mt-4">
+    <form name="frmTimKiem" method="get" action="/php/twig/frontend/pages/timkiem.php">
+        <h1 class="text-center">Tìm kiếm sản phẩm</h1>
+        <div class="row">
+            <div class="col col-md-12">
+                <h5 class="text-center">Cung cấp kiến thức nền tảng về Lập trình, Thiết kế Web, Cơ sở dữ liệu</h5>
+                <h5 class="text-center">Giúp các bạn có niềm tin, hành trang kiến thức vững vàng trên con đường trở
+                    thành Nhà phát triển Phần mềm</h5>
+                <div class="text-center">
+                    <button type="button" id="btnReset" class="btn btn-warning">Xóa bộ lọc</button>
+                    <button class="btn btn-primary btn-lg">Tìm kiếm <i class="fa fa-forward"
+                            aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <aside class="col-sm-4">
+                <p>Bộ lọc </p>
+                <div class="card">
+                    <!-- Tìm kiếm theo tên sản phẩm -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Tên sản phẩm </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <input class="form-control" type="text" placeholder="Tìm kiếm" aria-label="Search"
+                                    name="keyword_tensanpham"
+                                    value="{{ keyword_tensanpham ? keyword_tensanpham : '' }}">
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- // Tìm kiếm theo Tên sản phẩm -->
+
+                    <!-- Tìm kiếm theo Loại sản phẩm -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Loại sản phẩm </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                {% for loaisanpham in danhsachloaisanpham %}
+                                <div class="custom-control custom-checkbox">
+                                    <span
+                                        class="float-right badge badge-light round">{{ loaisanpham.soluongsanpham }}</span>
+                                    <input type="checkbox" class="custom-control-input" name="keyword_loaisanpham[]"
+                                        value="{{ loaisanpham.lsp_ma }}" id="chk-loaisanpham-{{ loaisanpham.lsp_ma }}" {{ (loaisanpham.lsp_ma in keyword_loaisanpham) ? 'checked' : '' }}>
+                                    <label class="custom-control-label"
+                                        for="chk-loaisanpham-{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</label>
+                                </div> <!-- form-check.// -->
+                                {% endfor %}
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- // Tìm kiếm theo Loại sản phẩm -->
+
+                    <!-- Tìm kiếm theo Nhà sản xuất -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Nhà sản xuất </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                {% for nhasanxuat in danhsachnhasanxuat %}
+                                <div class="custom-control custom-checkbox">
+                                    <span
+                                        class="float-right badge badge-light round">{{ nhasanxuat.soluongsanpham }}</span>
+                                    <input type="checkbox" class="custom-control-input" name="keyword_nhasanxuat[]"
+                                        value="{{ nhasanxuat.nsx_ma }}" id="chk-nhasanxuat-{{ nhasanxuat.nsx_ma }}" {{ (nhasanxuat.nsx_ma in keyword_nhasanxuat) ? 'checked' : '' }}>
+                                    <label class="custom-control-label"
+                                        for="chk-nhasanxuat-{{ nhasanxuat.nsx_ma }}">{{ nhasanxuat.nsx_ten }}</label>
+                                </div> <!-- form-check.// -->
+                                {% endfor %}
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- // Tìm kiếm theo Nhà sản xuất -->
+
+                    <!-- Tìm kiếm theo Khuyến mãi -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Khuyến mãi </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                {% for khuyenmai in danhsachkhuyenmai %}
+                                <div class="custom-control custom-checkbox">
+                                    <span
+                                        class="float-right badge badge-light round">{{ khuyenmai.soluongsanpham }}</span>
+                                    <input type="checkbox" class="custom-control-input" name="keyword_khuyenmai[]"
+                                        value="{{ khuyenmai.km_ma }}" id="chk-khuyenmai-{{ khuyenmai.km_ma }}" {{ (khuyenmai.km_ma in keyword_khuyenmai) ? 'checked' : '' }}>
+                                    <label class="custom-control-label"
+                                        for="chk-khuyenmai-{{ khuyenmai.km_ma }}">{{ khuyenmai.km_ten }}</label>
+                                </div> <!-- form-check.// -->
+                                {% endfor %}
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- // Tìm kiếm theo Nhà sản xuất -->
+
+                    <!-- Tìm kiếm theo khoảng giá tiền -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Khoảng tiền </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Từ</label>
+                                        <input type="range" class="custom-range" min="0" max="50000000" step="100000"
+                                            id="sotientu" name="keyword_sotientu" value="{{ keyword_sotientu ? keyword_sotientu : 0 }}">
+                                        <span><span id="sotientu-text"></span></span>
+                                    </div>
+                                    <div class="form-group col-md-6 text-right">
+                                        <label>Đến</label>
+                                        <input type="range" class="custom-range" min="0" max="50000000" step="100000"
+                                            id="sotienden" name="keyword_sotienden" value="{{ keyword_sotienden ? keyword_sotienden : 50000000 }}">
+                                        <span><span id="sotienden-text"></span></span>
+                                    </div>
+                                </div>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- // Tìm kiếm theo khoảng giá tiền -->
+
+                    <!-- Tìm kiếm theo màu sắc sản phẩm -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Màu sắc (tùy chọn thêm)</h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <label class="btn btn-danger">
+                                    <input class="" type="checkbox" value="">
+                                    <span class="form-check-label">Đỏ</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <input class="" type="checkbox" value="">
+                                    <span class="form-check-label">Xanh lá</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input class="" type="checkbox" value="">
+                                    <span class="form-check-label">Xanh dương</span>
+                                </label>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- // Tìm kiếm theo màu sắc sản phẩm -->
+                </div> <!-- card.// -->
+            </aside> <!-- col.// -->
+
+            <!-- Giải thuật duyệt và render Danh sách sản phẩm theo dòng, cột của Bootstrap -->
+            {% set counter = 0 %}
+            {% set group = 2 %}
+            {% set limit = danhsachsanpham|length %}
+            {% set col_class_name = (12 / group) %}
+            <div class="col-sm-8 mt-4">
+                <div class="row">
+                    {% if danhsachsanpham|length >0 %}
+
+                    {% for sanpham in danhsachsanpham %}
+                    <div class="col-md-{{ col_class_name }}">
+                        <div class="card mb-4 shadow-sm">
+                            {% if sanpham.hsp_tentaptin %}
+                            <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                    src="/php/twig/assets/uploads/{{ sanpham.hsp_tentaptin }}" />
+                            </a>
+                            {% else %}
+                            <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                    src="/php/twig/assets/shared/img/default-image_600.png" />
+                            </a>
+                            {% endif %}
+                            <div class="card-body">
+                                <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                                    <h5>{{ sanpham.sp_ten }}</h5>
+                                </a>
+                                <p class="card-text">{{ sanpham.sp_mota_ngan }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-outline-secondary"
+                                            href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">Xem
+                                            chi tiết</a>
+                                    </div>
+                                    <small class="text-muted text-right">
+                                        <s>{{ sanpham.sp_giacu }}</s>
+                                        <b>{{ sanpham.sp_gia }}</b>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% set counter = counter + 1 %}
+                    {% if (counter % group == 0 and counter < limit) %}
+                </div>
+                <div class="row">
+                    {% endif %}
+
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-md-12">
+                        <h2>Xin lỗi, không tìm thấy sản phẩm nào theo yêu cầu!</h2>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div> <!-- row.// -->
+    </form>
+</div>
+{% endblock %}
+{# End Nội dung trong block content #}
+
+{% block customscripts %}
+<script>
+    $(document).ready(function () {
+        $('#sotientu').on('change', function (e) {
+            var id = e.target.value;
+            document.getElementById("sotientu-text").innerHTML = id;
+        });
+        $('#sotientu').change();
+
+        $('#sotienden').on('change', function (e) {
+            var id = e.target.value;
+            document.getElementById("sotienden-text").innerHTML = id;
+        });
+        $('#sotienden').change();
+
+        function clearForm() {
+            var frm_elements = frmTimKiem.elements;
+            for (i = 0; i < frm_elements.length; i++) {
+                field_type = frm_elements[i].type.toLowerCase();
+                switch (field_type) {
+                    case "text":
+                    case "password":
+                    case "textarea":
+                    case "hidden":
+                        frm_elements[i].value = "";
+                        break;
+                    case "radio":
+                    case "checkbox":
+                        if (frm_elements[i].checked) {
+                            frm_elements[i].checked = false;
+                        }
+                        break;
+                    case "select-one":
+                    case "select-multi":
+                        frm_elements[i].selectedIndex = -1;
+                        break;
+                    case "range":
+                        if(frm_elements[i].name == 'keyword_sotientu') {
+                            frm_elements[i].value = frm_elements[i].min;
+                            document.getElementById("sotientu-text").innerHTML = frm_elements[i].min;
+                        } else if(frm_elements[i].name == 'keyword_sotienden') {
+                            frm_elements[i].value = frm_elements[i].max;
+                            document.getElementById("sotienden-text").innerHTML = frm_elements[i].max;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        $('#btnReset').click(function (e) {
+            clearForm();
+        });
+    });
+</script>
+{% endblock %}
