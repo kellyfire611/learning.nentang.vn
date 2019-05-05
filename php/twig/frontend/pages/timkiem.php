@@ -23,7 +23,7 @@ $resultSelectLoaiSanPham = mysqli_query($conn, $sqlSelectLoaiSanPham);
 // Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tích để sử dụng
 // Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
 // Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
-$loaisanphamData;
+$loaisanphamData = [];
 while ($row = mysqli_fetch_array($resultSelectLoaiSanPham, MYSQLI_ASSOC)) {
     $loaisanphamData[] = array(
         'lsp_ma' => $row['lsp_ma'],
@@ -50,7 +50,7 @@ $resultSelectNhaSanXuat = mysqli_query($conn, $sqlSelectNhaSanXuat);
 // Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tích để sử dụng
 // Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
 // Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
-$nhasanxuatData;
+$nhasanxuatData = [];
 while ($row = mysqli_fetch_array($resultSelectNhaSanXuat, MYSQLI_ASSOC)) {
     $nhasanxuatData[] = array(
         'nsx_ma' => $row['nsx_ma'],
@@ -77,7 +77,7 @@ $resultSelectKhuyenMai = mysqli_query($conn, $sqlSelectKhuyenMai);
 // Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tích để sử dụng
 // Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
 // Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
-$khuyenmaiData;
+$khuyenmaiData = [];
 while ($row = mysqli_fetch_array($resultSelectKhuyenMai, MYSQLI_ASSOC)) {
     $khuyenmaiData[] = array(
         'km_ma' => $row['km_ma'],
