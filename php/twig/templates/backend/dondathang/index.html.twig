@@ -57,6 +57,10 @@ Danh sách Đơn đặt hàng
                     <span data-feather="delete"></span> Xóa
                 </a>
                 {% else %}
+                <!-- Nút in, bấm vào sẽ hiển thị mẫu in thông tin dựa vào khóa chính `dh_ma` -->
+                <a href="in.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-success">
+                    <span data-feather="edit"></span> In
+                </a>
                 <!-- Nút hủy xử lý, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `dh_ma` -->
                 <a href="edit_huyxuly.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-warning">
                     <span data-feather="edit"></span> Hủy xử lý

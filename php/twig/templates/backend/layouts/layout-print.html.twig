@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Paper CSS -->
+  <link rel="stylesheet" href="/php/twig/assets/vendor/paper-css/paper.css" type="text/css" />
+
+  <!-- Custom css - Các file css do chúng ta tự viết -->
+  <link rel="stylesheet" href="/php/twig/assets/backend/css/style-print.css" type="text/css" />
+
+  <!-- Block title - Đục lỗ trên giao diện bố cục chung, đặt tên là `title` -->
+  <title>Nền tảng - Kiến thức cơ bản về WEB |
+    {% block title %}
+    {% endblock %}
+  </title>
+  <!-- End block title -->
+
+  <!-- Block customstyles - Đục lỗ trên giao diện bố cục chung, đặt tên là `customstyles` -->
+  {% block customstyles %}
+  {% endblock %}
+  <!-- End block customstyles -->
+
+</head>
+
+<body class="{% block papersize %}{% endblock %}">
+
+  <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
+  {% block content %}
+  {% endblock %}
+  <!-- End block content -->
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="/php/twig/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/php/twig/assets/vendor/popperjs/popper.min.js"></script>
+  <script src="/php/twig/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/php/twig/assets/vendor/feather/feather.min.js"></script>
+
+  <!-- Custom script - Các file js do mình tự viết -->
+  <script src="/php/twig/assets/backend/js/app.js"></script>
+
+  <!-- Block custom-scripts - Đục lỗ trên giao diện bố cục chung, đặt tên là `custom-scripts` -->
+  {% block customscripts %}
+  {% endblock %}
+  <!-- End block custom-scripts -->
+</body>
+
+</html>
