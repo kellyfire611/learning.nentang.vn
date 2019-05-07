@@ -1,0 +1,71 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Danh sách Đơn đặt hàng
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Danh sách Đơn đặt hàng
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<table class="table table-bordered table-hover mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã Đơn đặt hàng</th>
+            <th>Khách hàng</th>
+            <th>Ngày lập</th>
+            <th>Ngày giao</th>
+            <th>Nơi giao</th>
+            <th>Hình thức thanh toán</th>
+            <th>Tổng thành tiền</th>
+            <th>Trạng thái thanh toán</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dondathang in ds_dondathang %}
+        <tr>
+            <td>{{ dondathang.dh_ma }}</td>
+            <td><b>{{ dondathang.kh_ten }}</b><br />({{ dondathang.kh_dienthoai }})</td>
+            <td>{{ dondathang.dh_ngaylap }}</td>
+            <td>{{ dondathang.dh_ngaygiao }}</td>
+            <td>{{ dondathang.dh_noigiao }}</td>
+            <td><span class="badge badge-primary">{{ dondathang.httt_ten }}</span></td>
+            <td>{{ dondathang.TongThanhTien }}</td>
+            <td>
+                {% if dondathang.dh_trangthaithanhtoan == 0 %}
+                <span class="badge badge-danger">Chưa xử lý</span>
+                {% else %}
+                <span class="badge badge-success">Đã giao hàng</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if dondathang.dh_trangthaithanhtoan == 0 %}
+                <!-- Nút xử lý, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `dh_ma` -->
+                <a href="edit_xuly.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-warning">
+                    <span data-feather="edit"></span> Xử lý
+                </a>
+                <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `dh_ma` -->
+                <a href="delete.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-danger">
+                    <span data-feather="delete"></span> Xóa
+                </a>
+                {% else %}
+                <!-- Nút hủy xử lý, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `dh_ma` -->
+                <a href="edit_huyxuly.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-warning">
+                    <span data-feather="edit"></span> Hủy xử lý
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{# End Nội dung trong block content #}

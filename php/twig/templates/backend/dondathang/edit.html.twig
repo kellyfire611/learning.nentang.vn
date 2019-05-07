@@ -1,0 +1,46 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Xử lý Đơn đặt hàng
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Xử lý Đơn đặt hàng
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<form name="frmdondathang" id="frmdondathang" method="post"
+    action="/php/twig/backend/dondathang/edit_xuly.php?dh_ma={{ dondathang.dh_ma }}">
+    <div class="form-group">
+        <label for="dh_ma">Mã Đơn đặt hàng</label>
+        <input type="text" class="form-control" id="dh_ma" name="dh_ma" placeholder="Mã Đơn đặt hàng" readonly
+            value="{{ dondathang.dh_ma }}">
+        <small id="dh_maHelp" class="form-text text-muted">Mã Đơn đặt hàng không được hiệu chỉnh.</small>
+    </div>
+    <div class="form-group">
+        <label for="">Thông tin tổng quát Đơn đặt hàng</label>
+        <ul>
+            <li><b>Khách hàng:</b> <small class="text-muted">{{ dondathang.kh_ten }} ({{ dondathang.kh_dienthoai }})</small></li>
+            <li><b>Ngày lập:</b> <small class="text-muted">{{ dondathang.dh_ngaylap }}</small></li>
+            <li><b>Hình thức thanh toán:</b> <small class="text-muted">{{ dondathang.httt_ten }}</small></li>
+            <li><b>Tổng thành tiền:</b> <small class="text-muted">{{ dondathang.TongThanhTien }}</small></li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <label for="dh_ngaygiao">Ngày giao hàng</label>
+        <input type="text" class="form-control" id="dh_ngaygiao" name="dh_ngaygiao">
+    </div>
+    <div class="form-group">
+        <label for="dh_noigiao">Nơi giao hàng</label>
+        <input type="text" class="form-control" id="dh_noigiao" name="dh_noigiao" placeholder="Nơi giao hàng">
+    </div>
+    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+</form>
+{% endblock %}
+{# End Nội dung trong block content #}

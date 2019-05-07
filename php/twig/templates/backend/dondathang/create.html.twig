@@ -1,0 +1,80 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Thêm mới Sản phẩm
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Thêm mới Sản phẩm
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<form name="frmsanpham" id="frmsanpham" method="post" action="/php/twig/backend/sanpham/create.php">
+    <div class="form-group">
+        <label for="sp_ma">Mã Sản phẩm</label>
+        <input type="text" class="form-control" id="sp_ma" name="sp_ma" placeholder="Mã Sản phẩm" readonly>
+        <small id="sp_maHelp" class="form-text text-muted">Mã Sản phẩm không được hiệu chỉnh.</small>
+    </div>
+    <div class="form-group">
+        <label for="sp_ten">Tên Sản phẩm</label>
+        <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên Sản phẩm">
+    </div>
+    <div class="form-group">
+        <label for="sp_gia">Giá Sản phẩm</label>
+        <input type="text" class="form-control" id="sp_gia" name="sp_gia" placeholder="Giá Sản phẩm">
+    </div>
+    <div class="form-group">
+        <label for="sp_giacu">Giá cũ Sản phẩm</label>
+        <input type="text" class="form-control" id="sp_giacu" name="sp_giacu" placeholder="Giá cũ Sản phẩm">
+    </div>
+    <div class="form-group">
+        <label for="sp_mota_ngan">Mô tả ngắn</label>
+        <input type="text" class="form-control" id="sp_mota_ngan" name="sp_mota_ngan" placeholder="Mô tả ngắn Sản phẩm">
+    </div>
+    <div class="form-group">
+        <label for="sp_mota_chitiet">Mô tả chi tiết</label>
+        <input type="text" class="form-control" id="sp_mota_chitiet" name="sp_mota_chitiet" placeholder="Mô tả chi tiết Sản phẩm">
+    </div>
+    <div class="form-group">
+        <label for="sp_ngaycapnhat">Ngày cập nhật</label>
+        <input type="text" class="form-control" id="sp_ngaycapnhat" name="sp_ngaycapnhat" placeholder="Ngày cập nhật Sản phẩm">
+    </div>
+    <div class="form-group">
+        <label for="sp_soluong">Số lượng</label>
+        <input type="text" class="form-control" id="sp_soluong" name="sp_soluong" placeholder="Số lượng Sản phẩm">
+    </div>
+    <div class="form-group">
+        <label for="lsp_ma">Loại sản phẩm</label>
+        <select class="form-control" id="lsp_ma" name="lsp_ma">
+            {% for loaisanpham in ds_loaisanpham %}
+            <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nsx_ma">Nhà sản xuất</label>
+        <select class="form-control" id="nsx_ma" name="nsx_ma">
+            {% for nhasanxuat in ds_nhasanxuat %}
+            <option value="{{ nhasanxuat.nsx_ma }}">{{ nhasanxuat.nsx_ten }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="km_ma">Khuyến mãi</label>
+        <select class="form-control" id="km_ma" name="km_ma">
+            <option value="">Không áp dụng khuyến mãi</option>
+            {% for khuyenmai in ds_khuyenmai %}
+            <option value="{{ khuyenmai.km_ma }}">{{ khuyenmai.km_tomtat }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+</form>
+{% endblock %}
+{# End Nội dung trong block content #}
