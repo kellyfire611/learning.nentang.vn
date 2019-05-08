@@ -8,7 +8,7 @@ include_once(__DIR__.'/../../dbconnect.php');
 $dh_ma = $_GET['dh_ma'];
 
 // Xóa các dòng trong table `sanpham_dondathang`
-$sqlDeleteSanPhamDonDatHang = "DELETE `sanpham_dondathang` WHERE dh_ma=$dh_ma;";
+$sqlDeleteSanPhamDonDatHang = "DELETE FROM `sanpham_dondathang` WHERE dh_ma=$dh_ma;";
 
 // Thực thi câu lệnh DELETE `sanpham_dondathang`
 $result = mysqli_query($conn, $sql);
