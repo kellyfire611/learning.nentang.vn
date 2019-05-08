@@ -47,7 +47,7 @@ while($row = mysqli_fetch_array($resultSelectDonDatHang, MYSQLI_ASSOC))
 // Lấy dữ liệu Sản phẩm đơn đặt hàng
 $sqlSelectSanPham = <<<EOT
 SELECT 
-    sp.sp_ten, sp.sp_gia, sp.sp_soluong
+    sp.sp_ten, spddh.sp_dh_dongia, spddh.sp_dh_soluong
     , lsp.lsp_ten, nsx.nsx_ten
 FROM `sanpham_dondathang` spddh
 JOIN `sanpham` sp ON spddh.sp_ma = sp.sp_ma
@@ -63,8 +63,8 @@ while($row = mysqli_fetch_array($resultSelectSanPham, MYSQLI_ASSOC))
 {
     $dataSanPham[] = array(
         'sp_ten' => $row['sp_ten'],
-        'sp_gia' => $row['sp_gia'],
-        'sp_soluong' => $row['sp_soluong'],
+        'sp_gia' => $row['sp_dh_dongia'],
+        'sp_soluong' => $row['sp_dh_soluong'],
         'lsp_ten' => $row['lsp_ten'],
         'nsx_ten' => $row['nsx_ten'],
     );
@@ -72,6 +72,7 @@ while($row = mysqli_fetch_array($resultSelectSanPham, MYSQLI_ASSOC))
 
 // Hiệu chỉnh dữ liệu theo cấu trúc để tiện xử lý
 $dondathangRow['danhsachsanpham'] = $dataSanPham;
+//dd($dondathangRow);
 
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/dondathang/in.html.twig`
 echo $twig->render('backend/dondathang/in.html.twig', [
