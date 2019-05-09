@@ -3,6 +3,7 @@
         "twig/twig": "^2.7",
         "symfony/var-dumper": "^4.2",
         "phpmailer/phpmailer": "^6.0",
-        "dompdf/dompdf": "^0.8.3"
+        "dompdf/dompdf": "^0.8.3",
+        "phpoffice/phpspreadsheet": "^1.6"
     }
 }

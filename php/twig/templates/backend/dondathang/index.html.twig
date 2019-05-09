@@ -57,10 +57,14 @@ Danh sách Đơn đặt hàng
                     <span data-feather="delete"></span> Xóa
                 </a>
                 {% else %}
+                <!-- Nút xuất Excel, bấm vào sẽ hiển thị mẫu Excel thông tin dựa vào khóa chính `dh_ma` -->
+                <a href="excel.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-primary">
+                    <span data-feather="edit"></span> Excel
+                </a>
                 <!-- Nút xuất PDF, bấm vào sẽ hiển thị mẫu PDF thông tin dựa vào khóa chính `dh_ma` -->
                 <a href="pdf.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-primary">
-                        <span data-feather="edit"></span> PDF
-                    </a>
+                    <span data-feather="edit"></span> PDF
+                </a>
                 <!-- Nút in, bấm vào sẽ hiển thị mẫu in thông tin dựa vào khóa chính `dh_ma` -->
                 <a href="in.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-success">
                     <span data-feather="edit"></span> In
