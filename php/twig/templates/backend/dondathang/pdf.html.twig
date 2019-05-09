@@ -1,0 +1,119 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout-print.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+In Đơn đặt hàng
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{% block customstyles %}
+<!-- Định khổ giấy: A5, A4 or A3 -->
+<style>
+    body {
+        font-family: 'DejaVu Sans;';
+        font-size: 0.8em;
+    }
+    @page {
+        size: A4
+    }
+</style>
+{% endblock %}
+
+{% block papersize %}A4{% endblock %}
+
+{# Nội dung trong block content #}
+{% block content %}
+<!-- Each sheet element should have the class "sheet" -->
+<!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+<section class="sheet padding-10mm">
+    <!-- Thông tin Cửa hàng -->
+    <table border="0" width="100%" cellspacing="0">
+        <tbody>
+            <tr>
+                <td align="center"><img src="http://learning.nentang.vn/php/twig/assets/shared/img/logo-nentang.jpg" width="100px"
+                        height="100px" /></td>
+                <td align="center">
+                    <b style="font-size: 2em;">Nền tảng - Hành trang tới Tương lai</b><br />
+                    <small>Cung cấp kiến thức nền tảng về Lập trình, Thiết kế Web, Cơ sở dữ liệu</small><br />
+                    <small>Giúp các bạn có niềm tin, hành trang kiến thức vững vàng trên con đường trở thành Nhà phát
+                        triển
+                        Phần mềm</small>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Thông tin đơn hàng -->
+    <p><i><u>Thông tin Đơn hàng</u></i></p>
+    <table border="0" width="100%" cellspacing="0">
+        <tbody>
+            <tr>
+                <td width="30%">Khách hàng:</td>
+                <td><b>{{ dondathang.kh_ten }}
+                        ({{ dondathang.kh_dienthoai }})</b></td>
+            </tr>
+            <tr>
+                <td>Ngày lập:</td>
+                <td><b>{{ dondathang.dh_ngaylap }}</b></td>
+            </tr>
+            <tr>
+                <td>Hình thức thanh toán:</td>
+                <td><b>{{ dondathang.httt_ten }}</td>
+            </tr>
+            <tr>
+                <td>Tổng thành tiền:</td>
+                <td><b>{{ dondathang.TongThanhTien }}</b></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Thông tin sản phẩm -->
+    <p><i><u>Chi tiết đơn hàng</u></i></p>
+    <table border="1" width="100%" cellspacing="0" cellpadding="5">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sanpham in dondathang.danhsachsanpham %}
+            <tr>
+                <td align="center">{{ loop.index }}</td>
+                <td>
+                    <b>{{ sanpham.sp_ten }}</b><br />
+                    <small><i>{{ sanpham.lsp_ten}}</i></small><br />
+                    <small><i>{{ sanpham.nsx_ten}}</i></small>
+                </td>
+                <td align="right">{{ sanpham.sp_soluong }}</td>
+                <td align="right">{{ sanpham.sp_gia }}</td>
+                <td align="right">{{ sanpham.sp_soluong * sanpham.sp_gia }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" align="right"><b>Tổng thành tiền</b></td>
+                <td align="right">{{ dondathang.TongThanhTien }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- Thông tin Footer -->
+    <br />
+    <table border="0" width="100%">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <small>Xin cám ơn Quý khách đã ủng hộ Cửa hàng, Chúc Quý khách An Khang, Thịnh Vượng!</small>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+{# End Nội dung trong block content #}
