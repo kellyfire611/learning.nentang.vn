@@ -9,10 +9,10 @@
     <!-- Thông tin Cửa hàng -->
     <table>
         <tr>
-            <td style="width: 20px;">
+            <td style="width: 20px;border: solid #ff0000;">
                 <img src="C:\xampp\htdocs\learning.nentang.vn\php\twig\assets\shared\img\logo-nentang.jpg" width="100px" height="100px;" />
             </td>
-            <td colspan="4" style="word-wrap: break-word;">
+            <td colspan="4" style="word-wrap: break-word;border: solid #ff0000;">
                 <b style="font-size: 2em;">Nền tảng - Hành trang tới Tương lai</b><br />
                 <small>Cung cấp kiến thức nền tảng về Lập trình, Thiết kế Web, Cơ sở dữ liệu</small><br />
                 <small>Giúp các bạn có niềm tin, hành trang kiến thức vững vàng trên con đường trở thành Nhà phát triển
@@ -20,53 +20,53 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" style=""><b>Thông tin Đơn hàng</b></td>
+            <td colspan="5" style="border: solid #ff0000;"><b>Thông tin Đơn hàng</b></td>
         </tr>
         <tr>
-            <td style="width: 20px;">Khách hàng:</td>
+            <td style="width: 20px;border: solid #ff0000;">Khách hàng:</td>
             <td colspan="4"><b>{{ dondathang.kh_ten }} ({{ dondathang.kh_dienthoai }})</b></td>
         </tr>
         <tr>
-            <td>Ngày lập:</td>
-            <td colspan="4"><b>{{ dondathang.dh_ngaylap }}</b></td>
+            <td style="border: solid #ff0000;">Ngày lập:</td>
+            <td colspan="4" style="border: solid #ff0000;"><b>{{ dondathang.dh_ngaylap }}</b></td>
         </tr>
         <tr>
-            <td>Hình thức thanh toán:</td>
-            <td colspan="4"><b>{{ dondathang.httt_ten }}</b></td>
+            <td style="border: solid #ff0000;">Hình thức thanh toán:</td>
+            <td colspan="4" style="border: solid #ff0000;"><b>{{ dondathang.httt_ten }}</b></td>
         </tr>
         <tr>
-            <td>Tổng thành tiền:</td>
-            <td colspan="4"><b>{{ dondathang.TongThanhTien }}</b></td>
+            <td style="border: solid #ff0000;">Tổng thành tiền:</td>
+            <td colspan="4" style="border: solid #ff0000;"><b>{{ dondathang.TongThanhTien }}</b></td>
         </tr>
         <tr>
-            <td colspan="5"><b>Chi tiết đơn hàng</b></td>
+            <td colspan="5" style="border: solid #ff0000;"><b>Chi tiết đơn hàng</b></td>
         </tr>
         <tr>
-            <th style="text-align: center;vertical-align: center;">STT</th>
-            <th style="text-align: center;vertical-align: center;">Sản phẩm</th>
-            <th style="text-align: center;vertical-align: center;">Số lượng</th>
-            <th style="text-align: center;vertical-align: center;width:10px;">Đơn giá</th>
-            <th style="text-align: center;vertical-align: center;width:20px;">Thành tiền</th>
+            <th style="text-align: center;vertical-align: center;border: solid #ff0000;">STT</th>
+            <th style="text-align: center;vertical-align: center;border: solid #ff0000;">Sản phẩm</th>
+            <th style="text-align: center;vertical-align: center;border: solid #ff0000;">Số lượng</th>
+            <th style="text-align: center;vertical-align: center;width:10px;border: solid #ff0000;">Đơn giá</th>
+            <th style="text-align: center;vertical-align: center;width:20px;border: solid #ff0000;">Thành tiền</th>
         </tr>
         {% for sanpham in dondathang.danhsachsanpham %}
         <tr>
-            <td style="text-align: center;vertical-align: center;">{{ loop.index }}</td>
-            <td style="text-align: left;vertical-align: center;word-wrap:break-word;width:22px;">
+            <td style="text-align: center;vertical-align: center;border: solid #ff0000;">{{ loop.index }}</td>
+            <td style="text-align: left;vertical-align: center;word-wrap:break-word;width:22px;border: solid #ff0000;">
                 <b>{{ sanpham.sp_ten }}</b><br />
                 <small><i>{{ sanpham.lsp_ten}}</i></small><br />
                 <small><i>{{ sanpham.nsx_ten}}</i></small>
             </td>
-            <td style="text-align: right;vertical-align: center;">{{ sanpham.sp_soluong }}</td>
-            <td style="text-align: right;vertical-align: center;">{{ sanpham.sp_gia }}</td>
-            <td style="text-align: right;vertical-align: center;">{{ sanpham.sp_soluong * sanpham.sp_gia }}</td>
+            <td style="text-align: right;vertical-align: center;border: solid #ff0000;">{{ sanpham.sp_soluong }}</td>
+            <td style="text-align: right;vertical-align: center;border: solid #ff0000;">{{ sanpham.sp_gia }}</td>
+            <td style="text-align: right;vertical-align: center;border: solid #ff0000;">{{ sanpham.sp_soluong * sanpham.sp_gia }}</td>
         </tr>
         {% endfor %}
         <tr>
-            <td colspan="4" style="text-align: right"><b>Tổng thành tiền</b></td>
-            <td style="text-align: right">{{ dondathang.TongThanhTien }}</td>
+            <td colspan="4" style="text-align: right;border: solid #ff0000;"><b>Tổng thành tiền</b></td>
+            <td style="text-align: right;border: solid #ff0000;">{{ dondathang.TongThanhTien }}</td>
         </tr>
         <tr>
-            <td style="text-align: center" colspan="5">
+            <td style="text-align: center;border: solid #ff0000;" colspan="5">
                 <small>Xin cám ơn Quý khách đã ủng hộ Cửa hàng, Chúc Quý khách An Khang, Thịnh Vượng!</small>
             </td>
         </tr>

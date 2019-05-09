@@ -521,7 +521,8 @@ class Html extends BaseReader
                             //create merging colspan
                             $columnTo = $column;
                             for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
-                                ++$columnTo;
+                                // ++$columnTo;
+                                $this->applyInlineStyle($sheet, $row, ++$columnTo, $attributeArray);
                             }
                             $sheet->mergeCells($column . $row . ':' . $columnTo . $row);
                             $column = $columnTo;
@@ -919,15 +920,17 @@ class Html extends BaseReader
      */
     private function setBorderStyle(Style $cellStyle, $styleValue, $type)
     {
-        list(, $borderStyle, $color) = explode(' ', $styleValue);
+        list($borderStyle, $color) = explode(' ', $styleValue);
 
-        $cellStyle->applyFromArray([
+        $arr = [
             'borders' => [
                 $type => [
                     'borderStyle' => $this->getBorderStyle($borderStyle),
                     'color' => ['rgb' => $this->getStyleColor($color)],
                 ],
             ],
-        ]);
+        ];
+        // dd($borderStyle, $color, $arr);
+        $cellStyle->applyFromArray($arr);
     }
 }
