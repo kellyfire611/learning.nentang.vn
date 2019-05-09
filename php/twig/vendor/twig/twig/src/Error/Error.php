@@ -47,21 +47,15 @@ class Error extends \Exception
     /**
      * Constructor.
      *
-     * Set both the line number and the name to false to
-     * disable automatic guessing of the original template name
-     * and line number.
-     *
      * Set the line number to -1 to enable its automatic guessing.
      * Set the name to null to enable its automatic guessing.
-     *
-     * By default, automatic guessing is enabled.
      *
      * @param string             $message  The error message
      * @param int                $lineno   The template line where the error occurred
      * @param Source|string|null $source   The source context where the error occurred
      * @param \Exception         $previous The previous exception
      */
-    public function __construct(string $message, int $lineno = -1, $source = null, \Exception $previous = null, bool $autoGuess = true)
+    public function __construct(string $message, int $lineno = -1, $source = null, \Exception $previous = null)
     {
         parent::__construct('', 0, $previous);
 
@@ -78,13 +72,7 @@ class Error extends \Exception
 
         $this->lineno = $lineno;
         $this->name = $name;
-
-        if ($autoGuess && (-1 === $lineno || null === $name || null === $this->sourcePath)) {
-            $this->guessTemplateInfo();
-        }
-
         $this->rawMessage = $message;
-
         $this->updateRepr();
     }
 

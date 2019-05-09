@@ -12,16 +12,25 @@
 namespace Twig\Sandbox;
 
 /**
- * Interfaces that all security policy classes must implements.
+ * Interface that all security policy classes must implements.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 interface SecurityPolicyInterface
 {
+    /**
+     * @throws SecurityError
+     */
     public function checkSecurity($tags, $filters, $functions);
 
+    /**
+     * @throws SecurityNotAllowedMethodError
+     */
     public function checkMethodAllowed($obj, $method);
 
+    /**
+     * @throws SecurityNotAllowedPropertyError
+     */
     public function checkPropertyAllowed($obj, $method);
 }
 
