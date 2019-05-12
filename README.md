@@ -13,6 +13,9 @@
   - [Bài học 5](./php/twig/readme-lession5.md)
   - [Bài học 6](./php/twig/readme-lession6.md)
   - [Bài học 7](./php/twig/readme-lession7.md)
+  - [Bài học 8](./php/twig/readme-lession8.md)
+  - [Bài học 9](./php/twig/readme-lession9.md)
+  - [Bài học 10](./php/twig/readme-lession10.md)
 
 # Các chương trình cần thiết để lập trình web
 - [Git for window](https://git-scm.com/download/win)
