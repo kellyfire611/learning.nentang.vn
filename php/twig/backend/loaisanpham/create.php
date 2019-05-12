@@ -57,7 +57,7 @@ if (isset($_POST['btnCapNhat'])) {
         $sql = "INSERT INTO `loaisanpham` (lsp_ten, lsp_mota) VALUES ('" . $tenLoai . "', '" . $mota . "');";
 
         // Thực thi INSERT
-        //mysqli_query($conn, $sql);
+        mysqli_query($conn, $sql);
 
         // Đóng kết nối
         mysqli_close($conn);
