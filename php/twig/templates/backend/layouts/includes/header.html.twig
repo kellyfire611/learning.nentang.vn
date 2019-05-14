@@ -5,10 +5,10 @@
         <li class="nav-item text-nowrap">
             {% if session['username'] %}
             <!-- Nếu đã đăng nhập thì hiển thị nút Đăng xuất -->
-            <a class="nav-link" href="/php/twig/backend/pages/logout.php">Đăng xuất</a>
+            <a class="nav-link" href="/php/twig/backend/pages/logout">Đăng xuất</a>
             {% else %}
             <!-- Nếu chưa đăng nhập thì hiển thị nút Đăng nhập -->
-            <a class="nav-link" href="/php/twig/backend/pages/login.php">Đăng nhập</a>
+            <a class="nav-link" href="/php/twig/backend/pages/login">Đăng nhập</a>
             {% endif %}
         </li>
     </ul>

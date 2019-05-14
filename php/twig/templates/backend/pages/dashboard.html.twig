@@ -100,7 +100,7 @@ Bảng tin
     $('#refreshBaoCaoSanPham').click(function (event) {
         event.preventDefault();
 
-        $.ajax('/php/twig/backend/ajax/baocao-tongsomathang-ajax.php', {
+        $.ajax('/php/twig/backend/ajax/baocao-tongsomathang-ajax', {
             success: function (data) {
                 var dataObj = JSON.parse(data);
                 var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
@@ -115,7 +115,7 @@ Bảng tin
 
     // Refresh dữ liệu báo cáo Số lượng Khách hàng
     function getDataBaoCaoKhachHang() {
-        $.ajax('/php/twig/backend/ajax/baocao-tongsokhachhang-ajax.php', {
+        $.ajax('/php/twig/backend/ajax/baocao-tongsokhachhang-ajax', {
             success: function (data) {
                 var dataObj = JSON.parse(data);
                 var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
@@ -135,7 +135,7 @@ Bảng tin
 
     // Refresh dữ liệu báo cáo Số lượng Đơn hàng
     function getDataBaoCaoDonHang() {
-        $.ajax('/php/twig/backend/ajax/baocao-tongsodonhang-ajax.php', {
+        $.ajax('/php/twig/backend/ajax/baocao-tongsodonhang-ajax', {
             success: function (data) {
                 var dataObj = JSON.parse(data);
                 var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
@@ -155,7 +155,7 @@ Bảng tin
 
     // Refresh dữ liệu báo cáo Số lượng Góp Ý
     function getDataBaoCaoGopY() {
-        $.ajax('/php/twig/backend/ajax/baocao-tongsogopy-ajax.php', {
+        $.ajax('/php/twig/backend/ajax/baocao-tongsogopy-ajax', {
             success: function (data) {
                 var dataObj = JSON.parse(data);
                 var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
@@ -180,7 +180,7 @@ Bảng tin
 
     function renderChartThongKeLoaiSanPham() {
         $.ajax({
-            url: '/php/twig/backend/ajax/baocao-thongkeloaisanpham-ajax.php',
+            url: '/php/twig/backend/ajax/baocao-thongkeloaisanpham-ajax',
             type: "GET",
             success: function (response) {
                 var data = JSON.parse(response);
@@ -233,7 +233,7 @@ Bảng tin
 
     function renderChartThongKeTopSanPhamBanChayNhat() {
         $.ajax({
-            url: '/php/twig/backend/ajax/baocao-thongketopsanphambanchaynhat-ajax.php',
+            url: '/php/twig/backend/ajax/baocao-thongketopsanphambanchaynhat-ajax',
             type: "GET",
             success: function (response) {
                 var data = JSON.parse(response);
@@ -286,7 +286,7 @@ Bảng tin
 
     function renderChartThongKeDoanhThu() {
         $.ajax({
-            url: '/php/twig/backend/ajax/baocao-thongkedoanhthu-ajax.php',
+            url: '/php/twig/backend/ajax/baocao-thongkedoanhthu-ajax',
             type: "GET",
             success: function (response) {
                 var data = JSON.parse(response);

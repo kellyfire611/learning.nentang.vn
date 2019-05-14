@@ -16,7 +16,7 @@ Xử lý Đơn đặt hàng
 {# Nội dung trong block content #}
 {% block content %}
 <form name="frmdondathang" id="frmdondathang" method="post"
-    action="/php/twig/backend/dondathang/edit_xuly.php?dh_ma={{ dondathang.dh_ma }}">
+    action="/php/twig/backend/dondathang/edit_xuly?dh_ma={{ dondathang.dh_ma }}">
     <div class="form-group">
         <label for="dh_ma">Mã Đơn đặt hàng</label>
         <input type="text" class="form-control" id="dh_ma" name="dh_ma" placeholder="Mã Đơn đặt hàng" readonly

@@ -1,0 +1,5 @@
+# Xóa bỏ php file extension-e.g. https://example.com/file.php -> https://example.com/file
+RewriteEngine on 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]

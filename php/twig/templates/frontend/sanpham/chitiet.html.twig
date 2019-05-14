@@ -255,7 +255,7 @@ Sản phẩm {{ sanpham.sp_ten }}
     <div class="card">
         <div class="container-fliud">
             <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post"
-                action="/php/twig/frontend/giohang/themvaogiohang.php">
+                action="/php/twig/frontend/giohang/themvaogiohang">
                 {% set hinhsanphamdautien = sanpham.danhsachhinhanh|first %}
                 <input type="hidden" name="sp_ma" id="sp_ma" value="{{ sanpham.sp_ma }}" />
                 <input type="hidden" name="sp_ten" id="sp_ten" value="{{ sanpham.sp_ten }}" />
@@ -369,14 +369,14 @@ Sản phẩm {{ sanpham.sp_ten }}
         console.log((dulieugoi));
 
         $.ajax({
-            url: '/php/twig/frontend/ajax/giohang-themsanpham-ajax.php',
+            url: '/php/twig/frontend/ajax/giohang-themsanpham-ajax',
             method: "POST",
             dataType: 'json',
             data: dulieugoi,
             success: function (data) {
                 console.log(data);
                 var htmlString =
-                    `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/php/twig/frontend/thanhtoan/giohang.php">Xem Giỏ hàng</a>.`;
+                    `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/php/twig/frontend/thanhtoan/giohang">Xem Giỏ hàng</a>.`;
                 $('#thongbao').html(htmlString);
 
                 // Hiện thông báo

@@ -16,7 +16,7 @@ Danh sách Loại sản phẩm
 {# Nội dung trong block content #}
 {% block content %}
 <!-- Nút thêm mới, bấm vào sẽ hiển thị form nhập thông tin Thêm mới -->
-<a href="create.php" class="btn btn-primary">
+<a href="create" class="btn btn-primary">
     <span data-feather="plus"></span> Thêm mới
 </a>
 <table class="table table-bordered table-hover mt-2">
@@ -29,19 +29,19 @@ Danh sách Loại sản phẩm
         </tr>
     </thead>
     <tbody>
-        {% for loaisanpham in ds_loaisanpham %}
+        {% for loaisanpham in ds_loaisanpham.data %}
         <tr>
             <td>{{ loaisanpham.lsp_ma }}</td>
             <td>{{ loaisanpham.lsp_ten }}</td>
             <td>{{ loaisanpham.lsp_mota }}</td>
             <td>
                 <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `lsp_ma` -->
-                <a href="edit.php?lsp_ma={{ loaisanpham.lsp_ma }}" class="btn btn-warning">
+                <a href="edit?lsp_ma={{ loaisanpham.lsp_ma }}" class="btn btn-warning">
                     <span data-feather="edit"></span> Sửa
                 </a>
 
                 <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `lsp_ma` -->
-                <a href="delete.php?lsp_ma={{ loaisanpham.lsp_ma }}" class="btn btn-danger">
+                <a href="delete?lsp_ma={{ loaisanpham.lsp_ma }}" class="btn btn-danger">
                     <span data-feather="delete"></span> Xóa
                 </a>
             </td>
@@ -49,5 +49,7 @@ Danh sách Loại sản phẩm
         {% endfor %}
     </tbody>
 </table>
+{{ paginator.createLinks()|raw }}
+
 {% endblock %}
 {# End Nội dung trong block content #}

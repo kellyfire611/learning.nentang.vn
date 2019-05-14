@@ -16,7 +16,7 @@ Liên hệ
 {# Nội dung trong block content #}
 {% block content %}
 <div class="container mt-4">
-    <form name="frmTimKiem" method="get" action="/php/twig/frontend/pages/timkiem.php">
+    <form name="frmTimKiem" method="get" action="/php/twig/frontend/pages/timkiem">
         <h1 class="text-center">Tìm kiếm sản phẩm</h1>
         <div class="row">
             <div class="col col-md-12">
@@ -184,18 +184,18 @@ Liên hệ
                     <div class="col-md-{{ col_class_name }}">
                         <div class="card mb-4 shadow-sm">
                             {% if sanpham.hsp_tentaptin %}
-                            <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                            <a href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
                                 <img class="bd-placeholder-img card-img-top" width="100%" height="350"
                                     src="/php/twig/assets/uploads/{{ sanpham.hsp_tentaptin }}" />
                             </a>
                             {% else %}
-                            <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                            <a href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
                                 <img class="bd-placeholder-img card-img-top" width="100%" height="350"
                                     src="/php/twig/assets/shared/img/default-image_600.png" />
                             </a>
                             {% endif %}
                             <div class="card-body">
-                                <a href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">
+                                <a href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
                                     <h5>{{ sanpham.sp_ten }}</h5>
                                 </a>
                                 <h6>{{ sanpham.lsp_ten }}</h6>
@@ -203,7 +203,7 @@ Liên hệ
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a class="btn btn-sm btn-outline-secondary"
-                                            href="/php/twig/frontend/sanpham/chitiet.php?sp_ma={{ sanpham.sp_ma }}">Xem
+                                            href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">Xem
                                             chi tiết</a>
                                     </div>
                                     <small class="text-muted text-right">

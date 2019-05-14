@@ -16,7 +16,7 @@ Danh sách Sản phẩm
 {# Nội dung trong block content #}
 {% block content %}
 <!-- Nút thêm mới, bấm vào sẽ hiển thị form nhập thông tin Thêm mới -->
-<a href="create.php" class="btn btn-primary">
+<a href="create" class="btn btn-primary">
     <span data-feather="plus"></span> Thêm mới
 </a>
 <table class="table table-bordered table-hover mt-2">
@@ -55,12 +55,12 @@ Danh sách Sản phẩm
             <td>{{ sanpham.km_tomtat }}</td>
             <td>
                 <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `sp_ma` -->
-                <a href="edit.php?sp_ma={{ sanpham.sp_ma }}" class="btn btn-warning">
+                <a href="edit?sp_ma={{ sanpham.sp_ma }}" class="btn btn-warning">
                     <span data-feather="edit"></span> Sửa
                 </a>
 
                 <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
-                <a href="delete.php?sp_ma={{ sanpham.sp_ma }}" class="btn btn-danger">
+                <a href="delete?sp_ma={{ sanpham.sp_ma }}" class="btn btn-danger">
                     <span data-feather="delete"></span> Xóa
                 </a>
             </td>

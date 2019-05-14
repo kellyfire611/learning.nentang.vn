@@ -49,28 +49,28 @@ Danh sách Đơn đặt hàng
             <td>
                 {% if dondathang.dh_trangthaithanhtoan == 0 %}
                 <!-- Nút xử lý, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `dh_ma` -->
-                <a href="edit_xuly.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-warning">
+                <a href="edit_xuly?dh_ma={{ dondathang.dh_ma }}" class="btn btn-warning">
                     <span data-feather="edit"></span> Xử lý
                 </a>
                 <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `dh_ma` -->
-                <a href="delete.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-danger">
+                <a href="delete?dh_ma={{ dondathang.dh_ma }}" class="btn btn-danger">
                     <span data-feather="delete"></span> Xóa
                 </a>
                 {% else %}
                 <!-- Nút xuất Excel, bấm vào sẽ hiển thị mẫu Excel thông tin dựa vào khóa chính `dh_ma` -->
-                <a href="excel.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-primary">
+                <a href="excel?dh_ma={{ dondathang.dh_ma }}" class="btn btn-primary">
                     <span data-feather="edit"></span> Excel
                 </a>
                 <!-- Nút xuất PDF, bấm vào sẽ hiển thị mẫu PDF thông tin dựa vào khóa chính `dh_ma` -->
-                <a href="pdf.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-primary">
+                <a href="pdf?dh_ma={{ dondathang.dh_ma }}" class="btn btn-primary">
                     <span data-feather="edit"></span> PDF
                 </a>
                 <!-- Nút in, bấm vào sẽ hiển thị mẫu in thông tin dựa vào khóa chính `dh_ma` -->
-                <a href="in.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-success">
+                <a href="in?dh_ma={{ dondathang.dh_ma }}" class="btn btn-success">
                     <span data-feather="edit"></span> In
                 </a>
                 <!-- Nút hủy xử lý, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `dh_ma` -->
-                <a href="edit_huyxuly.php?dh_ma={{ dondathang.dh_ma }}" class="btn btn-warning">
+                <a href="edit_huyxuly?dh_ma={{ dondathang.dh_ma }}" class="btn btn-warning">
                     <span data-feather="edit"></span> Hủy xử lý
                 </a>
                 {% endif %}
