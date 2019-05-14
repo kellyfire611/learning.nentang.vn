@@ -43,6 +43,34 @@ if (isset($_POST['btnCapNhat'])) {
         ];
     }
 
+    // required
+    if (empty($mota)) {
+        $errors['lsp_mota'][] = [
+            'rule' => 'required',
+            'rule_value' => true,
+            'value' => $mota,
+            'msg' => 'Vui lòng nhập mô tả Loại sản phẩm'
+        ];
+    }
+    // minlength 3
+    if (!empty($mota) && strlen($mota) < 3) {
+        $errors['lsp_mota'][] = [
+            'rule' => 'minlength',
+            'rule_value' => 3,
+            'value' => $mota,
+            'msg' => 'Mô tả loại sản phẩm phải có ít nhất 3 ký tự'
+        ];
+    }
+    // maxlength 255
+    if (!empty($mota) && strlen($mota) > 255) {
+        $errors['lsp_mota'][] = [
+            'rule' => 'maxlength',
+            'rule_value' => 255,
+            'value' => $mota,
+            'msg' => 'Mô tả loại sản phẩm không được vượt quá 255 ký tự'
+        ];
+    }
+
     // dd($errors);
     if (!empty($errors)) {
         // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/loaisanpham/create.html.twig`
