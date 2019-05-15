@@ -68,5 +68,7 @@ Danh sách Sản phẩm
         {% endfor %}
     </tbody>
 </table>
+{{ paginator.createLinks()|raw }}
+
 {% endblock %}
 {# End Nội dung trong block content #}
