@@ -79,9 +79,13 @@ while($row = mysqli_fetch_array($resultSelectSanPham, MYSQLI_ASSOC))
 $dondathangRow['danhsachsanpham'] = $dataSanPham;
 //dd($dondathangRow);
 
+// Lấy đường dẫn thư mục của file LOGO
+$realLogoFilePath = $_SERVER['DOCUMENT_ROOT'] . parse_url('/php/twig/assets/shared/img/logo-nentang.jpg', PHP_URL_PATH);
+
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/dondathang/excel.html.twig`
 $html = $twig->render('backend/dondathang/excel.html.twig', [
     'dondathang' => $dondathangRow,
+    'logoFilePath' => $realLogoFilePath
 ]);
 // echo $html; die;
 
