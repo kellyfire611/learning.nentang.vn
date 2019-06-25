@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         sql167.main-hosting.eu.
--- Server version:               10.2.17-MariaDB - MariaDB Server
+-- Server version:               10.2.23-MariaDB - MariaDB Server
 -- Server OS:                    Linux
--- HeidiSQL Version:             10.1.0.5464
+-- HeidiSQL Version:             10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -46,11 +46,8 @@ CREATE TABLE IF NOT EXISTS `dondathang` (
 -- Dumping data for table u883604362_php.dondathang: ~5 rows (approximately)
 /*!40000 ALTER TABLE `dondathang` DISABLE KEYS */;
 INSERT INTO `dondathang` (`dh_ma`, `dh_ngaylap`, `dh_ngaygiao`, `dh_noigiao`, `dh_trangthaithanhtoan`, `httt_ma`, `kh_tendangnhap`) VALUES
-	(1, '2013-02-21 16:45:44', '2013-02-01 00:00:00', 'Can Tho', 0, 1, 'vdduy'),
-	(2, '2013-02-21 16:46:33', '2013-02-07 00:00:00', 'Ã¡dsadsad', 0, 1, 'vdduy'),
-	(3, '2013-02-21 16:47:22', '2013-02-01 00:00:00', 'sdfsdf', 0, 1, 'vdduy'),
-	(4, '2013-02-21 16:48:10', '2013-02-08 00:00:00', 'Can Tho', 0, 1, 'vdduy'),
-	(5, '2013-02-21 16:48:59', '2013-02-09 00:00:00', 'Can Tho', 0, 1, 'vdduy');
+	(4, '2019-06-11 20:48:10', '2019-06-15 00:00:00', 'Cần Thơ', 0, 1, 'dnpcuong'),
+	(5, '2019-06-11 04:48:59', '2019-06-20 00:00:00', 'Cần Thơ', 1, 1, 'dnpcuong');
 /*!40000 ALTER TABLE `dondathang` ENABLE KEYS */;
 
 -- Dumping structure for table u883604362_php.gopy
@@ -81,16 +78,21 @@ CREATE TABLE IF NOT EXISTS `hinhsanpham` (
   PRIMARY KEY (`hsp_ma`),
   KEY `fk_hinhsanpham_sanpham1_idx` (`sp_ma`),
   CONSTRAINT `fk_hinhsanpham_sanpham1` FOREIGN KEY (`sp_ma`) REFERENCES `sanpham` (`sp_ma`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.hinhsanpham: ~5 rows (approximately)
+-- Dumping data for table u883604362_php.hinhsanpham: ~6 rows (approximately)
 /*!40000 ALTER TABLE `hinhsanpham` DISABLE KEYS */;
 INSERT INTO `hinhsanpham` (`hsp_ma`, `hsp_tentaptin`, `sp_ma`) VALUES
-	(25, '7_iphone.jpg', 7),
-	(26, '7_iphone.jpg', 7),
-	(27, '7_samsung-s5830.jpg', 7),
-	(28, '6_samsung_galaxy_3.jpg', 6),
-	(29, '6_vaio_small.jpg', 6);
+	(25, 'samsung-galaxy-tab.jpg', 7),
+	(26, 'samsung-galaxy-tab-2', 7),
+	(27, 'samsung-galaxy-tab-3.jpg', 7),
+	(29, 'nokia-asha-311.jpg', 6),
+	(30, 'samsung-s3.webp', 1),
+	(31, 'samsung-galaxy-tab-4.jpg', 7),
+	(32, 'ipad4.png', 2),
+	(36, 'iphone5-white.jpeg', 4),
+	(37, 'samsung-galaxy-tab-10.jpg', 5),
+	(38, 'iphone5.jpg', 3);
 /*!40000 ALTER TABLE `hinhsanpham` ENABLE KEYS */;
 
 -- Dumping structure for table u883604362_php.hinhthucthanhtoan
@@ -98,12 +100,14 @@ CREATE TABLE IF NOT EXISTS `hinhthucthanhtoan` (
   `httt_ma` int(11) NOT NULL AUTO_INCREMENT,
   `httt_ten` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`httt_ma`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table u883604362_php.hinhthucthanhtoan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `hinhthucthanhtoan` DISABLE KEYS */;
 INSERT INTO `hinhthucthanhtoan` (`httt_ma`, `httt_ten`) VALUES
-	(1, 'Tiá»n máº·t');
+	(1, 'Tiền mặt'),
+	(2, 'Chuyển khoản'),
+	(3, 'Ship COD');
 /*!40000 ALTER TABLE `hinhthucthanhtoan` ENABLE KEYS */;
 
 -- Dumping structure for table u883604362_php.khachhang
@@ -128,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `khachhang` (
 -- Dumping data for table u883604362_php.khachhang: ~5 rows (approximately)
 /*!40000 ALTER TABLE `khachhang` DISABLE KEYS */;
 INSERT INTO `khachhang` (`kh_tendangnhap`, `kh_matkhau`, `kh_ten`, `kh_gioitinh`, `kh_diachi`, `kh_dienthoai`, `kh_email`, `kh_ngaysinh`, `kh_thangsinh`, `kh_namsinh`, `kh_cmnd`, `kh_makichhoat`, `kh_trangthai`, `kh_quantri`) VALUES
-	('admin', '123', 'Quản trị', 1, 'Số 01 - Lý Tự Trọng - Cần Thơ', '0912.123.567', 'admin@salomon.vn', 2, 2, 1985, NULL, NULL, 1, 1),
 	('dinhduyvo', 'fcea920f7412b5da7be0cf42b8c93759', 'Vo Dinh Duy', 0, 'Can Tho', '07103.273.34433', 'vdduy@ctu.edu.vn', 2, 2, 1985, '', '', 1, 0),
+	('dnpcuong', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Dương Nguyễn Phú Cường', 0, '130 Xô Viết Nghệ Tỉnh', '0915659223', 'phucuong@ctu.edu.vn', 11, 6, 1989, '362209685', '4a5c874f8c4446145989ca515bd158669b0596c6', 1, 0),
 	('nta', '123', 'Nguyễn Thị A', 0, 'Số 20 - Phan Đình Phùng', '01234.234.234', 'nta@gmail.com', NULL, NULL, 1990, NULL, NULL, 1, 0),
 	('usermoi', 'fcea920f7412b5da7be0cf42b8c93759', 'Nguoi dung moi', 0, 'Can Tho', '07103-273.344', 'vdduy@ctu.edu.vn', 2, 2, 1985, '', '44766fb4dd4e4977e75a9321cbc6413e', 0, 0),
 	('vdduy', 'fcea920f7412b5da7be0cf42b8c93759', 'Vo Dinh Duy', 0, 'Can Tho', '0975107705', 'vdduy@ctu.edu.vn', 2, 2, 1985, '', 'â€zcnl82qbuj', 1, 0);
@@ -160,11 +164,10 @@ CREATE TABLE IF NOT EXISTS `loaisanpham` (
 -- Dumping data for table u883604362_php.loaisanpham: ~5 rows (approximately)
 /*!40000 ALTER TABLE `loaisanpham` DISABLE KEYS */;
 INSERT INTO `loaisanpham` (`lsp_ma`, `lsp_ten`, `lsp_mota`) VALUES
-	(1, 'MÃ¡y tÃ­nh báº£ng', '0'),
-	(2, 'MÃ¡y tÃ­nh xÃ¡ch tay', '0'),
+	(1, 'Máy tính bảng', '0'),
+	(2, 'Máy tính xách tay', '0'),
 	(3, 'Điện thoại', '0'),
-	(4, 'Linh phụ kiện', '0'),
-	(8, 'asada sdsad', '0');
+	(4, 'Linh phụ kiện', '0');
 /*!40000 ALTER TABLE `loaisanpham` ENABLE KEYS */;
 
 -- Dumping structure for table u883604362_php.nhasanxuat
@@ -205,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
   CONSTRAINT `sanpham_nhasanxuat` FOREIGN KEY (`nsx_ma`) REFERENCES `nhasanxuat` (`nsx_ma`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.sanpham: ~8 rows (approximately)
+-- Dumping data for table u883604362_php.sanpham: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sanpham` DISABLE KEYS */;
 INSERT INTO `sanpham` (`sp_ma`, `sp_ten`, `sp_gia`, `sp_giacu`, `sp_mota_ngan`, `sp_mota_chitiet`, `sp_ngaycapnhat`, `sp_soluong`, `lsp_ma`, `nsx_ma`, `km_ma`) VALUES
 	(1, 'Samsung Galaxy S3', 12000000.00, 12600000.00, 'Sản phẩm của Samsung năm 2013', 'Cấu hình: CPU Dual Core – Ram 1 GB', '2012-12-22 11:20:30', 17, 3, 2, NULL),
@@ -214,8 +217,7 @@ INSERT INTO `sanpham` (`sp_ma`, `sp_ten`, `sp_gia`, `sp_giacu`, `sp_mota_ngan`, 
 	(4, 'Apple iPhone 5 16GB White', 14990000.00, NULL, 'CPU: Dual-core 1 GHz - Màu trắng', 'Chi tiết iPhone 5', '2013-01-16 17:14:55', 10, 3, 1, NULL),
 	(5, 'Samsung Galaxy Tab 10.1 3G 16G', 10990000.00, 12000000.00, 'Màn hình 10.1 inch cảm ứng đa điểm', 'Vi xử lý Dual-core 1 Cortex-A9 tốc độ 1GHz', '2013-01-17 14:18:03', 6, 1, 2, NULL),
 	(6, 'Nokia Asha 311', 2699000.00, 3000000.00, 'Điện thoại di động Nokia Asha 311', 'Màn hình QVGA, 3.0 inches', '2013-01-17 14:19:10', 25, 3, 3, NULL),
-	(7, 'Samsung Galaxy Tab 2 7.0', 7500000.00, 7950000.00, 'MÃ¡y tÃ­nh báº£ng Samsung Galaxy Tab 2 7.0 ', 'Mï¿½n hï¿½nh 7 inch C?m ?ng ?i?n dung,?a ?i?m', '2013-01-28 10:42:08', 13, 1, 2, NULL),
-	(8, 'adasd', 2321321.00, NULL, 'Ã¡dsad', 'sadassad', '2013-01-28 10:37:52', 12, 1, 1, NULL);
+	(7, 'Samsung Galaxy Tab 2 7.0', 7500000.00, 7950000.00, 'Máy tính bảng Samsung Galaxy Tab 2 7.0 ', 'Màn hình 7 inch Cảm ứng điện dung', '2013-01-28 10:42:08', 13, 1, 2, NULL);
 /*!40000 ALTER TABLE `sanpham` ENABLE KEYS */;
 
 -- Dumping structure for table u883604362_php.sanpham_dondathang
@@ -231,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `sanpham_dondathang` (
   CONSTRAINT `sanpham_donhang_sanpham` FOREIGN KEY (`sp_ma`) REFERENCES `sanpham` (`sp_ma`) ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.sanpham_dondathang: ~3 rows (approximately)
+-- Dumping data for table u883604362_php.sanpham_dondathang: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sanpham_dondathang` DISABLE KEYS */;
 INSERT INTO `sanpham_dondathang` (`sp_ma`, `dh_ma`, `sp_dh_soluong`, `sp_dh_dongia`) VALUES
 	(1, 5, 3, 12000000.00),

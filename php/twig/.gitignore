@@ -1,2 +1,2 @@
 *.log
-!dbconnect.php
+dbconnect.php
