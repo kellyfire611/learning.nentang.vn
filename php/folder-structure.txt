@@ -1,0 +1,56 @@
+project-nentang
+|   index.php                           -> Trang chủ Dự án
+                                        URL: http://localhost/project-nentang/index.php
+|   
++---assets                              -> Thư mục chứa các file resources (CSS, JS, Images, Videos, ...)
+|   +---backend                         -> Thư mục chứa các file resources dành cho Backend (Admin)
+|   |   +---css
+|   |   |       style-print.css
+|   |   |       style.css
+|   |   |       
+|   |   \---js
+|   |           app.js
+|   |           
+|   +---frontend                        -> Thư mục chứa các file resources dành cho Frontend (Client / Customer / Viewer)
+|   |   +---css
+|   |   |       style.css
+|   |   |       
+|   |   +---img
+|   |   |       icon-1.png
+|   |   |       icon-2.png
+|   |   |       icon-3.png
+|   |   |       marketing-1.png
+|   |   |       marketing-2.png
+|   |   |       slider-1.jpg
+|   |   |       slider-2.jpg
+|   |   |       slider-3.jpg
+|   |   |       
+|   |   \---js
+|   |           app.js
+|   |           
+|   +---shared                          -> Thư mục chứa các file resources dùng chung cho cả Backend và Frontend
+|   |   \---img
+|   |           default-image_600.png
+|   |           logo-nentang.jpg
+|   |           
+|   +---uploads                         -> Thư mục chứa các file do người dùng (End user / Customer / ...) upload lên Server
+|   |       
+|   \---vendor                          -> Thư mục chứa các thư viện Frontend
+|       +---bootstrap
+|       +---jquery
++---backend                             -> Thư mục chứa các file PHP xử lý nghiệp vụ dành cho Backend
+                                        URL: http://localhost/project-nentang/backend/index.php
+|       index.php
+|       
+\---frontend                            -> Thư mục chứa các file PHP xử lý nghiệp vụ dành cho Frontend
+    |   index.php                       -> URL: http://localhost/project-nentang/frontend/index.php
+    |   
+    \---pages
+            dangky.php                  -> URL: http://localhost/project-nentang/frontend/pages/dangky.php
+            dangkythanhcong.php         -> URL: http://localhost/project-nentang/frontend/pages/dangkythanhcong.php
+            dangnhap.php                -> URL: http://localhost/project-nentang/frontend/pages/dangnhap.php
+            dangxuat.php                -> URL: http://localhost/project-nentang/frontend/pages/dangxuat.php
+            gioithieu.php               -> URL: http://localhost/project-nentang/frontend/pages/gioithieu.php
+            lienhe.php                  -> URL: http://localhost/project-nentang/frontend/pages/lienhe.php
+            timkiem.php                 -> URL: http://localhost/project-nentang/frontend/pages/timkiem.php
+            
