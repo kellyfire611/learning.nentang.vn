@@ -7,6 +7,48 @@ Bảng tin
 {% endblock %}
 {# End Nội dung trong block title #}
 
+{% block customstyles %}
+<style>
+    * {
+        box-sizing: border-box
+    }
+
+    /* Container needed to position the overlay. Adjust the width as needed */
+    .container-img {
+        position: relative;
+    }
+
+    /* Make the image to responsive */
+    .image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    /* The overlay effect - lays on top of the container and over the image */
+    .overlay-img {
+        position: absolute;
+        bottom: 0;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.5);
+        /* Black see-through */
+        color: #f1f1f1;
+        width: 100%;
+        transition: .5s ease;
+        opacity: 0;
+        color: white;
+        font-size: 20px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    /* When you mouse over the container, fade in the overlay title */
+    .container-img:hover .overlay-img {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
+
 {# Nội dung trong block headline #}
 {% block headline %}
 Bảng tin
@@ -141,15 +183,26 @@ Bảng tin
             <div class="col-md-{{ col_class_name }}">
                 <div class="card mb-4 shadow-sm">
                     {% if sanpham.hsp_tentaptin %}
-                    <a href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
-                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                            src="/php/twig/assets/uploads/{{ sanpham.hsp_tentaptin }}" />
-                    </a>
+                    <div class="container-img">
+                        <a href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                src="/php/twig/assets/uploads/{{ sanpham.hsp_tentaptin }}" />
+                        </a>
+                        <div class="overlay-img">
+                            <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                        </div>
+                    </div>
+
                     {% else %}
-                    <a href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
-                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                            src="/php/twig/assets/shared/img/default-image_600.png" />
-                    </a>
+                    <div class="container-img">
+                        <a href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                src="/php/twig/assets/shared/img/default-image_600.png" />
+                        </a>
+                        <div class="overlay-img">
+                            <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                        </div>
+                    </div>
                     {% endif %}
                     <div class="card-body">
                         <a href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
@@ -159,7 +212,8 @@ Bảng tin
                         <p class="card-text">{{ sanpham.sp_mota_ngan }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a class="btn btn-sm btn-outline-secondary" href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">Xem chi tiết</a>
+                                <a class="btn btn-sm btn-outline-secondary"
+                                    href="/php/twig/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">Xem chi tiết</a>
                             </div>
                             <small class="text-muted text-right">
                                 <s>{{ sanpham.sp_giacu }}</s>
@@ -171,7 +225,8 @@ Bảng tin
             </div>
             {% set counter = counter + 1 %}
             {% if (counter % group == 0 and counter < limit) %}
-            </div><div class="row">
+        </div>
+        <div class="row">
             {% endif %}
 
             {% endfor %}
@@ -183,4 +238,19 @@ Bảng tin
 {# End Nội dung trong block content #}
 
 {% block customscripts %}
+<script>
+    $(function () {
+        function imageLoaded(image) {
+            // function to invoke for loaded image
+            console.log(image);
+        }
+        $('div.danhsachsanpham img').each(function () {
+            if (this.complete) {
+                imageLoaded.call(this);
+            } else {
+                $(this).one('load', imageLoaded);
+            }
+        });
+    });
+</script>
 {% endblock %}
