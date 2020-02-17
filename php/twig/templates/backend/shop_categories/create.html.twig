@@ -1,0 +1,115 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Thêm mới Loại sản phẩm
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Thêm mới Loại sản phẩm
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+
+{% if errors %}
+<div id="thongbao" class="alert alert-danger face" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <ul>
+        {% for fields in errors %}
+            {% for field in fields %}
+            <li>{{ field.msg }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig/backend/loaisanpham/create">
+    <div class="form-group">
+        <label for="lsp_ma">Mã loại sản phẩm</label>
+        <input type="text" class="form-control" id="lsp_ma" name="lsp_ma" placeholder="Mã loại sản phẩm" readonly>
+        <small id="lsp_maHelp" class="form-text text-muted">Mã loại sản phẩm không được hiệu chỉnh.</small>
+    </div>
+    <div class="form-group">
+        <label for="lsp_ten">Tên loại sản phẩm</label>
+        <input type="text" class="form-control" id="lsp_ten" name="lsp_ten" placeholder="Tên loại sản phẩm" value="{{ lsp_ten_oldvalue }}">
+    </div>
+    <div class="form-group">
+        <label for="lsp_mota">Mô tả loại sản phẩm</label>
+        <input type="text" class="form-control" id="lsp_mota" name="lsp_mota" placeholder="Mô tả loại sản phẩm" value="{{ lsp_mota_oldvalue }}">
+    </div>
+    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+</form>
+{% endblock %}
+{# End Nội dung trong block content #}
+
+{% block customscripts %}
+<script>
+    $(document).ready(function () {
+        $("#frmLoaiSanPham").validate({
+            rules: {
+                lsp_ten: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50
+                },
+                lsp_mota: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                }
+            },
+            messages: {
+                lsp_ten: {
+                    required: "Vui lòng nhập tên Loại sản phẩm",
+                    minlength: "Tên Loại sản phẩm phải có ít nhất 3 ký tự",
+                    maxlength: "Tên Loại sản phẩm không được vượt quá 50 ký tự"
+                },
+                lsp_mota: {
+                    required: "Vui lòng nhập mô tả cho Loại sản phẩm",
+                    minlength: "Mô tả cho Loại sản phẩm phải có ít nhất 3 ký tự",
+                    maxlength: "Mô tả cho Loại sản phẩm không được vượt quá 255 ký tự"
+                },
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                // Thêm class `invalid-feedback` cho field đang có lỗi
+                error.addClass("invalid-feedback");
+
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.parent("label"));
+                } else {
+                    error.insertAfter(element);
+                }
+
+                // Thêm icon "Kiểm tra không Hợp lệ"
+                if (!element.next("span")[0]) {
+                    $("<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+                        .insertAfter(element);
+                }
+            },
+            success: function (label, element) {
+                // Thêm icon "Kiểm tra Hợp lệ"
+                if (!$(element).next("span")[0]) {
+                    $("<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+                        .insertAfter($(element));
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            }
+        });
+
+    });
+</script>
+{% endblock %}

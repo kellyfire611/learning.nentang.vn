@@ -1,0 +1,32 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Import Loại sản phẩm
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Import Loại sản phẩm
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<!-- Nút download mẫu Import dữ liệu -->
+<a href="/php/twig/assets/uploads/templates/MauDuLieu_LoaiSanPham.xlsx" class="btn btn-success">
+    <span data-feather="excel"></span> Mẫu Import dữ liệu XLSX
+</a>
+
+<form name="frmimport" id="frmimport" method="post" action="/php/twig/backend/loaisanpham/import" class="form" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="taptindulieu">Tập tin dữ liệu</label>
+        <input type="file" class="form-control" id="taptindulieu" name="taptindulieu">
+    </div>
+    <button class="btn btn-primary" name="btnImport">Import dữ liệu vào hệ thống</button>
+</form>
+
+{% endblock %}
+{# End Nội dung trong block content #}

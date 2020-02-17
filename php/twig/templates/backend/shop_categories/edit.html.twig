@@ -1,0 +1,35 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+Sửa Loại sản phẩm
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+Sửa Loại sản phẩm
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig/backend/loaisanpham/edit?lsp_ma={{ loaisanpham.lsp_ma }}">
+    <div class="form-group">
+        <label for="lsp_ma">Mã loại sản phẩm</label>
+        <input type="text" class="form-control" id="lsp_ma" name="lsp_ma" placeholder="Mã loại sản phẩm" readonly value="{{ loaisanpham.lsp_ma }}">
+        <small id="lsp_maHelp" class="form-text text-muted">Mã loại sản phẩm không được hiệu chỉnh.</small>
+    </div>
+    <div class="form-group">
+        <label for="lsp_ten">Tên loại sản phẩm</label>
+        <input type="text" class="form-control" id="lsp_ten" name="lsp_ten" placeholder="Tên loại sản phẩm" value="{{ loaisanpham.lsp_ten }}">
+    </div>
+    <div class="form-group">
+        <label for="lsp_mota">Mô tả loại sản phẩm</label>
+        <input type="text" class="form-control" id="lsp_mota" name="lsp_mota" placeholder="Mô tả loại sản phẩm" value="{{ loaisanpham.lsp_mota }}">
+    </div>
+    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+</form>
+{% endblock %}
+{# End Nội dung trong block content #}

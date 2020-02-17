@@ -8,7 +8,7 @@
 // 2. username: tên tài khoản được phép truy cập vào database server
 // 3. password: mật khẩu tài khoản được phép truy cập vào database server
 // 4. database_name: tên database bạn muốn truy cập đến
-$conn = mysqli_connect('localhost', 'root', 'root', 'salomon') or die('Xin lỗi, database không kết nối được.');
+$conn = mysqli_connect('localhost', 'root', 'root', 'netashop') or die('Xin lỗi, database không kết nối được.');
 
 // Tùy chỉnh kết nối
 // Set charset là utf-8 đối với kết nối này. Dùng để gõ tiếng Việt, Nhật, Thái, Trung Quốc ...
