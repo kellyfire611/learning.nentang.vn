@@ -240,6 +240,10 @@ Bảng tin
 {% block customscripts %}
 <script>
     $(function () {
+        // Nếu ảnh bị hư => thay thế bằng ảnh mặc định
+        $('img').on("error", function() {
+            $(this).attr('src', '/php/twig/assets/shared/img/default-image_600.png');
+        });
         function imageLoaded(image) {
             // function to invoke for loaded image
             console.log(image);
