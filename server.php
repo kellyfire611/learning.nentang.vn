@@ -15,7 +15,7 @@ $url_path = trim( $_SERVER[ 'REQUEST_URI' ], '/' );
 
 // If url_path is empty, it is root, so call index.html
 if ( ! $url_path ) {
-    include( 'index.html' );
+    include( 'index.php' );
     return;
 }
 
