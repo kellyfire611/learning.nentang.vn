@@ -6,5 +6,5 @@ require_once __DIR__ . '/../../bootstrap.php';
 // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
 include_once(__DIR__ . '/../../dbconnect.php');
 
-// Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/pages/gioithieu.html.twig`
-echo $twig->render('frontend/pages/gioithieu.html.twig');
+// 2. Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/pages/about.html.twig`
+echo $twig->render('frontend/pages/about.html.twig');
