@@ -183,7 +183,7 @@ require_once __DIR__.'/../../bootstrap.php';
 include_once(__DIR__.'/../../dbconnect.php');
 
 // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $tenLoai = $_POST['lsp_ten'];
@@ -248,7 +248,7 @@ Thêm mới Loại sản phẩm
         <label for="lsp_mota">Mô tả loại sản phẩm</label>
         <input type="text" class="form-control" id="lsp_mota" name="lsp_mota" placeholder="Mô tả loại sản phẩm">
     </div>
-    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnSave">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}
@@ -283,7 +283,7 @@ $resultSelect = mysqli_query($conn, $sqlSelect);
 $loaisanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 
 // 4. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $tenLoai = $_POST['lsp_ten'];
@@ -349,7 +349,7 @@ Sửa Loại sản phẩm
         <label for="lsp_mota">Mô tả loại sản phẩm</label>
         <input type="text" class="form-control" id="lsp_mota" name="lsp_mota" placeholder="Mô tả loại sản phẩm" value="{{ loaisanpham.lsp_mota }}">
     </div>
-    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnSave">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}

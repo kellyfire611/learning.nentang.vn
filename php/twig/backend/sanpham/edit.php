@@ -102,7 +102,7 @@ $sanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 /* --- End Truy vấn dữ liệu Sản phẩm theo khóa chính --- */
 
 // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $ten = $_POST['sp_ten'];

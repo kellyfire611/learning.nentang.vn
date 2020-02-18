@@ -35,7 +35,7 @@ while($rowSanPham = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC))
 /* --- End Truy vấn dữ liệu sản phẩm --- */
 
 // 3. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $sp_ma = $_POST['sp_ma'];

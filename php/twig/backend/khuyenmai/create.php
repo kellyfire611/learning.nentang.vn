@@ -7,7 +7,7 @@ require_once __DIR__.'/../../bootstrap.php';
 include_once(__DIR__.'/../../dbconnect.php');
 
 // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $ten = $_POST['km_ten'];

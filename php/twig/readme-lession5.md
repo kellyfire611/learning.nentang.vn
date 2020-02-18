@@ -289,7 +289,7 @@ while($rowKhuyenMai = mysqli_fetch_array($resultKhuyenMai, MYSQLI_ASSOC))
 /* --- End Truy vấn dữ liệu Khuyến mãi --- */
 
 // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $ten = $_POST['sp_ten'];
@@ -411,7 +411,7 @@ Thêm mới Sản phẩm
             {% endfor %}
         </select>
     </div>
-    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnSave">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}
@@ -532,7 +532,7 @@ $sanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 /* --- End Truy vấn dữ liệu Sản phẩm theo khóa chính --- */
 
 // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $ten = $_POST['sp_ten'];
@@ -667,7 +667,7 @@ Sửa Sản phẩm
             {% endfor %}
         </select>
     </div>
-    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnSave">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}

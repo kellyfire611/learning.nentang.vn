@@ -1,4 +1,4 @@
-# Xóa bỏ php file extension-e.g. https://example.com/file.php -> https://example.com/file
+# Xóa bỏ php file extension-e.g. https://nentang.vn/gioi-thieu.php -> https://nentang.vn/gioi-thieu
 RewriteEngine on 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f

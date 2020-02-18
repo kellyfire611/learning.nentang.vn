@@ -70,7 +70,7 @@ while($rowSanPham = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC))
 /* --- End Truy vấn dữ liệu sản phẩm --- */
 
 // 3. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $sp_ma = $_POST['sp_ma'];
@@ -163,7 +163,7 @@ Thêm mới Hình Sản phẩm
         <label for="hsp_tentaptin">Tập tin ảnh</label>
         <input type="file" class="form-control" id="hsp_tentaptin" name="hsp_tentaptin">
     </div>
-    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnSave">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}
@@ -347,7 +347,7 @@ $hinhsanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 /* --- End Truy vấn dữ liệu Sản phẩm theo khóa chính --- */
 
 // 4. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
-if(isset($_POST['btnCapNhat'])) 
+if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $sp_ma = $_POST['sp_ma'];
@@ -455,7 +455,7 @@ Sửa Hình Sản phẩm
         <label for="hsp_tentaptin">Tập tin ảnh</label>
         <input type="file" class="form-control" id="hsp_tentaptin" name="hsp_tentaptin">
     </div>
-    <button class="btn btn-primary" name="btnCapNhat">Cập nhật</button>
+    <button class="btn btn-primary" name="btnSave">Cập nhật</button>
 </form>
 {% endblock %}
 {# End Nội dung trong block content #}
