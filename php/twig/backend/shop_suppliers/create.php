@@ -103,12 +103,16 @@ if (!empty($errors)) {
 
 // 6. Nếu không có lỗi dữ liệu sẽ thực thi câu lệnh SQL
 // Câu lệnh INSERT
-$sql = "INSERT INTO shop_suppliers (supplier_code, supplier_name, description, image, created_at, updated_at) VALUES ('$supplier_code', '$supplier_name', '$description', '$image', '$created_at', '$updated_at')";
+$sqlInsert = <<<EOT
+    INSERT INTO shop_suppliers (supplier_code, supplier_name, description, image, created_at, updated_at) 
+    VALUES ('$supplier_code', '$supplier_name', '$description', '$image', '$created_at', '$updated_at')";
+EOT;
+
 // Code dùng cho DEBUG
 //var_dump($sql); die;
 
 // Thực thi INSERT
-mysqli_query($conn, $sql);
+mysqli_query($conn, $sqlInsert);
 
 // Đóng kết nối
 mysqli_close($conn);

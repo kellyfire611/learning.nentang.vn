@@ -7,18 +7,19 @@ require_once __DIR__ . '/../../bootstrap.php';
 include_once(__DIR__ . '/../../dbconnect.php');
 
 // 2. Chuẩn bị câu truy vấn $sql
-$stt = 1;
 $sql = "select * from `shop_suppliers`";
 
 // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
 $result = mysqli_query($conn, $sql);
 
-// 4. Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tích để sử dụng
+// 4. Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tách để sử dụng
 // Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
 // Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
 $data = [];
+$rowNum = 1;
 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     $data[] = array(
+        'rowNum' => $rowNum, // sử dụng biến tự tăng để làm dữ liệu cột STT
         'supplier_code' => $row['supplier_code'],
         'supplier_name' => $row['supplier_name'],
         'description' => $row['description'],
@@ -26,6 +27,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         'created_at' => $row['created_at'],
         'updated_at' => $row['updated_at'],
     );
+    $rowNum++;
 }
 
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/shop_suppliers/index.html.twig`

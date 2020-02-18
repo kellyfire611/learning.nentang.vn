@@ -38,14 +38,89 @@ if (!isset($_POST['btnSave'])) {
 
 // 4. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
 // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-$tenLoai = $_POST['lsp_ten'];
-$mota = $_POST['lsp_mota'];
+$supplier_code = $_POST['supplier_code'];
+$supplier_name = $_POST['supplier_name'];
+$description = $_POST['description'];
+$image = $_POST['image'];
+$created_at = date('Y-m-d H:i:s'); // Lấy ngày giờ hiện tại theo định dạng `Năm-Tháng-Ngày Giờ-Phút-Giây`. Vd: 2020-02-18 09:12:12
+$updated_at = NULL;
+
+// 5. Kiểm tra ràng buộc dữ liệu (Validation)
+// Tạo biến lỗi để chứa thông báo lỗi
+$errors = [];
+
+// --- Kiểm tra Mã nhà cung cấp (validate)
+// required (bắt buộc nhập <=> không được rỗng)
+if (empty($supplier_code)) {
+    $errors['supplier_code'][] = [
+        'rule' => 'required',
+        'rule_value' => true,
+        'value' => $supplier_code,
+        'msg' => 'Vui lòng nhập mã Nhà cung cấp'
+    ];
+}
+// minlength 3 (tối thiểu 3 ký tự)
+if (!empty($supplier_code) && strlen($supplier_code) < 3) {
+    $errors['supplier_code'][] = [
+        'rule' => 'minlength',
+        'rule_value' => 3,
+        'value' => $supplier_code,
+        'msg' => 'Mã Nhà cung cấp phải có ít nhất 3 ký tự'
+    ];
+}
+// maxlength 50 (tối đa 50 ký tự)
+if (!empty($supplier_code) && strlen($supplier_code) > 50) {
+    $errors['supplier_code'][] = [
+        'rule' => 'maxlength',
+        'rule_value' => 50,
+        'value' => $supplier_code,
+        'msg' => 'Mã Nhà cung cấp không được vượt quá 50 ký tự'
+    ];
+}
+
+// --- Kiểm tra Tên nhà cung cấp (validate)
+// required (bắt buộc nhập <=> không được rỗng)
+if (empty($description)) {
+    $errors['description'][] = [
+        'rule' => 'required',
+        'rule_value' => true,
+        'value' => $description,
+        'msg' => 'Vui lòng nhập mô tả Loại sản phẩm'
+    ];
+}
+// minlength 3 (tối thiểu 3 ký tự)
+if (!empty($description) && strlen($description) < 3) {
+    $errors['description'][] = [
+        'rule' => 'minlength',
+        'rule_value' => 3,
+        'value' => $description,
+        'msg' => 'Mô tả loại sản phẩm phải có ít nhất 3 ký tự'
+    ];
+}
+// maxlength 255 (tối đa 255 ký tự)
+if (!empty($description) && strlen($description) > 255) {
+    $errors['description'][] = [
+        'rule' => 'maxlength',
+        'rule_value' => 255,
+        'value' => $description,
+        'msg' => 'Mô tả loại sản phẩm không được vượt quá 255 ký tự'
+    ];
+}
 
 // Câu lệnh UPDATE
-$sql = "UPDATE `loaisanpham` SET lsp_ten='$tenLoai', lsp_mota='$mota' WHERE lsp_ma=$lsp_ma;";
+$sqlUpdate = <<<EOT
+    UPDATE shop_suppliers
+	SET
+		supplier_code='$supplier_code',
+		supplier_name='$supplier_name',
+		description='$description',
+		image='$image',
+		updated_at='$updated_at'
+	WHERE id=$id
+EOT;
 
 // Thực thi UPDATE
-mysqli_query($conn, $sql);
+mysqli_query($conn, $sqlUpdate);
 
 // Đóng kết nối
 mysqli_close($conn);
