@@ -1,13 +1,41 @@
 <?php
 class Paginator
 {
+    /**
+     * Biến kết nối đến database
+     */
     private $conn;
+
+    /**
+     * Số mẫu tin TỐI ĐA cần hiển thị trong 1 trang
+     * Mặc định hiển thị 10 mẫu tin trong 1 trang
+     */
     private $limit;
+
+    /**
+     * Số trang muốn hiển thị dữ liệu
+     */
     private $page;
+
+    /**
+     * Câu lệnh truy vấn database
+     * SELECT ... FROM ...
+     */
     private $query;
+
+    /**
+     * Tổng số mẫu tin lấy được sau khi thực thi câu lệnh SQL
+     */
     private $total;
+
+    /**
+     * Biến quản lý TWIG template engine
+     */
     private $twig;
 
+    /**
+     * Hàm khởi tạo
+     */
     public function __construct($twig, $conn, $query)
     {
         $this->twig = $twig;
@@ -18,6 +46,9 @@ class Paginator
         $this->total = $rs->num_rows;
     }
 
+    /**
+     * Lấy dữ liệu
+     */
     public function getData($limit = 10, $page = 1)
     {
         $this->limit   = $limit;
@@ -44,6 +75,9 @@ class Paginator
         return $result;
     }
 
+    /**
+     * Tạo HTML phân trang
+     */
     public function createLinks()
     {
         if ($this->limit == 'all') {

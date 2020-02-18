@@ -8,6 +8,10 @@ Bảng tin
 {# End Nội dung trong block title #}
 
 {% block customstyles %}
+<!-- Add CSS thư viện SLICK -->
+<link rel="stylesheet" type="text/css" href="/assets/vendor/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/vendor/slick/slick-theme.css"/>
+
 <style>
     * {
         box-sizing: border-box
@@ -162,6 +166,140 @@ Bảng tin
 
 </div>
 
+<!-- Top 5 sản phẩm Nổi bật -->
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Sản phẩm NỔI BẬT</h1>
+        <p class="lead text-muted">Các sản phẩm với chất lượng, uy tín, cam kết từ nhà Sản xuất, phân phối và bảo hành
+            chính hãng.</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="slider slider-nav slider-featured-products">
+                {% for product in featuredProducts %}
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon green">NỔI BẬT</div>
+                        </div>
+
+                        {% if product.image %}
+                        <div class="container-img">
+                            <a href="/frontend/product/detail.php?id={{ product.id }}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                    src="/assets/uploads/{{ product.image }}" />
+                            </a>
+                            <div class="overlay-img">
+                                <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <div class="container-img">
+                            <a href="/frontend/product/detail.php?id={{ product.id }}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                    src="/assets/shared/img/default-image_600.png" />
+                            </a>
+                            <div class="overlay-img">
+                                <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <a href="/frontend/product/detail.php?id={{ product.id }}">
+                            <h5>{{ product.product_name }}</h5>
+                        </a>
+                        <h6>{{ product.category_name }}</h6>
+                        <p class="card-text">{{ product.short_description }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                    href="/frontend/product/detail.php?id={{ product.id }}">Xem chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>{{ product.sp_giacu }}</s>
+                                <b>{{ product.sp_gia }}</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top 5 sản phẩm Mới nhất -->
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Sản phẩm MỚI NHẤT</h1>
+        <p class="lead text-muted">Các sản phẩm với chất lượng, uy tín, cam kết từ nhà Sản xuất, phân phối và bảo hành
+            chính hãng.</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="slider slider-nav slider-new-products">
+                {% for product in newProducts %}
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon red">MỚI</div>
+                        </div>
+
+                        {% if product.image %}
+                        <div class="container-img">
+                            <a href="/frontend/product/detail.php?id={{ product.id }}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                    src="/assets/uploads/{{ product.image }}" />
+                            </a>
+                            <div class="overlay-img">
+                                <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <div class="container-img">
+                            <a href="/frontend/product/detail.php?id={{ product.id }}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                    src="/assets/shared/img/default-image_600.png" />
+                            </a>
+                            <div class="overlay-img">
+                                <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <a href="/frontend/product/detail.php?id={{ product.id }}">
+                            <h5>{{ product.product_name }}</h5>
+                        </a>
+                        <h6>{{ product.category_name }}</h6>
+                        <p class="card-text">{{ product.short_description }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                    href="/frontend/product/detail.php?id={{ product.id }}">Xem chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>{{ product.sp_giacu }}</s>
+                                <b>{{ product.sp_gia }}</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Danh sách sản phẩm -->
 <section class="jumbotron text-center">
     <div class="container">
@@ -174,50 +312,56 @@ Bảng tin
 <!-- Giải thuật duyệt và render Danh sách sản phẩm theo dòng, cột của Bootstrap -->
 {% set counter = 0 %}
 {% set group = 3 %}
-{% set limit = danhsachsanpham|length %}
+{% set limit = products|length %}
 {% set col_class_name = (12 / group) %}
-<div class="danhsachsanpham py-5 bg-light">
+<div class="products py-5 bg-light">
     <div class="container">
         <div class="row">
-            {% for sanpham in danhsachsanpham %}
+            {% for product in products.data %}
             <div class="col-md-{{ col_class_name }}">
                 <div class="card mb-4 shadow-sm">
-                    {% if sanpham.hsp_tentaptin %}
-                    <div class="container-img">
-                        <a href="/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
-                            <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                src="/assets/uploads/{{ sanpham.hsp_tentaptin }}" />
-                        </a>
-                        <div class="overlay-img">
-                            <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                    <div class="card-header">
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon red">MỚI</div>
                         </div>
-                    </div>
-
-                    {% else %}
-                    <div class="container-img">
-                        <a href="/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
-                            <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                src="/assets/shared/img/default-image_600.png" />
-                        </a>
-                        <div class="overlay-img">
-                            <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+    
+                        {% if product.image %}
+                        <div class="container-img">
+                            <a href="/frontend/product/detail.php?id={{ product.id }}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                    src="/assets/uploads/{{ product.image }}" />
+                            </a>
+                            <div class="overlay-img">
+                                <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                            </div>
                         </div>
+    
+                        {% else %}
+                        <div class="container-img">
+                            <a href="/frontend/product/detail.php?id={{ product.id }}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                                    src="/assets/shared/img/default-image_600.png" />
+                            </a>
+                            <div class="overlay-img">
+                                <a href="https://nentang.vn">Nền tảng - Hành trang tới tương lai</a>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
                     <div class="card-body">
-                        <a href="/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
-                            <h5>{{ sanpham.sp_ten }}</h5>
+                        <a href="/frontend/product/detail.php?id={{ product.id }}">
+                            <h5>{{ product.product_name }}</h5>
                         </a>
-                        <h6>{{ sanpham.lsp_ten }}</h6>
-                        <p class="card-text">{{ sanpham.sp_mota_ngan }}</p>
+                        <h6>{{ product.category_name }}</h6>
+                        <p class="card-text">{{ product.short_description }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a class="btn btn-sm btn-outline-secondary"
-                                    href="/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">Xem chi tiết</a>
+                                    href="/frontend/product/detail.php?id={{ product.id }}">Xem chi tiết</a>
                             </div>
                             <small class="text-muted text-right">
-                                <s>{{ sanpham.sp_giacu }}</s>
-                                <b>{{ sanpham.sp_gia }}</b>
+                                <s>{{ product.sp_giacu }}</s>
+                                <b>{{ product.sp_gia }}</b>
                             </small>
                         </div>
                     </div>
@@ -231,6 +375,7 @@ Bảng tin
 
             {% endfor %}
         </div>
+        {{ paginator.createLinks()|raw }}
     </div>
 </div>
 
@@ -238,6 +383,9 @@ Bảng tin
 {# End Nội dung trong block content #}
 
 {% block customscripts %}
+<!-- Add JS thư viện SLICK -->
+<script src="/assets/vendor/slick/slick.min.js"></script>
+
 <script>
     $(function () {
         // Nếu ảnh bị hư => thay thế bằng ảnh mặc định
@@ -248,12 +396,27 @@ Bảng tin
             // function to invoke for loaded image
             console.log(image);
         }
-        $('div.danhsachsanpham img').each(function () {
+        $('div.danhsachproduct img').each(function () {
             if (this.complete) {
                 imageLoaded.call(this);
             } else {
                 $(this).one('load', imageLoaded);
             }
+        });
+
+        // Hiển thị SLIDER Sản phẩm Nổi bật
+        $('.slider.slider-nav.slider-featured-products').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            dots: true,
+            autoplay: true
+        });
+        // Hiển thị SLIDER Sản phẩm Mới nhất
+        $('.slider.slider-nav.slider-new-products').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            dots: true,
+            autoplay: true
         });
     });
 </script>
