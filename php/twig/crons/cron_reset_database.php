@@ -25,11 +25,11 @@ function ExecSqlFile($conn, $filename) {
 }
 
 // drop all table
-$dropAllTableScriptFilePath = $_SERVER['DOCUMENT_ROOT'] . parse_url('/php/twig/db/drop_all_table.sql', PHP_URL_PATH);
+$dropAllTableScriptFilePath = $_SERVER['DOCUMENT_ROOT'] . parse_url('/db/drop_all_table.sql', PHP_URL_PATH);
 ExecSqlFile($conn, $dropAllTableScriptFilePath);
 
 // restore
-$restoreScriptFilePath = $_SERVER['DOCUMENT_ROOT'] . parse_url('/php/twig/db/ecommerce_db.sql', PHP_URL_PATH);
+$restoreScriptFilePath = $_SERVER['DOCUMENT_ROOT'] . parse_url('/db/ecommerce_db.sql', PHP_URL_PATH);
 ExecSqlFile($conn, $restoreScriptFilePath);
 
 ?>

@@ -15,7 +15,7 @@ Sửa Loại sản phẩm
 
 {# Nội dung trong block content #}
 {% block content %}
-<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/php/twig/backend/loaisanpham/edit?lsp_ma={{ loaisanpham.lsp_ma }}">
+<form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="/backend/loaisanpham/edit?lsp_ma={{ loaisanpham.lsp_ma }}">
     <div class="form-group">
         <label for="lsp_ma">Mã loại sản phẩm</label>
         <input type="text" class="form-control" id="lsp_ma" name="lsp_ma" placeholder="Mã loại sản phẩm" readonly value="{{ loaisanpham.lsp_ma }}">

@@ -1,93 +1,147 @@
+
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="/php/twig/backend/pages/dashboard">
+                <a class="nav-link {{ app.request.get('_route') == '_list' ? 'active' }}" href="/backend/pages/dashboard">
                     <span data-feather="home"></span>
                     Bảng tin <span class="sr-only">(current)</span>
                 </a>
             </li>
-          
-            <!-- Menu Loại sản phẩm -->
-            <li class="nav-item">
-                <a href="#loaisanphamSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
-                    <span data-feather="package"></span> Loại sản phẩm
-                </a>
-                <ul class="collapse" id="loaisanphamSubMenu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/loaisanpham/">
-                            <span data-feather="list"></span>
-                            Danh sách
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/loaisanpham/create">
-                            <span data-feather="plus"></span>
-                            Thêm mới
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <!-- End Menu Loại sản phẩm -->
 
-            <!-- Menu Nhà sản xuất -->
+            <!-- #################### Menu chức năng Xác thực và Phân quyền #################### -->
+            <li class="nav-item sidebar-heading">
+                <a href="#" class="nav-link">Tài khoản & Phân quyền</a>
+            </li>
+            <!-- Menu Vai trò (acl_roles) -->
             <li class="nav-item">
-                <a href="#nhasanxuatSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
-                    <span data-feather="package"></span> Nhà sản xuất
+                <a href="#acl_rolesSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Vai trò
                 </a>
-                <ul class="collapse" id="nhasanxuatSubMenu">
+                <ul class="collapse" id="acl_rolesSubMenu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/nhasanxuat/">
+                        <a class="nav-link" href="/backend/auth/acl_roles/">
                             <span data-feather="list"></span>
                             Danh sách
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/nhasanxuat/create">
+                        <a class="nav-link" href="/backend/auth/acl_roles/create.php">
                             <span data-feather="plus"></span>
                             Thêm mới
                         </a>
                     </li>
                 </ul>
             </li>
-            <!-- End Menu Nhà sản xuất -->
-           
-            <!-- Menu Khuyến mãi -->
+            <!-- End Menu Vai trò (acl_roles) -->
+
+            <!-- Menu Quyền (acl_permissions) -->
             <li class="nav-item">
-                <a href="#khuyenmaiSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
-                    <span data-feather="package"></span> Khuyến mãi
+                <a href="#acl_permissionsSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Quyền sử dụng
                 </a>
-                <ul class="collapse" id="khuyenmaiSubMenu">
+                <ul class="collapse" id="acl_permissionsSubMenu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/khuyenmai/">
+                        <a class="nav-link" href="/backend/auth/acl_permissions/">
                             <span data-feather="list"></span>
                             Danh sách
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/khuyenmai/create">
+                        <a class="nav-link" href="/backend/auth/acl_permissions/create.php">
                             <span data-feather="plus"></span>
                             Thêm mới
                         </a>
                     </li>
                 </ul>
             </li>
-            <!-- End Menu Khuyến mãi -->
+            <!-- End Menu Quyền (acl_permissions) -->
+
+            <!-- Menu Tài khoản Backend (acl_users) -->
+            <li class="nav-item">
+                <a href="#acl_usersSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Tài khoản người dùng
+                </a>
+                <ul class="collapse" id="acl_usersSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/auth/acl_users/">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/auth/acl_users/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Tài khoản Backend (acl_users) -->
+            <!-- #################### End Menu chức năng Xác thực và Phân quyền #################### -->
             
+            <!-- #################### Menu chức năng Danh mục #################### -->
+            <li class="nav-item sidebar-heading">
+                <a href="#" class="nav-link">Danh mục</a>
+            </li>
+            <!-- Menu Chuyên mục sản phẩm -->
+            <li class="nav-item">
+                <a href="#shop_categoriesSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Chuyên mục sản phẩm
+                </a>
+                <ul class="collapse" id="shop_categoriesSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_categories/">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_categories/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Chuyên mục sản phẩm -->
+
+            <!-- Menu Nhà cung cấp -->
+            <li class="nav-item">
+                <a href="#shop_suppliersSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Nhà cung cấp
+                </a>
+                <ul class="collapse" id="shop_suppliersSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_suppliers/">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_suppliers/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Nhà cung cấp -->
+
             <!-- Menu Sản phẩm -->
             <li class="nav-item">
-                <a href="#sanphamSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                <a href="#shop_productsSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
                     <span data-feather="package"></span> Sản phẩm
                 </a>
-                <ul class="collapse" id="sanphamSubMenu">
+                <ul class="collapse" id="shop_productsSubMenu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/sanpham/">
+                        <a class="nav-link" href="/backend/shop_products/">
                             <span data-feather="list"></span>
                             Danh sách
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/sanpham/create">
+                        <a class="nav-link" href="/backend/shop_products/create.php">
                             <span data-feather="plus"></span>
                             Thêm mới
                         </a>
@@ -98,18 +152,18 @@
 
             <!-- Menu Hình Sản phẩm -->
             <li class="nav-item">
-                <a href="#hinhsanphamSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                <a href="#shop_product_imagesSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
                     <span data-feather="package"></span> Hình sản phẩm
                 </a>
-                <ul class="collapse" id="hinhsanphamSubMenu">
+                <ul class="collapse" id="shop_product_imagesSubMenu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/hinhsanpham/">
+                        <a class="nav-link" href="/backend/shop_product_images/">
                             <span data-feather="list"></span>
                             Danh sách
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/hinhsanpham/create">
+                        <a class="nav-link" href="/backend/shop_product_images/create.php">
                             <span data-feather="plus"></span>
                             Thêm mới
                         </a>
@@ -117,15 +171,111 @@
                 </ul>
             </li>
             <!-- End Menu Hình Sản phẩm -->
+            
+            <!-- Menu Đánh giá Sản phẩm -->
+            <li class="nav-item">
+                <a href="#shop_product_reviewsSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Đánh giá sản phẩm
+                </a>
+                <ul class="collapse" id="shop_product_reviewsSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_product_reviews/">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_product_reviews/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Đánh giá Sản phẩm -->
+            <!-- #################### End Menu chức năng Danh mục #################### -->
+           
+            <!-- #################### Menu chức năng Khuyến mãi #################### -->
+            <li class="nav-item sidebar-heading">
+                <a href="#" class="nav-link">Khuyến mãi / Giảm giá</a>
+            </li>
+            <!-- Menu Voucher Khuyến mãi -->
+            <li class="nav-item">
+                <a href="#shop_vouchersSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Voucher / Coupon
+                </a>
+                <ul class="collapse" id="shop_vouchersSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_vouchers/">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_vouchers/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Voucher Khuyến mãi -->
+            <!-- Menu Sản phẩm được áp dụng Voucher / Coupon -->
+            <li class="nav-item">
+                <a href="#shop_product_vouchersSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Sản phẩm áp dụng Voucher / Coupon
+                </a>
+                <ul class="collapse" id="shop_product_vouchersSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_product_vouchers/">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_product_vouchers/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Sản phẩm được áp dụng Voucher / Coupon -->
+            <!-- Menu Khách hàng được áp dụng Voucher / Coupon -->
+            <li class="nav-item">
+                <a href="#shop_customer_vouchersSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span data-feather="package"></span> Khách hàng áp dụng Voucher / Coupon
+                </a>
+                <ul class="collapse" id="shop_customer_vouchersSubMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_customer_vouchers/">
+                            <span data-feather="list"></span>
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backend/shop_customer_vouchers/create.php">
+                            <span data-feather="plus"></span>
+                            Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Menu Khách hàng được áp dụng Voucher / Coupon -->
+            <!-- #################### End Menu chức năng Khuyến mãi #################### -->
 
+            <!-- #################### Menu chức năng Quản lý Đơn hàng #################### -->
+            <li class="nav-item sidebar-heading">
+                <a href="#" class="nav-link">Quản lý Đơn hàng</a>
+            </li>
             <!-- Menu Đơn đặt hàng -->
             <li class="nav-item">
-                <a href="#dondathangSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
+                <a href="#shop_ordersSubMenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
                     <span data-feather="package"></span> Đơn đặt hàng
                 </a>
-                <ul class="collapse" id="dondathangSubMenu">
+                <ul class="collapse" id="shop_ordersSubMenu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/php/twig/backend/dondathang/">
+                        <a class="nav-link" href="/backend/shop_orders/">
                             <span data-feather="list"></span>
                             Danh sách
                         </a>
@@ -133,6 +283,30 @@
                 </ul>
             </li>
             <!-- End Menu Đơn đặt hàng -->
+            <!-- #################### End Menu chức năng Quản lý Đơn hàng #################### -->
+
+            <!-- #################### Menu chức năng Báo cáo #################### -->
+            <li class="nav-item sidebar-heading">
+                <a href="#" class="nav-link">Báo cáo / Thống kê</a>
+            </li>
+            <!-- Menu Báo cáo Doanh thu -->
+            <li class="nav-item">
+                <a class="nav-link" href="/backend/reports/baocaodoanhthu.php">
+                    <span data-feather="list"></span>
+                    Báo cáo Doanh thu
+                </a>
+            </li>
+            <!-- End Menu Báo cáo Doanh thu -->
+            
+            <!-- Menu Thống kê lượng Khách hàng -->
+            <li class="nav-item">
+                <a class="nav-link" href="/backend/reports/baocaodoanhthu.php">
+                    <span data-feather="list"></span>
+                    Thống kê lượng Khách hàng
+                </a>
+            </li>
+            <!-- End Thống kê lượng Khách hàng -->
+            <!-- #################### End Menu chức năng Quản lý Đơn hàng #################### -->
         </ul>
     </div>
 </nav>

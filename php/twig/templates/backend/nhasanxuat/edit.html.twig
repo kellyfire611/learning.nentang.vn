@@ -15,7 +15,7 @@ Sửa Nhà sản xuất
 
 {# Nội dung trong block content #}
 {% block content %}
-<form name="frmnhasanxuat" id="frmnhasanxuat" method="post" action="/php/twig/backend/nhasanxuat/edit?nsx_ma={{ nhasanxuat.nsx_ma }}">
+<form name="frmnhasanxuat" id="frmnhasanxuat" method="post" action="/backend/nhasanxuat/edit?nsx_ma={{ nhasanxuat.nsx_ma }}">
     <div class="form-group">
         <label for="nsx_ma">Mã Nhà sản xuất</label>
         <input type="text" class="form-control" id="nsx_ma" name="nsx_ma" placeholder="Mã Nhà sản xuất" readonly value="{{ nhasanxuat.nsx_ma }}">

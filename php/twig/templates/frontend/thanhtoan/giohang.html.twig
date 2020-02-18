@@ -53,9 +53,9 @@ Giỏ hàng
                         <td>{{ loop.index }}</td>
                         <td>
                             {% if sanpham.hinhdaidien %}
-                            <img src="/php/twig/assets/uploads/{{ sanpham.hinhdaidien }}" class="hinhdaidien" />
+                            <img src="/assets/uploads/{{ sanpham.hinhdaidien }}" class="hinhdaidien" />
                             {% else %}
-                            <img src="/php/twig/assets/shared/img/default-image_600.png" class="hinhdaidien" />
+                            <img src="/assets/shared/img/default-image_600.png" class="hinhdaidien" />
                             {% endif %}
                         </td>
                         <td>{{ sanpham.sp_ten }}</td>
@@ -76,9 +76,9 @@ Giỏ hàng
             <h2>Giỏ hàng rỗng!!!</h2>
             {% endif %}
 
-            <a href="/php/twig/" class="btn btn-warning btn-md"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Quay
+            <a href="/" class="btn btn-warning btn-md"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Quay
                 về trang chủ</a>
-            <a href="/php/twig/frontend/thanhtoan/thanhtoan" class="btn btn-primary btn-md"><i class="fa fa-shopping-cart"
+            <a href="/frontend/thanhtoan/thanhtoan" class="btn btn-primary btn-md"><i class="fa fa-shopping-cart"
                     aria-hidden="true"></i>&nbsp;Thanh toán</a>
         </div>
     </div>
@@ -95,7 +95,7 @@ Giỏ hàng
             };
 
             $.ajax({
-                url: '/php/twig/frontend/ajax/giohang-xoasanpham-ajax',
+                url: '/frontend/ajax/giohang-xoasanpham-ajax',
                 method: "POST",
                 dataType: 'json',
                 data: dulieugoi,

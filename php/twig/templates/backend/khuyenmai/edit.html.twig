@@ -15,7 +15,7 @@ Sửa Khuyến mãi
 
 {# Nội dung trong block content #}
 {% block content %}
-<form name="frmkhuyenmai" id="frmkhuyenmai" method="post" action="/php/twig/backend/khuyenmai/edit?km_ma={{ khuyenmai.km_ma }}">
+<form name="frmkhuyenmai" id="frmkhuyenmai" method="post" action="/backend/khuyenmai/edit?km_ma={{ khuyenmai.km_ma }}">
     <div class="form-group">
         <label for="km_ma">Mã Khuyến mãi</label>
         <input type="text" class="form-control" id="km_ma" name="km_ma" placeholder="Mã Khuyến mãi" readonly value="{{ khuyenmai.km_ma }}">

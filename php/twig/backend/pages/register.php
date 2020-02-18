@@ -95,7 +95,7 @@ if(isset($_POST['btnDangKy']))
             <tr>
                 <td>
                     Xin chào $kh_ten, cám ơn bạn đã đăng ký Hệ thống của chúng tôi. Vui lòng click vào liên kết sau để kích hoạt tài khoản!
-                    <a href="$siteUrl/php/twig/backend/pages/kichhoattaikhoan.php?kh_tendangnhap=$kh_tendangnhap&kh_makichhoat=$kh_makichhoat">Kích hoạt tài khoản</a>
+                    <a href="$siteUrl/backend/pages/kichhoattaikhoan.php?kh_tendangnhap=$kh_tendangnhap&kh_makichhoat=$kh_makichhoat">Kích hoạt tài khoản</a>
                 </td>
             </tr>
             <tr>
