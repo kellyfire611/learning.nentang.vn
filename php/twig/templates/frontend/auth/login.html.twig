@@ -15,16 +15,24 @@
 
 {# Nội dung trong block content #}
 {% block content %}
+
 <form name="frmLogin" id="frmLogin" method="post" action="/frontend/auth/login.php">
     <div class="container mt-4">
-        {% if message %}
-        <div id="thongbao" class="alert alert-danger face" role="alert">
+        {% if errors %}
+        <div id="errors-container" class="alert alert-danger face" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            {{ message }}
+            <ul>
+                {% for fields in errors %}
+                    {% for field in fields %}
+                    <li>{{ field.msg | raw }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
         </div>
         {% endif %}
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card-group">

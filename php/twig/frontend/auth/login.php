@@ -6,9 +6,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
 include_once(__DIR__ . '/../../dbconnect.php');
 
-// Biến dùng lưu thông báo message
-$message = '';
-
 // 2. Người dùng mới truy cập trang lần đầu tiên (người dùng chưa gởi dữ liệu `btnDangNhap` - chưa nhấn `nút Đăng nhập`) về Server
 // có nghĩa là biến $_POST['btnDangNhap'] chưa được khởi tạo hoặc chưa có giá trị
 // => hiển thị Form nhập liệu
@@ -20,10 +17,13 @@ if (!isset($_POST['btnLogin'])) {
         // echo session_save_path();
         header('location:home.php');
     } else {
+        // Biến dùng lưu thông báo lỗi
+        $errors = [];
+
         // Nếu chưa đăng nhập trước đó
         // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/auth/login.html.twig`
-        // với dữ liệu truyền vào file giao diện được đặt tên là `login`
-        echo $twig->render('frontend/auth/login.html.twig', ['message' => $message]);
+        // với dữ liệu truyền vào file giao diện được đặt tên là `errors`
+        echo $twig->render('frontend/auth/login.html.twig', ['errors' => $errors]);
     }
     return;
 }
@@ -35,9 +35,10 @@ $password = sha1($_POST['password']); // mã hóa password với giải thuật 
 
 // Câu lệnh SELECT
 $sql = <<<EOT
-    SELECT COUNT(*)
+    SELECT username, last_name, first_name, email, avatar, status
     FROM `shop_customers`
-    WHERE email = '$email' AND password = '$password';
+    WHERE email = '$email' AND password = '$password'
+    LIMIT 1;
 EOT;
 
 // Thực thi SELECT
@@ -49,23 +50,52 @@ if (mysqli_num_rows($result) > 0) {
     $data = [];
     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         $data[] = array(
-            'kh_tendangnhap' => $row['kh_tendangnhap'],
-            'kh_ten' => $row['kh_ten'],
-            'kh_trangthai' => $row['kh_trangthai'],
+            'username' => $row['username'],
+            'last_name' => $row['last_name'],
+            'first_name' => $row['first_name'],
+            'email' => $row['email'],
+            'avatar' => $row['avatar'],
+            'status' => $row['status'],
         );
     }
 
-    if ($data[0]['kh_trangthai'] != 1) { //Chưa kích hoạt tài khoản
-        echo $twig->render('frontend/pages/user-not-activated.html.twig');
+    // Đóng kết nối
+    mysqli_close($conn);
+
+    // Kiểm tra Trạng thái của Tài khoản (Đã kích hoạt hay chưa kích hoạt?)
+    if ($data[0]['status'] != 1) { //Chưa kích hoạt tài khoản
+        // Biến dùng lưu thông báo lỗi
+        $errors = [];
+        $errors['email'][] = [
+            'rule' => 'must_activate_account',
+            'rule_value' => true,
+            'value' => '',
+            'msg' => 'Tài khoản của bạn chưa được kích hoạt. Vui lòng kiểm tra hộp mail để xác nhận Tài khoản!!!'
+        ];
+
+        // Nếu chưa kích hoạt tài khoản thì hiển thị giao diện yêu cầu kích hoạt tài khoản
+        // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/auth/user-not-activated.html.twig`
+        // với dữ liệu truyền vào file giao diện được đặt tên là `errors`
+        echo $twig->render('frontend/auth/user-not-activated.html.twig', ['errors' => $errors]);
     } else { //Đã kích hoạt
         $message = 'Đăng nhập thành công!';
         $_SESSION['username'] = $username;
-        $_SESSION['trangthai'] = 1; // 1: Đăng nhập thành công; 0: Thất bại
+        $_SESSION['is_logged'] = true; // #True: Đăng nhập thành công; #False: Thất bại
     }
 } else {
-    $message = 'Đăng nhập thất bại!';
-    die;
-}
+    // Biến dùng lưu thông báo lỗi
+    $errors = [];
 
-// Đóng kết nối
-mysqli_close($conn);
+    // Không tìm thấy bất kỳ dòng dữ liệu nào => Người dùng cung cấp thông tin email/password sai.
+    // Hiển thị lại trang Đăng nhập với thông báo lỗi "Đăng nhập thất bại"
+    $errors['email'][] = [
+        'rule' => 'login',
+        'rule_value' => 0,
+        'value' => '',
+        'msg' => 'Đăng nhập thất bại! Vui lòng kiểm tra lại <b>Địa chỉ Email</b> hoặc <b>Mật khẩu</b> của bạn và thử lại...'
+    ];
+
+    // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/shop_suppliers/create.html.twig`
+    // kèm theo dữ liệu thông báo lỗi
+    echo $twig->render('frontend/auth/login.html.twig', ['errors' => $errors]);
+}
