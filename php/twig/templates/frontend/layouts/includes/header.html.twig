@@ -7,19 +7,19 @@
                     <a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/backend/pages/dashboard">Quản trị</a>
+                    <a class="nav-link" href="/backend/pages/dashboard.php">Quản trị</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/frontend/sanpham/danhsach">Sản phẩm</a>
+                    <a class="nav-link" href="/frontend/product/list.php">Sản phẩm</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/frontend/pages/about">Giới thiệu</a>
+                    <a class="nav-link" href="/frontend/pages/about.php">Giới thiệu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/frontend/pages/contact">Liên hệ</a>
+                    <a class="nav-link" href="/frontend/pages/contact.php">Liên hệ</a>
                 </li>
             </ul>
-            <form class="form-inline mt-2 mt-md-0" method="get" action="/frontend/pages/timkiem">
+            <form class="form-inline mt-2 mt-md-0" method="get" action="/frontend/product/search.php">
                 <input class="form-control mr-sm-2" type="text" placeholder="Tìm kiếm" aria-label="Search"
                     name="keyword_tensanpham">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
@@ -27,15 +27,15 @@
         </div>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="/frontend/thanhtoan/giohang">Giỏ hàng</a>
+                <a class="nav-link" href="/frontend/checkout/cart.php">Giỏ hàng</a>
             </li>
             <li class="nav-item text-nowrap">
                 {% if session['username'] %}
                 <!-- Nếu đã đăng nhập thì hiển thị nút Đăng xuất -->
-                <a class="nav-link" href="/frontend/pages/logout">Đăng xuất</a>
+                <a class="nav-link" href="/frontend/auth/logout.php">Đăng xuất</a>
                 {% else %}
                 <!-- Nếu chưa đăng nhập thì hiển thị nút Đăng nhập -->
-                <a class="nav-link" href="/frontend/pages/login">Đăng nhập</a>
+                <a class="nav-link" href="/frontend/auth/login.php">Đăng nhập</a>
                 {% endif %}
             </li>
         </ul>
