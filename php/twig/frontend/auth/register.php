@@ -239,7 +239,7 @@ if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
 // Output: 6c2cef9fe21832a232da7386e4775654b77c7797
 $timeNow = time();
 $timeNowEncrypted = sha1(time());
-$active_code = $timeNowEncrypted;
+$activate_code = $timeNowEncrypted;
 
 $status = 0; // Mặc định khi đăng ký sẽ chưa kích hoạt tài khoản (#0: chưa kích hoạt; #1: đã kích hoạt)
 $created_at = date('Y-m-d H:i:s'); // Lấy ngày giờ hiện tại theo định dạng `Năm-Tháng-Ngày Giờ-Phút-Giây`. Vd: 2020-02-18 09:12:12
@@ -247,8 +247,8 @@ $updated_at = NULL;
 
 // Câu lệnh INSERT
 $sql = <<<EOT
-    INSERT INTO shop_customers(username, password, last_name, first_name, gender, email, birthday, code, avatar, company, phone, billing_address, shipping_address, city, state, postal_code, country, remember_token, active_code, `status`, created_at, updated_at)
-    VALUES ('$username', '$password', '$last_name', '$first_name', $gender, '$email', '$birthday', '$code', $avatar_file_path, '$company', '$phone', '$billing_address', '$shipping_address', '$city', '$state', '$postal_code', '$country', NULL, '$active_code', $status, '$created_at', NULL)
+    INSERT INTO shop_customers(username, password, last_name, first_name, gender, email, birthday, code, avatar, company, phone, billing_address, shipping_address, city, state, postal_code, country, remember_token, activate_code, `status`, created_at, updated_at)
+    VALUES ('$username', '$password', '$last_name', '$first_name', $gender, '$email', '$birthday', '$code', $avatar_file_path, '$company', '$phone', '$billing_address', '$shipping_address', '$city', '$state', '$postal_code', '$country', NULL, '$activate_code', $status, '$created_at', NULL)
 EOT;
 
 // Thực thi INSERT
@@ -308,7 +308,7 @@ try {
         <tr>
             <td>
                 Xin chào $first_name, cám ơn bạn đã đăng ký Hệ thống của chúng tôi. Vui lòng click vào liên kết sau để kích hoạt tài khoản!
-                <a href="$siteUrl/frontend/auth/active-user.php?email=$email&active_code=$active_code">Kích hoạt tài khoản</a>
+                <a href="$siteUrl/frontend/auth/activate-user.php?email=$email&activate_code=$activate_code">Kích hoạt tài khoản</a>
             </td>
         </tr>
         <tr>

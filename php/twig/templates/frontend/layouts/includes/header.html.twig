@@ -30,9 +30,19 @@
                 <a class="nav-link" href="/frontend/checkout/cart.php">Giỏ hàng</a>
             </li>
             <li class="nav-item text-nowrap">
-                {% if session['username'] %}
-                <!-- Nếu đã đăng nhập thì hiển thị nút Đăng xuất -->
-                <a class="nav-link" href="/frontend/auth/logout.php">Đăng xuất</a>
+                {% if session['email'] %}
+                <!-- Nếu đã đăng nhập thì hiển thị Thông tin Tài khoản -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Cá nhân
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="#">Thông tin</a>
+                      <a class="dropdown-item" href="#">Danh sách Đặt hàng</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/frontend/auth/logout.php">Đăng xuất</a>
+                    </div>
+                </li>
                 {% else %}
                 <!-- Nếu chưa đăng nhập thì hiển thị nút Đăng nhập -->
                 <a class="nav-link" href="/frontend/auth/login.php">Đăng nhập</a>

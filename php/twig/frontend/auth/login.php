@@ -77,10 +77,14 @@ if (mysqli_num_rows($result) > 0) {
         // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/auth/user-not-activated.html.twig`
         // với dữ liệu truyền vào file giao diện được đặt tên là `errors`
         echo $twig->render('frontend/auth/user-not-activated.html.twig', ['errors' => $errors]);
-    } else { //Đã kích hoạt
-        $message = 'Đăng nhập thành công!';
-        $_SESSION['username'] = $username;
+    } else { 
+        // Đã kích hoạt -> Đăng nhập thành công
+        // Lưu thông tin Đăng nhập vào Session
+        $_SESSION['email'] = $email;
         $_SESSION['is_logged'] = true; // #True: Đăng nhập thành công; #False: Thất bại
+
+        // Điều hướng về Trang chủ
+        header("location:./../pages/home.php");
     }
 } else {
     // Biến dùng lưu thông báo lỗi
