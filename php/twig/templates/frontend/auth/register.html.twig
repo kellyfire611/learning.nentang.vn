@@ -20,8 +20,24 @@
 
 {# Nội dung trong block content #}
 {% block content %}
-<form name="frmdangky" id="frmdangky" method="post" action="/frontend/auth/register">
+
+<form name="frmdangky" id="frmdangky" method="post" action="/frontend/auth/register.php" enctype="multipart/form-data">
     <div class="container mt-4">
+        {% if errors %}
+        <div id="errors-container" class="alert alert-danger face" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <ul class="m-0">
+                {% for fields in errors %}
+                    {% for field in fields %}
+                    <li>{{ field.msg }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card mx-4">
@@ -34,7 +50,7 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Tên tài khoản" name="username" />
+                            <input class="form-control" type="text" placeholder="Tên tài khoản" name="username" value="{{ username_oldvalue }}"/>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -42,7 +58,7 @@
                                     <i class="fa fa-envelope-o"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Địa chỉ email" name="email" />
+                            <input class="form-control" type="text" placeholder="Địa chỉ email" name="email" value="{{ email_oldvalue }}" />
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -67,8 +83,8 @@
                                     <i class="fa fa-font"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Họ và tên lót" name="last_name" />
-                            <input class="form-control" type="text" placeholder="Tên" name="first_name" />
+                            <input class="form-control" type="text" placeholder="Họ và tên lót" name="last_name" value="{{ last_name_oldvalue }}" />
+                            <input class="form-control" type="text" placeholder="Tên" name="first_name" value="{{ first_name_oldvalue }}" />
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -77,8 +93,8 @@
                                 </span>
                             </div>
                             <select name="gender" class="form-control">
-                                <option value="0">Nam</option>
-                                <option value="1">Nữ</option>
+                                <option value="0" {{ gender_oldvalue == 0 ? 'selected' : '' }} >Nam</option>
+                                <option value="1" {{ gender_oldvalue == 1 ? 'selected' : '' }}>Nữ</option>
                             </select>
                         </div>
                         <div class="input-group mb-3">
@@ -91,7 +107,6 @@
                                 name="birthday" />
                         </div>
 
-                        
                         <div class="input-group mb-3">
                             <img src="/assets/shared/img/default-image_600.png" id="avatar-img-preview" width="200px" />
                             <div class="input-group-prepend">
@@ -99,7 +114,7 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input id="avatar" class="form-control" type="file" placeholder="Ảnh đại diện" name="avatar" />
+                            <input id="avatar" class="form-control" type="file" name="avatar" />
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -107,7 +122,7 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Tên công ty" name="company" />
+                            <input class="form-control" type="text" placeholder="CMND / CCCD" name="code" value="{{ code_oldvalue }}" />
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -115,7 +130,15 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Số điện thoại" name="phone" />
+                            <input class="form-control" type="text" placeholder="Tên công ty" name="company" value="{{ company_oldvalue }}"/>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="Số điện thoại" name="phone" value="{{ phone_oldvalue }}"/>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -124,7 +147,7 @@
                                 </span>
                             </div>
                             <input class="form-control" type="text" placeholder="Địa chỉ Thanh toán"
-                                name="billing_address" />
+                                name="billing_address" value="{{ billing_address_oldvalue }}"/>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -133,7 +156,7 @@
                                 </span>
                             </div>
                             <input class="form-control" type="text" placeholder="Địa chỉ Giao hàng"
-                                name="shipping_address" />
+                                name="shipping_address" value="{{ shipping_address_oldvalue }}" />
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -141,7 +164,7 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Thành phố" name="city" />
+                            <input class="form-control" type="text" placeholder="Thành phố" name="city" value="{{ city_oldvalue }}" />
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -149,7 +172,7 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Bang" name="state" />
+                            <input class="form-control" type="text" placeholder="Bang" name="state" value="{{ state_oldvalue }}" />
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -157,7 +180,7 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Mã bưu chính" name="postal_code" />
+                            <input class="form-control" type="text" placeholder="Mã bưu chính" name="postal_code" value="{{ postal_code_oldvalue }}" />
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -165,23 +188,14 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" placeholder="Quốc gia" name="country" />
+                            <input class="form-control" type="text" placeholder="Quốc gia" name="country" value="{{ country_oldvalue }}" />
                         </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fa fa-user"></i>
-                                </span>
-                            </div>
-                            <input class="form-control" type="text" placeholder="CMND" name="kh_cmnd" />
-                        </div>
-                        <button class="btn btn-block btn-success" name="btnDangKy">Tạo tài khoản</button>
+                        <button class="btn btn-block btn-success" name="btnRegister">Tạo tài khoản</button>
                     </div>
                     <div class="card-footer p-4">
                         <div class="row">
                             <div class="col-12">
-                                <center>Nếu bạn đã có Tài khoản, xin mời <a href="/frontend/auth/login">Đăng nhập</a></center>
+                                <center>Nếu bạn đã có Tài khoản, xin mời <a href="/frontend/auth/login.php">Đăng nhập</a></center>
                             </div>
                         </div>
                     </div>
@@ -201,6 +215,7 @@
     $(document).ready(function () {
         $("#birthday").flatpickr({
             enableTime: false,
+            allowInput: true,
             altInput: true,
             altFormat: "d/m/Y",
             dateFormat: "Y-m-d",

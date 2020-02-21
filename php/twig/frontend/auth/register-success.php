@@ -8,13 +8,18 @@ include_once(__DIR__.'/../../dbconnect.php');
 
 // 2. Chuẩn bị câu truy vấn $sqlSelect, lấy dữ liệu ban đầu của record
 // Lấy giá trị khóa chính được truyền theo dạng QueryString Parameter key1=value1&key2=value2...
-$kh_tendangnhap = $_GET['kh_tendangnhap'];
-$sqlSelect = "SELECT * FROM `khachhang` WHERE kh_tendangnhap='$kh_tendangnhap';";
+$email = $_GET['email'];
+$sqlSelect = <<<EOT
+    SELECT *
+    FROM shop_customers
+    WHERE email = '$email'
+    LIMIT 1;
+EOT;
 
 // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu ban đầu của record
 $resultSelect = mysqli_query($conn, $sqlSelect);
-$khachhangRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
+$customerRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 
-// Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/pages/register-success.html.twig`
-// với dữ liệu truyền vào file giao diện được đặt tên là `khachhang`
-echo $twig->render('frontend/pages/register-success.html.twig', ['khachhang' => $khachhangRow] );
+// Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/auth/register-success.html.twig`
+// với dữ liệu truyền vào file giao diện được đặt tên là `customer`
+echo $twig->render('frontend/auth/register-success.html.twig', ['customer' => $customerRow] );

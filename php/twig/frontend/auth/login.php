@@ -6,8 +6,8 @@ require_once __DIR__ . '/../../bootstrap.php';
 // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
 include_once(__DIR__ . '/../../dbconnect.php');
 
-// 2. Người dùng mới truy cập trang lần đầu tiên (người dùng chưa gởi dữ liệu `btnDangNhap` - chưa nhấn `nút Đăng nhập`) về Server
-// có nghĩa là biến $_POST['btnDangNhap'] chưa được khởi tạo hoặc chưa có giá trị
+// 2. Người dùng mới truy cập trang lần đầu tiên (người dùng chưa gởi dữ liệu `btnLogin` - chưa nhấn `nút Đăng nhập`) về Server
+// có nghĩa là biến $_POST['btnLogin'] chưa được khởi tạo hoặc chưa có giá trị
 // => hiển thị Form nhập liệu
 if (!isset($_POST['btnLogin'])) {
     // Nếu trong SESSION có giá trị của key 'username' <-> người dùng đã đăng nhập rồi
