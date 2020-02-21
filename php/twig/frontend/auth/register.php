@@ -95,7 +95,7 @@ if(isset($_POST['btnDangKy']))
             <tr>
                 <td>
                     Xin chào $kh_ten, cám ơn bạn đã đăng ký Hệ thống của chúng tôi. Vui lòng click vào liên kết sau để kích hoạt tài khoản!
-                    <a href="$siteUrl/frontend/pages/kichhoattaikhoan.php?kh_tendangnhap=$kh_tendangnhap&kh_makichhoat=$kh_makichhoat">Kích hoạt tài khoản</a>
+                    <a href="$siteUrl/frontend/auth/kichhoattaikhoan.php?kh_tendangnhap=$kh_tendangnhap&kh_makichhoat=$kh_makichhoat">Kích hoạt tài khoản</a>
                 </td>
             </tr>
             <tr>
@@ -119,5 +119,5 @@ EOT;
     header("location:register-success.php?kh_tendangnhap=$kh_tendangnhap");
 }
 
-// Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/pages/register.html.twig`
-echo $twig->render('frontend/pages/register.html.twig');
+// Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/auth/register.html.twig`
+echo $twig->render('frontend/auth/register.html.twig');
