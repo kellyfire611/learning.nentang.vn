@@ -15,7 +15,7 @@ Giỏ hàng
 
 {% block customstyles %}
 <style>
-    .hinhdaidien {
+    .img-product {
         width: 150px;
         height: 150px;
     }
@@ -34,7 +34,7 @@ Giỏ hàng
     <h1 class="text-center">Giỏ hàng</h1>
     <div class="row">
         <div class="col col-md-12">
-            {% if giohangdata %}
+            {% if cartdata %}
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -48,23 +48,23 @@ Giỏ hàng
                     </tr>
                 </thead>
                 <tbody id="datarow">
-                    {% for sanpham in giohangdata %}
+                    {% for product in cartdata %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
-                            {% if sanpham.hinhdaidien %}
-                            <img src="/assets/uploads/{{ sanpham.hinhdaidien }}" class="hinhdaidien" />
+                            {% if product.image %}
+                            <img src="/assets/uploads/{{ product.image }}" class="img-product" />
                             {% else %}
-                            <img src="/assets/shared/img/default-image_600.png" class="hinhdaidien" />
+                            <img src="/assets/shared/img/default-image_600.png" class="img-product" />
                             {% endif %}
                         </td>
-                        <td>{{ sanpham.sp_ten }}</td>
-                        <td>{{ sanpham.soluong }}</td>
-                        <td>{{ sanpham.gia }}</td>
-                        <td>{{ sanpham.soluong * sanpham.gia }}</td>
+                        <td>{{ product.sp_ten }}</td>
+                        <td>{{ product.soluong }}</td>
+                        <td>{{ product.gia }}</td>
+                        <td>{{ product.soluong * product.gia }}</td>
                         <td>
-                            <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
-                            <a id="delete_{{ loop.index }}" data-sp-ma="{{ sanpham.sp_ma }}" class="btn btn-danger btn-delete-sanpham">
+                            <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `id` -->
+                            <a id="delete_{{ loop.index }}" data-sp-ma="{{ product.id }}" class="btn btn-danger btn-delete-product">
                                 <i class="fa fa-trash" aria-hidden="true"></i> Xóa
                             </a>
                         </td>
@@ -78,7 +78,7 @@ Giỏ hàng
 
             <a href="/" class="btn btn-warning btn-md"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Quay
                 về trang chủ</a>
-            <a href="/frontend/thanhtoan/thanhtoan" class="btn btn-primary btn-md"><i class="fa fa-shopping-cart"
+            <a href="/frontend/checkout/onepage-checkout.php" class="btn btn-primary btn-md"><i class="fa fa-shopping-cart"
                     aria-hidden="true"></i>&nbsp;Thanh toán</a>
         </div>
     </div>
@@ -89,13 +89,13 @@ Giỏ hàng
 {% block customscripts %}
 <script>
     $(document).ready(function () {
-        function removeSanPhamVaoGioHang(id) {
+        function removeproductVaoGioHang(id) {
             var dulieugoi = {
-                sp_ma: id
+                id: id
             };
 
             $.ajax({
-                url: '/frontend/ajax/giohang-xoasanpham-ajax',
+                url: '/frontend/ajax/giohang-xoaproduct-ajax',
                 method: "POST",
                 dataType: 'json',
                 data: dulieugoi,
@@ -115,12 +115,12 @@ Giỏ hàng
             });
         };
 
-        $('.btn-delete-sanpham').on('click', function () {
+        $('.btn-delete-product').on('click', function () {
             event.preventDefault();
             var id = $(this).data('sp-ma');
             console.log(id);
 
-            removeSanPhamVaoGioHang(id);
+            removeproductVaoGioHang(id);
         });
     });
 </script>

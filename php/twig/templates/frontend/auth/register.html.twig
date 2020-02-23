@@ -21,7 +21,7 @@
 {# Nội dung trong block content #}
 {% block content %}
 
-<form name="frmdangky" id="frmdangky" method="post" action="/frontend/auth/register.php" enctype="multipart/form-data">
+<form name="frmRegister" id="frmRegister" method="post" action="/frontend/auth/register.php" enctype="multipart/form-data">
     <div class="container mt-4">
         {% if errors %}
         <div id="errors-container" class="alert alert-danger face" role="alert">
@@ -77,14 +77,23 @@
                             <input class="form-control" type="password" placeholder="Xác nhận Mật khẩu"
                                 name="password_confirmation" />
                         </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fa fa-font"></i>
-                                </span>
+                        <div class="form-row">
+                            <div class="input-group mb-3 col-md-6">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-font"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control" type="text" placeholder="Họ và tên lót" name="last_name" value="{{ last_name_oldvalue }}" />
                             </div>
-                            <input class="form-control" type="text" placeholder="Họ và tên lót" name="last_name" value="{{ last_name_oldvalue }}" />
-                            <input class="form-control" type="text" placeholder="Tên" name="first_name" value="{{ first_name_oldvalue }}" />
+                            <div class="input-group mb-3 col-md-6">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-font"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control" type="text" placeholder="Tên" name="first_name" value="{{ first_name_oldvalue }}" />
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -92,8 +101,10 @@
                                     <i class="fa fa-venus-mars"></i>
                                 </span>
                             </div>
+                            <h1>{{ gender_oldvalue }}</h1>
                             <select name="gender" class="form-control">
-                                <option value="0" {{ gender_oldvalue == 0 ? 'selected' : '' }} >Nam</option>
+                                <option value="" {{ gender_oldvalue == "" ? 'selected' : '' }}>Chọn Giới tính</option>
+                                <option value="0" {{ gender_oldvalue == 0 ? 'selected' : '' }}>Nam</option>
                                 <option value="1" {{ gender_oldvalue == 1 ? 'selected' : '' }}>Nữ</option>
                             </select>
                         </div>
@@ -107,14 +118,23 @@
                                 name="birthday" />
                         </div>
 
-                        <div class="input-group mb-3">
-                            <img src="/assets/shared/img/default-image_600.png" id="avatar-img-preview" width="200px" />
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fa fa-user"></i>
-                                </span>
+                        <div class="form-row">
+                            <div class="" style="width: 200px;">
+                                <img src="/assets/shared/img/default-image_600.png" id="avatar-img-preview" width="200px" />
                             </div>
-                            <input id="avatar" class="form-control" type="file" name="avatar" />
+                            <div class="col">
+                                <div>
+                                    <p id="lsp_maHelp" class="form-text text-muted">Mã loại sản phẩm không được hiệu chỉnh.</p>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <input id="avatar" class="form-control" type="file" name="avatar" />
+                                </div>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -211,17 +231,11 @@
 <!-- Add thư viện Flatpickr -->
 <script src="/assets/vendor/flatpickr/flatpickr.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $("#birthday").flatpickr({
-            enableTime: false,
-            allowInput: true,
-            altInput: true,
-            altFormat: "d/m/Y",
-            dateFormat: "Y-m-d",
-        });
-    });
+<!-- Thư viện Jquery validation -->
+<script src="/assets/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="/assets/vendor/jquery-validation/localization/messages_vi.min.js"></script>
 
+<script>
     // Hiển thị ảnh preview khi chọn Avatar
     const reader = new FileReader();
     const fileInput = document.getElementById("avatar");
@@ -233,5 +247,135 @@
         const f = e.target.files[0];
         reader.readAsDataURL(f);
     })
+
+    // Jquery ready
+    $(document).ready(function () {
+        // Hiển thị DateTimePicker cho Ngày sinh
+        $("#birthday").flatpickr({
+            enableTime: false,
+            allowInput: true,
+            altInput: true,
+            altFormat: "d/m/Y",
+            dateFormat: "Y-m-d",
+        });
+
+        // Validate form Register
+        $("#frmRegister").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50
+                },
+                password: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
+                first_name: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
+                last_name: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
+                gender: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
+                birthday: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
+                avatar: {
+                    required: true,
+                },
+                code: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
+            },
+            messages: {
+                username: {
+                    required: "Vui lòng nhập tên Đăng nhập",
+                    minlength: "Tên Đăng nhập phải có ít nhất 3 ký tự",
+                    maxlength: "Tên Đăng nhập không được vượt quá 50 ký tự"
+                },
+                password: {
+                    required: "Vui lòng nhập Mật khẩu",
+                    minlength: "Mật khẩu phải có ít nhất 3 ký tự",
+                    maxlength: "Mật khẩu không được vượt quá 255 ký tự"
+                },
+                first_name: {
+                    required: "Vui lòng nhập Tên",
+                    minlength: "Tên phải có ít nhất 3 ký tự",
+                    maxlength: "Tên không được vượt quá 255 ký tự"
+                },
+                last_name: {
+                    required: "Vui lòng nhập Họ và tên lót",
+                    minlength: "Họ và tên lót phải có ít nhất 3 ký tự",
+                    maxlength: "Họ và tên lót không được vượt quá 255 ký tự"
+                },
+                gender: {
+                    required: "Vui lòng chọn Giới tính",
+                },
+                email: {
+                    required: "Vui lòng nhập địa chỉ Email",
+                    minlength: "Địa chỉ Email phải có ít nhất 3 ký tự",
+                    maxlength: "Địa chỉ Email không được vượt quá 255 ký tự"
+                },
+                birthday: {
+                    required: "Vui lòng nhập Ngày sinh",
+                },
+                avatar: {
+                    required: "Vui lòng chọn Ảnh đại diện   ",
+                },
+                code: {
+                    required: "Vui lòng nhập mã CMND / CCCD",
+                    minlength: "Mã CMND / CCCD phải có ít nhất 3 ký tự",
+                    maxlength: "Mã CMND / CCCD không được vượt quá 255 ký tự"
+                },
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                // Thêm class `invalid-feedback` cho field đang có lỗi
+                error.addClass("invalid-feedback");
+
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.parent("label"));
+                } else {
+                    error.insertAfter(element);
+                }
+
+                // Thêm icon "Kiểm tra không Hợp lệ"
+                if (!element.next("span")[0]) {
+                    $("<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+                        .insertAfter(element);
+                }
+            },
+            success: function (label, element) {
+                // Thêm icon "Kiểm tra Hợp lệ"
+                if (!$(element).next("span")[0]) {
+                    $("<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+                        .insertAfter($(element));
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            }
+        });
+    });
 </script>
 {% endblock %}
