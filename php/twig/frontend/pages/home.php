@@ -11,7 +11,7 @@ include_once(__DIR__ . '/../../Paginator.php');
 // Chuẩn bị câu truy vấn $sql
 $sqlSelectFeaturedProducts = <<<EOT
     SELECT p.id, p.product_name, p.image, p.short_description, p.list_price
-        , pd.discount_name, pd.discount_amount, pd.id_fixed, pd.start_date, pd.end_date
+        , pd.discount_name, pd.discount_amount, pd.is_fixed, pd.start_date, pd.end_date
         , c.category_name
         , s.supplier_name
     FROM shop_products p
@@ -45,7 +45,7 @@ while ($row = mysqli_fetch_array($resultSelectFeaturedProducts, MYSQLI_ASSOC)) {
         // Thông tin Khuyến mãi / Giảm giá
         'discount_name' => $row['discount_name'],
         'discount_amount' => $row['discount_amount'],
-        'id_fixed' => $row['id_fixed'],
+        'is_fixed' => $row['is_fixed'],
         'start_date' => $row['start_date'],
         'end_date' => $row['end_date'],
 
@@ -63,7 +63,7 @@ while ($row = mysqli_fetch_array($resultSelectFeaturedProducts, MYSQLI_ASSOC)) {
 // Chuẩn bị câu truy vấn $sql
 $sqlSelectNewProducts = <<<EOT
     SELECT p.id, p.product_name, p.image, p.short_description, p.list_price
-        , pd.discount_name, pd.discount_amount, pd.id_fixed, pd.start_date, pd.end_date
+        , pd.discount_name, pd.discount_amount, pd.is_fixed, pd.start_date, pd.end_date
         , c.category_name
         , s.supplier_name
     FROM shop_products p
@@ -97,7 +97,7 @@ while ($row = mysqli_fetch_array($resultSelectNewProducts, MYSQLI_ASSOC)) {
         // Thông tin Khuyến mãi / Giảm giá
         'discount_name' => $row['discount_name'],
         'discount_amount' => $row['discount_amount'],
-        'id_fixed' => $row['id_fixed'],
+        'is_fixed' => $row['is_fixed'],
         'start_date' => $row['start_date'],
         'end_date' => $row['end_date'],
 
@@ -115,7 +115,7 @@ while ($row = mysqli_fetch_array($resultSelectNewProducts, MYSQLI_ASSOC)) {
 // 2. Chuẩn bị câu truy vấn $sql
 $sql = <<<EOT
     SELECT p.id, p.product_name, p.image, p.short_description, p.list_price
-        , pd.discount_name, pd.discount_amount, pd.id_fixed, pd.start_date, pd.end_date
+        , pd.discount_name, pd.discount_amount, pd.is_fixed, pd.start_date, pd.end_date
         , c.category_name
         , s.supplier_name
     FROM shop_products p

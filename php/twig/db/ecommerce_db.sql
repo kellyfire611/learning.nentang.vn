@@ -1737,7 +1737,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc sản phẩm',
   `discount_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên Sự kiện Giảm giá',
   `discount_amount` double NOT NULL DEFAULT 0 COMMENT '% giảm giá hoặc số tiền giảm giá cụ thể',
-  `id_fixed` bit(1) NOT NULL DEFAULT b'0' COMMENT '#True: giảm giá theo số tiền cụ thể; #False: giảm giá theo %',
+  `is_fixed` bit(1) NOT NULL DEFAULT b'0' COMMENT '#True: giảm giá theo số tiền cụ thể; #False: giảm giá theo %',
   `start_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
@@ -1747,7 +1747,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
 
 -- Dumping data for table netashop.shop_product_discounts: ~2 rows (approximately)
 /*!40000 ALTER TABLE `shop_product_discounts` DISABLE KEYS */;
-INSERT INTO `shop_product_discounts` (`id`, `product_id`, `discount_name`, `discount_amount`, `id_fixed`, `start_date`, `end_date`) VALUES
+INSERT INTO `shop_product_discounts` (`id`, `product_id`, `discount_name`, `discount_amount`, `is_fixed`, `start_date`, `end_date`) VALUES
 	(1, 601, 'Giảm giá dịp lễ Vua Hùng năm 2020', 10, b'0', '2020-03-01 00:00:00', '2020-03-31 23:59:59'),
 	(2, 602, 'Giảm giá dịp lễ 08/03 năm 2020', 15, b'0', '2020-03-01 00:00:00', '2020-03-08 23:59:59');
 /*!40000 ALTER TABLE `shop_product_discounts` ENABLE KEYS */;

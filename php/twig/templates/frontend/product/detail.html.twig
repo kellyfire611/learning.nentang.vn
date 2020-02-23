@@ -387,12 +387,12 @@ Sản phẩm {{ product.product_name }}
                             <div class="stars">
                                 <!-- Hiển thị các ngôi sao vàng (được đánh giá theo số điểm) -->
                                 <!-- Ví dụ: điểm trung bình đánh giá là 3 điểm => vòng lặp for từ 0->(3-1) -->
-                                {% for rating in 0..(product.avgRating-1) %}
+                                {% for rating in 0..(product.avgRatingRound-1) if product.avgRatingRound > 0 %}
                                 <span class="fa fa-star checked"></span>
                                 {% endfor %}
                                 <!-- Hiển thị các ngôi sao xám còn lại (không được đánh giá theo số điểm) -->
                                 <!-- Ví dụ: điểm trung bình đánh giá là 3 điểm => vòng lặp for từ 3->(5-1) -->
-                                {% for rating in product.avgRating..(5-1) %}
+                                {% for rating in product.avgRatingRound..(5-1) if product.avgRatingRound < 5 %}
                                 <span class="fa fa-star"></span>
                                 {% endfor %}
                             </div>
@@ -470,88 +470,65 @@ Sản phẩm {{ product.product_name }}
     <div class="row">
         <div class="col-sm-6">
             <div class="rating-block">
-                <h4>Average user rating</h4>
-                <h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
-                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                    <span class="fa fa-star" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                    <span class="fa fa-star" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                    <span class="fa fa-star" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-                    <span class="fa fa-star" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-                    <span class="fa fa-star" aria-hidden="true"></span>
-                </button>
+                <h4>Điểm đánh giá Trung bình</h4>
+                <h2 class="bold padding-bottom-7">{{ product.avgRating }} <small>/ {{ product.totalRating }}</small></h2>
+
+                {% if product.avgRating > 0 %}
+                <div class="stars">
+                    <!-- Hiển thị các ngôi sao vàng (được đánh giá theo số điểm) -->
+                    <!-- Ví dụ: điểm trung bình đánh giá là 3 điểm => vòng lặp for từ 0->(3-1) -->
+                    {% for rating in 0..(product.avgRatingRound-1) if product.avgRatingRound > 0 %}
+                    <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star" aria-hidden="true"></span>
+                    </button>
+                    {% endfor %}
+                    <!-- Hiển thị các ngôi sao xám còn lại (không được đánh giá theo số điểm) -->
+                    <!-- Ví dụ: điểm trung bình đánh giá là 3 điểm => vòng lặp for từ 3->(5-1) -->
+                    {% for rating in product.avgRatingRound..(5-1) if product.avgRatingRound < 5 %}
+                    <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star" aria-hidden="true"></span>
+                    </button>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>Sản phẩm chưa được đánh giá. Bạn hãy là người đầu tiên đánh giá cho Sản phẩm này.</p>
+                {% endif %}
             </div>
         </div>
         <div class="col-sm-6">
-            <h4>Rating breakdown</h4>
+            <h4>Chi tiết Đánh giá</h4>
             <ul style="list-style-type: none;">
-                <li class="mb-1">
-                    <div class="row">
-                        <div class="" style="width:35px;">
-                            5 <span class="fa fa-star"></span>
-                        </div>
-                        <div class="col">
-                            <div class="progress" style="height: 23px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                {% for i in 5..1 %}
+                    {% if product.review_statistics[i] %}
+                    {% set progress_value = (product.review_statistics[i]|length * 100 / product.totalRating) %}
+                    <li class="mb-1">
+                        <div class="row">
+                            <div class="" style="width:35px;">
+                               {{ i }} <span class="fa fa-star"></span>
+                            </div>
+                            <div class="col">
+                                <div class="progress" style="height: 23px;">
+                                    <div class="progress-bar {{ configBootstrapRatingClass[i].class }}" role="progressbar" style="width: {{ progress_value }}%;" aria-valuenow="{{ progress_value }}" aria-valuemin="0" aria-valuemax="100">{{ product.review_statistics[i]|length }}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li class="mb-1">
-                    <div class="row">
-                        <div class="" style="width:35px;">
-                            4 <span class="fa fa-star"></span>
-                        </div>
-                        <div class="col">
-                            <div class="progress" style="height: 23px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    </li>
+                    {% else %}
+                    {% set progress_value = 0 %}
+                    <li class="mb-1">
+                        <div class="row">
+                            <div class="" style="width:35px;">
+                               {{ i }} <span class="fa fa-star"></span>
+                            </div>
+                            <div class="col">
+                                <div class="progress" style="height: 23px;">
+                                    <div class="progress-bar {{ configBootstrapRatingClass[i].class }}" role="progressbar" style="width: {{ progress_value }}%;" aria-valuenow="{{ progress_value }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li class="mb-1">
-                    <div class="row">
-                        <div class="" style="width:35px;">
-                            3 <span class="fa fa-star"></span>
-                        </div>
-                        <div class="col">
-                            <div class="progress" style="height: 23px;">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="mb-1">
-                    <div class="row">
-                        <div class="" style="width:35px;">
-                            2 <span class="fa fa-star"></span>
-                        </div>
-                        <div class="col">
-                            <div class="progress" style="height: 23px;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="mb-1">
-                    <div class="row">
-                        <div class="" style="width:35px;">
-                            1 <span class="fa fa-star"></span>
-                        </div>
-                        <div class="col">
-                            <div class="progress" style="height: 23px;">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </div>
     </div>
@@ -560,98 +537,41 @@ Sản phẩm {{ product.product_name }}
         <div class="col-sm-7">
             <hr />
             <div class="review-block">
+                {% for review in product.list_reviews %}
                 <div class="row">
                     <div class="col-sm-3">
-                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                        <div class="review-block-name"><a href="#">nktailor</a></div>
-                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                        {% if review.avatar %}
+                        <img src="/assets/upload/{{ review.avatar }}" class="img-rounded">
+                        {% else %}
+                        <img src="/assets/shared/img/no-avatar.png" class="img-rounded">
+                        {% endif %}
+                        <div class="review-block-name"><a href="/{{ review.customer_id }}">{{ review.last_name }} {{ review.first_name }}</a></div>
+                        <div class="review-block-date">{{ review.created_at_formatted }}</div>
                     </div>
                     <div class="col-sm-9">
                         <div class="review-block-rate">
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
+                            <div class="stars">
+                                <!-- Hiển thị các ngôi sao vàng (được đánh giá theo số điểm) -->
+                                <!-- Ví dụ: điểm trung bình đánh giá là 3 điểm => vòng lặp for từ 0->(3-1) -->
+                                {% for rating in 0..(review.rating-1) if review.rating > 0 %}
+                                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                    <span class="fa fa-star" aria-hidden="true"></span>
+                                </button>
+                                {% endfor %}
+                                <!-- Hiển thị các ngôi sao xám còn lại (không được đánh giá theo số điểm) -->
+                                <!-- Ví dụ: điểm trung bình đánh giá là 3 điểm => vòng lặp for từ 3->(5-1) -->
+                                {% for rating in review.rating..(5-1) if review.rating < 5 %}
+                                <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                                    <span class="fa fa-star" aria-hidden="true"></span>
+                                </button>
+                                {% endfor %}
+                            </div>
                         </div>
-                        <div class="review-block-title">this was nice in buy</div>
-                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice
-                            in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy
-                            this was nice in buy</div>
+                        <div class="review-block-description">{{ review.comment }}</div>
                     </div>
                 </div>
                 <hr />
-                <div class="row">
-                    <div class="col-sm-3">
-                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                        <div class="review-block-name"><a href="#">nktailor</a></div>
-                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="review-block-rate">
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                        <div class="review-block-title">this was nice in buy</div>
-                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice
-                            in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy
-                            this was nice in buy</div>
-                    </div>
-                </div>
-                <hr />
-                <div class="row">
-                    <div class="col-sm-3">
-                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                        <div class="review-block-name"><a href="#">nktailor</a></div>
-                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="review-block-rate">
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                                <span class="fa fa-star" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                        <div class="review-block-title">this was nice in buy</div>
-                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice
-                            in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy
-                            this was nice in buy</div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

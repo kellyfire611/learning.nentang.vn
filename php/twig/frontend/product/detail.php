@@ -110,8 +110,8 @@ while ($row = mysqli_fetch_array($resultSelectProductImages, MYSQLI_ASSOC)) {
    --- 
 */
 $sqlSelectProductReviews = <<<EOT
-    SELECT pr.rating, pr.`comment`
-    , c.email
+    SELECT pr.id, pr.rating, pr.`comment`, pr.created_at, pr.customer_id
+    , c.email, c.first_name, c.last_name, c.avatar
     FROM shop_product_reviews pr
     JOIN shop_customers c ON pr.customer_id = c.id
     WHERE product_id = $id;
@@ -125,13 +125,26 @@ $resultSelectProductReviews = mysqli_query($conn, $sqlSelectProductReviews);
 // Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
 $dataSelectProductReviews = [];
 $avgRating = 0;
+$avgRatingRound = 0;
 $sumRating = 0;
 $totalRating = 0;
 while ($row = mysqli_fetch_array($resultSelectProductReviews, MYSQLI_ASSOC)) {
     $dataSelectProductReviews[] = array(
+        // Thông tin rating
+        'id' => $row['id'],
         'rating' => $row['rating'],
         'comment' => $row['comment'],
+        'created_at' => $row['created_at'],
+        // Sử dụng hàm date($format, $timestamp) để chuyển đổi ngày thành định dạng Việt Nam (ngày/tháng/năm)
+        // Do hàm date() nhận vào là đối tượng thời gian, chúng ta cần sử dụng hàm strtotime() để chuyển đổi từ chuỗi có định dạng 'yyyy-mm-dd' trong MYSQL thành đối tượng ngày tháng
+        'created_at_formatted' => date('d/m/Y H:i:s', strtotime($row['created_at'])),
+        
+        // Thông tin khách hàng gởi đánh giá
         'email' => $row['email'],
+        'first_name' => $row['first_name'],
+        'last_name' => $row['last_name'],
+        'avatar' => $row['avatar'],
+        'customer_id' => $row['customer_id'],
     );
 
     // Tính toán điểm trung bình đánh giá của sản phẩm
@@ -195,19 +208,29 @@ if(!empty($dataSelectProductReviews)) {
     // Sử dụng hàm làm tròn số round() để làm tròn số điểm đánh giá Trung bình
     // Ví dụ: tổng điểm rating (5) / tổng số lượt đánh giá (2) = 2.5 điểm
     //                                           => làm tròn thành 3 điểm
-    $avgRating = round($sumRating / $totalRating);
+    $avgRating = round($sumRating / $totalRating, 1);       // làm tròn 1 số lẻ
+    $avgRatingRound = round($sumRating / $totalRating, 0);  // làm tròn 0 số lẻ
 }
 // dd($sumRating, $totalRating, $avgRating);
+
 /* --- End Truy vấn dữ liệu Hình ảnh sản phẩm --- */
 
 // Hiệu chỉnh dữ liệu theo cấu trúc để tiện xử lý
 $dataSelectProduct['avgRating'] = $avgRating;
+$dataSelectProduct['avgRatingRound'] = $avgRatingRound;
 $dataSelectProduct['totalRating'] = $totalRating;
 $dataSelectProduct['list_reviews'] = $dataSelectProductReviews;
 $dataSelectProduct['review_statistics'] = $dataReviewStatistics;
 
 $dataSelectProduct['list_images'] = $dataSelectProductImages;
 
+// Lấy dữ liệu Config
+$configBootstrapRatingClass = Config::$bootstrapRatingClass;
+
+// dd($dataSelectProduct);
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/product/detail.html.twig`
 // với dữ liệu truyền vào file giao diện được đặt tên là `product`
-echo $twig->render('frontend/product/detail.html.twig', ['product' => $dataSelectProduct]);
+echo $twig->render('frontend/product/detail.html.twig', [
+    'product' => $dataSelectProduct,
+    'configBootstrapRatingClass' => $configBootstrapRatingClass
+]);
