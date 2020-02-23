@@ -48,6 +48,7 @@ Giỏ hàng
                     </tr>
                 </thead>
                 <tbody id="datarow">
+                    {% set subtoal = 0 %}
                     {% for product in cartdata %}
                     <tr>
                         <td>{{ loop.index }}</td>
@@ -62,24 +63,24 @@ Giỏ hàng
                         <td>
                             <span class="product-quantity">{{ product.quantity }}</span>
                         </td>
-                        <td>
+                        <td class="text-right">
+                            <!-- Hiển thị Thông tin Giảm giá nếu có -->
                             {% if product.discount_amount > 0 %}
                                 {% if product.is_fixed %}
                                 <span class="badge badge-danger">Giảm {{ product.discount_amount|number_format(0, '.', ',') }}</span>
                                 {% else %}
                                 <span class="badge badge-danger">Giảm {{ product.discount_amount|number_format(2, '.', ',') }} %</span>
                                 {% endif %}
-                            {% endif %}
-                            {% if product.list_price_after_discount > 0 %}
-                            <span class="product-price">{{ product.list_price_after_discount|number_format(0, '.', ',') }}</span>
-                            <br />
-                            <span class="product-price-old">{{ product.list_price|number_format(0, '.', ',') }}</span>
+
+                                <span class="product-price">{{ product.list_price_after_discount|number_format(0, '.', ',') }}</span>
+                                <br />
+                                <span class="product-price-old">{{ product.list_price|number_format(0, '.', ',') }}</span>
                             {% else %}
-                            <span class="product-price">{{ product.list_price|number_format(0, '.', ',') }}</span>
+                                <span class="product-price">{{ product.list_price|number_format(0, '.', ',') }}</span>
                             {% endif %}
                         </td>
-                        <td>
-                            <span class="product-amount"><b>{{ (product.quantity * product.list_price)|number_format(0, '.', ',') }}</b></span>
+                        <td class="text-right">
+                            <span class="product-amount"><b>{{ (product.amount)|number_format(0, '.', ',') }}</b></span>
                         </td>
                         <td>
                             <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `id` -->
@@ -88,8 +89,17 @@ Giỏ hàng
                             </a>
                         </td>
                     </tr>
+                    {% set subtoal = subtoal + product.amount %}
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Tổng số: <b>{{ cartdata|length }} Sản phẩm</b></td>
+                        <td class="text-right">Tổng thành tiền:</td>
+                        <td class="text-right"><b>{{ subtoal|number_format(0, '.', ',') }}</b></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
             {% else %}
             <h2>Giỏ hàng rỗng!!!</h2>

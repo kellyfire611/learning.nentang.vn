@@ -66,7 +66,7 @@ while ($row = mysqli_fetch_array($resultSelectProduct, MYSQLI_ASSOC)) {
 
 // Tính toán Hiển thị Giảm giá
 $now = date("Y-m-d H:i:s"); // Lấy thời gian hiện tại
-// dd($now, $dataSelectProduct['start_date'], $dataSelectProduct['end_date']);
+$dataSelectProduct['list_price_after_discount'] = $dataSelectProduct['list_price'];
 // Nếu thời gian Khuyến mãi còn hiệu lực -> tính toán lại giá cả
 if($dataSelectProduct['start_date'] <= $now && $now <= $dataSelectProduct['end_date']) {
     // Tùy loại giảm giá. is_fixed: #True 1: giảm giá theo số tiền cụ thể; #False 0: giảm giá theo %
