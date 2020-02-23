@@ -3,13 +3,13 @@
 
 {# Nội dung trong block title #}
 {% block title %}
-Sản phẩm {{ sanpham.sp_ten }}
+Sản phẩm {{ product.product_name }}
 {% endblock %}
 {# End Nội dung trong block title #}
 
 {# Nội dung trong block headline #}
 {% block headline %}
-Sản phẩm {{ sanpham.sp_ten }}
+Sản phẩm {{ product.product_name }}
 {% endblock %}
 {# End Nội dung trong block headline #}
 
@@ -241,6 +241,60 @@ Sản phẩm {{ sanpham.sp_ten }}
         }
     }
 </style>
+
+<style>
+    .btn-grey {
+        background-color: #D8D8D8;
+        color: #FFF;
+    }
+
+    .rating-block {
+        background-color: #FAFAFA;
+        border: 1px solid #EFEFEF;
+        padding: 15px 15px 20px 15px;
+        border-radius: 3px;
+    }
+
+    .bold {
+        font-weight: 700;
+    }
+
+    .padding-bottom-7 {
+        padding-bottom: 7px;
+    }
+
+    .review-block {
+        background-color: #FAFAFA;
+        border: 1px solid #EFEFEF;
+        padding: 15px;
+        border-radius: 3px;
+        margin-bottom: 15px;
+    }
+
+    .review-block-name {
+        font-size: 12px;
+        margin: 10px 0;
+    }
+
+    .review-block-date {
+        font-size: 12px;
+    }
+
+    .review-block-rate {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+    .review-block-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .review-block-description {
+        font-size: 13px;
+    }
+</style>
 {% endblock %}
 
 {# Nội dung trong block content #}
@@ -254,76 +308,133 @@ Sản phẩm {{ sanpham.sp_ten }}
 
     <div class="card">
         <div class="container-fliud">
-            <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post"
-                action="/frontend/giohang/themvaogiohang">
-                {% set hinhsanphamdautien = sanpham.danhsachhinhanh|first %}
-                <input type="hidden" name="sp_ma" id="sp_ma" value="{{ sanpham.sp_ma }}" />
-                <input type="hidden" name="sp_ten" id="sp_ten" value="{{ sanpham.sp_ten }}" />
-                <input type="hidden" name="sp_gia" id="sp_gia" value="{{ sanpham.sp_gia }}" />
-                <input type="hidden" name="hinhdaidien" id="hinhdaidien"
-                    value="{{ hinhsanphamdautien.hsp_tentaptin }}" />
+            <form name="frmProductDetail" id="frmProductDetail" method="post" action="/frontend/cart/add-to-cart">
+
+                <input type="hidden" name="id" id="id" value="{{ product.id }}" />
+                <input type="hidden" name="product_name" id="product_name" value="{{ product.product_name }}" />
+                <input type="hidden" name="list_price" id="list_price" value="{{ product.list_price }}" />
+                <input type="hidden" name="image" id="image" value="{{ product.image }}" />
 
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-                        {% if sanpham.danhsachhinhanh|length > 0 %}
+                        <!-- Hiển thị danh sách Gallery ảnh liên quan đến Sản phẩm -->
+                        {% if product.list_images|length > 0 %}
                         <div class="preview-pic tab-content">
-                            {% for hinhsanpham in sanpham.danhsachhinhanh %}
-                            <div class="tab-pane {{ (hinhsanpham == hinhsanphamdautien) ? 'active' : '' }}"
-                                id="pic-{{ loop.index }}">
-                                <img src="/assets/uploads/{{ hinhsanpham.hsp_tentaptin }}" />
+                            <!-- Ảnh đại diện Sản phẩm -->
+                            <div class="tab-pane active" id="pic-0">
+                                <img src="/assets/uploads/{{ product.image }}" />
+                            </div>
+                            <!-- Danh sách ảnh liên quan -->
+                            {% for gallery_image in product.list_images %}
+                            <div class="tab-pane" id="pic-{{ loop.index+1 }}">
+                                <img src="/assets/uploads/{{ gallery_image.image }}" />
                             </div>
                             {% endfor %}
                         </div>
                         <ul class="preview-thumbnail nav nav-tabs">
-                            {% for hinhsanpham in sanpham.danhsachhinhanh %}
-                            <li class="{{ (hinhsanpham == hinhsanphamdautien) ? 'active' : '' }}">
-                                <a data-target="#pic-{{ loop.index }}" data-toggle="tab">
-                                    <img src="/assets/uploads/{{ hinhsanpham.hsp_tentaptin }}" />
+                            <!-- Nav tabs cho Ảnh đại diện Sản phẩm -->
+                            <li class="active">
+                                <a data-target="#pic-0" data-toggle="tab">
+                                    <img src="/assets/uploads/{{ product.image }}" />
+                                </a>
+                            </li>
+                            <!-- Nav tabs cho Danh sách ảnh liên quan -->
+                            {% for gallery_image in product.list_images %}
+                            <li class="">
+                                <a data-target="#pic-{{ loop.index+1 }}" data-toggle="tab">
+                                    <img src="/assets/uploads/{{ gallery_image.image }}" />
                                 </a>
                             </li>
                             {% endfor %}
                         </ul>
                         {% else %}
                         <!-- Không có hình sản phẩm nào => lấy ảnh mặc định -->
+                        {% if product.image is not empty %}
                         <div class="preview-pic tab-content">
-                            <div class="tab-pane active"
-                                id="pic-1">
+                            <div class="tab-pane active" id="pic-0">
+                                <img src="/assets/uploads/{{ product.image }}" />
+                            </div>
+                        </div>
+                        <ul class="preview-thumbnail nav nav-tabs">
+                            <li class="active">
+                                <a data-target="#pic-0" data-toggle="tab">
+                                    <img src="/assets/uploads/{{ product.image }}" />
+                                </a>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <!-- Nếu không có ảnh mặc định => lấy ảnh minh họa trong assets -->
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active" id="pic-0">
                                 <img src="/assets/shared/img/default-image_600.png" />
                             </div>
                         </div>
                         <ul class="preview-thumbnail nav nav-tabs">
                             <li class="active">
-                                <a data-target="#pic-1" data-toggle="tab">
+                                <a data-target="#pic-0" data-toggle="tab">
                                     <img src="/assets/shared/img/default-image_600.png" />
                                 </a>
                             </li>
                         </ul>
                         {% endif %}
+                        {% endif %}
                     </div>
                     <div class="details col-md-6">
-                        <h3 class="product-title">{{ sanpham.sp_ten }}</h3>
+                        <h3 class="product-title">{{ product.product_name }}</h3>
+                        <!-- Dựa trên số điểm đánh giá, hiển thị đúng số lượng ngôi sao -->
                         <div class="rating">
+                            {% if product.avgRating > 0 %}
                             <div class="stars">
+                                <!-- Hiển thị các ngôi sao vàng (được đánh giá theo số điểm) -->
+                                <!-- Ví dụ: điểm trung bình đánh giá là 3 điểm => vòng lặp for từ 0->(3-1) -->
+                                {% for rating in 0..(product.avgRating-1) %}
                                 <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
+                                {% endfor %}
+                                <!-- Hiển thị các ngôi sao xám còn lại (không được đánh giá theo số điểm) -->
+                                <!-- Ví dụ: điểm trung bình đánh giá là 3 điểm => vòng lặp for từ 3->(5-1) -->
+                                {% for rating in product.avgRating..(5-1) %}
                                 <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                                {% endfor %}
                             </div>
-                            <span class="review-no">999 reviews</span>
+                            <span class="review-no">{{ product.totalRating }} lượt Đánh giá</span>
+                            {% else %}
+                            <p>Sản phẩm chưa được đánh giá. Bạn hãy là người đầu tiên đánh giá cho Sản phẩm này.</p>
+                            {% endif %}
                         </div>
-                        <p class="product-description">{{ sanpham.sp_mota_ngan }}</p>
-                        <small class="text-muted">Giá cũ: <s><span>{{ sanpham.sp_gia_formated }}</span></s></small>
-                        <h4 class="price">Giá hiện tại: <span>{{ sanpham.sp_gia_formated }}</span></h4>
+                        <p class="product-description">{{ product.short_description }}</p>
+
+                        <!-- Hiển thị Thông tin Giảm giá nếu có -->
+                        {% if product.discount_amount %}
+                        {% if product.is_fixed %}
+                        <!-- Thông tin giảm giá theo sô tiền cụ thể -->
+                        <span>Đang giảm giá số tiền <b>{{ product.discount_amount }}</b></span>
+                        {% else %}
+                        <!-- Thông tin giảm giá theo % cụ thể -->
+                        <span>Đang giảm giá <b>{{ product.discount_amount }}%</b></span>
+                        {% endif %}
+
+                        <small class="text-muted">Giá cũ: <s><span>{{ product.list_price_formatted }}</span></s></small>
+                        <h4 class="price">
+                            Giá hiện tại: <span>{{ product.list_price_after_discount_formatted }}</span>
+                        </h4>
+                        {% else %}
+                        <!-- Hiển thị Thông tin Giá cả -->
+                        <h4 class="price">
+                            Giá hiện tại: <span>{{ product.list_price_formatted }}</span>
+                        </h4>
+                        {% endif %}
+
                         <p class="vote"><strong>100%</strong> hàng <strong>Chất lượng</strong>, đảm bảo <strong>Uy
                                 tín</strong>!</p>
-                        <h5 class="sizes">sizes:
+                        <h5 class="sizes">
+                            Kích cỡ:
                             <span class="size" data-toggle="tooltip" title="cỡ Nhỏ">s</span>
                             <span class="size" data-toggle="tooltip" title="cỡ Trung bình">m</span>
                             <span class="size" data-toggle="tooltip" title="cỡ Lớn">l</span>
                             <span class="size" data-toggle="tooltip" title="cỡ Đại">xl</span>
                         </h5>
-                        <h5 class="colors">colors:
+                        <h5 class="colors">
+                            Màu sắc:
                             <span class="color orange not-available" data-toggle="tooltip" title="Hết hàng"></span>
                             <span class="color green"></span>
                             <span class="color blue"></span>
@@ -333,7 +444,7 @@ Sản phẩm {{ sanpham.sp_ten }}
                             <input type="number" class="form-control" id="soluong" name="soluong">
                         </div>
                         <div class="action">
-                            <a class="add-to-cart btn btn-default" id="btnThemVaoGioHang">Thêm vào giỏ hàng</a>
+                            <a class="add-to-cart btn btn-default" id="btnThemVaocart">Thêm vào giỏ hàng</a>
                             <a class="like btn btn-default" href="#"><span class="fa fa-heart"></span></a>
                         </div>
                     </div>
@@ -347,36 +458,230 @@ Sản phẩm {{ sanpham.sp_ten }}
         <h3>Thông tin chi tiết về Sản phẩm</h3>
         <div class="row">
             <div class="col">
-                {{ sanpham.sp_mota_chitiet }}
+                {{ product.description }}
             </div>
         </div>
     </div>
 </div>
+
+<div class="container-fluid mt-4">
+    <h3>Thông tin Đánh giá Sản phẩm</h3>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="rating-block">
+                <h4>Average user rating</h4>
+                <h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
+                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h4>Rating breakdown</h4>
+            <ul style="list-style-type: none;">
+                <li class="mb-1">
+                    <div class="row">
+                        <div class="" style="width:35px;">
+                            5 <span class="fa fa-star"></span>
+                        </div>
+                        <div class="col">
+                            <div class="progress" style="height: 23px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div class="row">
+                        <div class="" style="width:35px;">
+                            4 <span class="fa fa-star"></span>
+                        </div>
+                        <div class="col">
+                            <div class="progress" style="height: 23px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div class="row">
+                        <div class="" style="width:35px;">
+                            3 <span class="fa fa-star"></span>
+                        </div>
+                        <div class="col">
+                            <div class="progress" style="height: 23px;">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div class="row">
+                        <div class="" style="width:35px;">
+                            2 <span class="fa fa-star"></span>
+                        </div>
+                        <div class="col">
+                            <div class="progress" style="height: 23px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div class="row">
+                        <div class="" style="width:35px;">
+                            1 <span class="fa fa-star"></span>
+                        </div>
+                        <div class="col">
+                            <div class="progress" style="height: 23px;">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-7">
+            <hr />
+            <div class="review-block">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                        <div class="review-block-name"><a href="#">nktailor</a></div>
+                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="review-block-rate">
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="review-block-title">this was nice in buy</div>
+                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice
+                            in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy
+                            this was nice in buy</div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                        <div class="review-block-name"><a href="#">nktailor</a></div>
+                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="review-block-rate">
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="review-block-title">this was nice in buy</div>
+                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice
+                            in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy
+                            this was nice in buy</div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                        <div class="review-block-name"><a href="#">nktailor</a></div>
+                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="review-block-rate">
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                <span class="fa fa-star" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="review-block-title">this was nice in buy</div>
+                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice
+                            in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy
+                            this was nice in buy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
 {% endblock %}
 {# End Nội dung trong block content #}
 
 {% block customscripts %}
 <script>
-    function addSanPhamVaoGioHang() {
+    function addproductVaocart() {
         var dulieugoi = {
-            sp_ma: $('#sp_ma').val(),
-            sp_ten: $('#sp_ten').val(),
-            sp_gia: $('#sp_gia').val(),
-            hinhdaidien: $('#hinhdaidien').val(),
+            id: $('#id').val(),
+            product_name: $('#product_name').val(),
+            list_price: $('#list_price').val(),
+            image: $('#image').val(),
             soluong: $('#soluong').val(),
         };
         console.log((dulieugoi));
 
         $.ajax({
-            url: '/frontend/ajax/giohang-themsanpham-ajax',
+            url: '/frontend/ajax/cart-themproduct-ajax',
             method: "POST",
             dataType: 'json',
             data: dulieugoi,
             success: function (data) {
                 console.log(data);
                 var htmlString =
-                    `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/frontend/thanhtoan/giohang">Xem Giỏ hàng</a>.`;
+                    `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/frontend/thanhtoan/cart">Xem Giỏ hàng</a>.`;
                 $('#thongbao').html(htmlString);
 
                 // Hiện thông báo
@@ -394,9 +699,9 @@ Sản phẩm {{ sanpham.sp_ten }}
         });
     };
 
-    $('#btnThemVaoGioHang').click(function (event) {
+    $('#btnThemVaocart').click(function (event) {
         event.preventDefault();
-        addSanPhamVaoGioHang();
+        addproductVaocart();
     });
 </script>
 {% endblock %}
