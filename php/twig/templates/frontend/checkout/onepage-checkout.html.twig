@@ -22,60 +22,64 @@ Thanh toán
 {# Nội dung trong block content #}
 {% block content %}
 <div class="container mt-4">
-    <form class="needs-validation" name="frmCheckOut" method="post" action="/frontend/checkout/onepage-checkout.php">
-        <input type="hidden" name="email" value="{{ customer.email }}" />
+    <input type="hidden" name="email" value="{{ customer.email }}" />
 
-        <div class="py-5 text-center">
-            <i class="fa fa-credit-card fa-4x" aria-hidden="true"></i>
-            <h2>Thanh toán</h2>
-            <p class="lead">Vui lòng kiểm tra thông tin Khách hàng, thông tin Giỏ hàng trước khi Đặt hàng.</p>
-        </div>
+    <div class="py-5 text-center">
+        <i class="fa fa-credit-card fa-4x" aria-hidden="true"></i>
+        <h2>Thanh toán</h2>
+        <p class="lead">Vui lòng kiểm tra thông tin Khách hàng, thông tin Giỏ hàng trước khi Đặt hàng.</p>
+    </div>
 
-        <div class="row">
-            <div class="col-md-4 order-md-2 mb-4">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">Giỏ hàng</span>
-                    <span class="badge badge-secondary badge-pill">{{ cartdata|length }}</span>
-                </h4>
-                <ul class="list-group mb-3">
-                    {% set subtotal = 0 %}
-                    {% for product in cartdata %}
-                    <input type="hidden" name="productgiohang[{{ loop.index }}][id]" value="{{ product.id }}" />
-                    <input type="hidden" name="productgiohang[{{ loop.index }}][list_price_after_discount]" value="{{ product.list_price_after_discount }}" />
-                    <input type="hidden" name="productgiohang[{{ loop.index }}][quantity]" value="{{ product.quantity }}" />
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Giỏ hàng</span>
+                <span class="badge badge-secondary badge-pill">{{ cartdata|length }}</span>
+            </h4>
+            <ul class="list-group mb-3">
+                {% set subtotal = 0 %}
+                {% for product in cartdata %}
+                <input type="hidden" name="productgiohang[{{ loop.index }}][id]" value="{{ product.id }}" />
+                <input type="hidden" name="productgiohang[{{ loop.index }}][list_price_after_discount]"
+                    value="{{ product.list_price_after_discount }}" />
+                <input type="hidden" name="productgiohang[{{ loop.index }}][quantity]" value="{{ product.quantity }}" />
 
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">{{ product.product_name }}</h6>
-                            <small class="text-muted">{{ product.list_price_after_discount|number_format(0, '.', ',') }} x {{ product.quantity|number_format(0, '.', ',') }}</small>
-                        </div>
-                        {% set subtotal = subtotal + product.amount %}
-                        <span class="text-muted">{{ product.amount|number_format(0, '.', ',') }}</span>
-                    </li>
-                    {% endfor %}
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Tổng thành tiền</span>
-                        <strong>{{ subtotal|number_format(0, '.', ',') }}</strong>
-                    </li>
-                </ul>
-
-                <form class="card p-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Mã khuyến mãi">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary">Xác nhận</button>
-                        </div>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">{{ product.product_name }}</h6>
+                        <small class="text-muted">{{ product.list_price_after_discount|number_format(0, '.', ',') }} x
+                            {{ product.quantity|number_format(0, '.', ',') }}</small>
                     </div>
-                </form>
-            </div>
-            <div class="col-md-8 order-md-1">
+                    {% set subtotal = subtotal + product.amount %}
+                    <span class="text-muted">{{ product.amount|number_format(0, '.', ',') }}</span>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Tổng thành tiền</span>
+                    <strong>{{ subtotal|number_format(0, '.', ',') }}</strong>
+                </li>
+            </ul>
+
+            <!-- Thông tin Mã khuyến mãi Voucher / Coupon -->
+            <form class="card p-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Mã khuyến mãi" required>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary">Xác nhận</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8 order-md-1">
+            <form class="needs-validation" name="frmCheckOut" method="post"
+                action="/frontend/checkout/onepage-checkout.php">
                 <h4 class="mb-3">Thông tin khách hàng</h4>
 
                 <div class="row">
                     <div class="col-md-12">
                         <label for="full_name">Họ tên</label>
-                        <input type="text" class="form-control" name="full_name" id="full_name" value="{{ customer.last_name }} {{ customer.first_name }}"
-                            readonly>
+                        <input type="text" class="form-control" name="full_name" id="full_name"
+                            value="{{ customer.last_name }} {{ customer.first_name }}" readonly>
                     </div>
                     <div class="col-md-12">
                         <label for="gender">Giới tính</label>
@@ -94,24 +98,23 @@ Thanh toán
                     </div>
                     <div class="col-md-12">
                         <label for="phone">Điện thoại</label>
-                        <input type="text" class="form-control" name="phone" id="phone"
-                            value="{{ customer.phone }}" readonly>
+                        <input type="text" class="form-control" name="phone" id="phone" value="{{ customer.phone }}"
+                            readonly>
                     </div>
                     <div class="col-md-12">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control" name="email" id="email"
-                            value="{{ customer.email }}" readonly>
+                        <input type="text" class="form-control" name="email" id="email" value="{{ customer.email }}"
+                            readonly>
                     </div>
                     <div class="col-md-12">
                         <label for="birthday">Ngày sinh</label>
                         <input type="text" class="form-control" name="birthday" id="birthday"
-                            value="{{ customer.birthday }}"
-                            readonly>
+                            value="{{ customer.birthday }}" readonly>
                     </div>
                     <div class="col-md-12">
                         <label for="code">CMND</label>
-                        <input type="text" class="form-control" name="code" id="code"
-                            value="{{ customer.code }}" readonly>
+                        <input type="text" class="form-control" name="code" id="code" value="{{ customer.code }}"
+                            readonly>
                     </div>
                 </div>
 
@@ -120,8 +123,8 @@ Thanh toán
                 <div class="d-block my-3">
                     {% for payment in payment_types %}
                     <div class="custom-control custom-radio">
-                        <input id="httt-{{ payment.id }}" name="id" type="radio"
-                            class="custom-control-input" required="" value="{{ payment.id }}">
+                        <input id="httt-{{ payment.id }}" name="id" type="radio" class="custom-control-input"
+                            required="" value="{{ payment.id }}">
                         <label class="custom-control-label"
                             for="httt-{{ payment.id }}">{{ payment.payment_name }}</label>
                     </div>
@@ -129,9 +132,9 @@ Thanh toán
                 </div>
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit" name="btnDatHang">Đặt hàng</button>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}
 {# End Nội dung trong block content #}
