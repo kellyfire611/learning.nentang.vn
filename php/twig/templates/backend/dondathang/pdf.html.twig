@@ -63,7 +63,7 @@ In Đơn đặt hàng
             </tr>
             <tr>
                 <td>Tổng thành tiền:</td>
-                <td><b>{{ dondathang.TongThanhTien }}</b></td>
+                <td><b>{{ dondathang.Tongamount }}</b></td>
             </tr>
         </tbody>
     </table>
@@ -85,20 +85,20 @@ In Đơn đặt hàng
             <tr>
                 <td align="center">{{ loop.index }}</td>
                 <td>
-                    <b>{{ sanpham.sp_ten }}</b><br />
-                    <small><i>{{ sanpham.lsp_ten}}</i></small><br />
+                    <b>{{ sanpham.product_name }}</b><br />
+                    <small><i>{{ sanpham.lproduct_name}}</i></small><br />
                     <small><i>{{ sanpham.nsx_ten}}</i></small>
                 </td>
-                <td align="right">{{ sanpham.sp_soluong }}</td>
+                <td align="right">{{ sanpham.sp_quantity }}</td>
                 <td align="right">{{ sanpham.sp_gia }}</td>
-                <td align="right">{{ sanpham.sp_soluong * sanpham.sp_gia }}</td>
+                <td align="right">{{ sanpham.sp_quantity * sanpham.sp_gia }}</td>
             </tr>
             {% endfor %}
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="4" align="right"><b>Tổng thành tiền</b></td>
-                <td align="right">{{ dondathang.TongThanhTien }}</td>
+                <td align="right">{{ dondathang.Tongamount }}</td>
             </tr>
         </tfoot>
     </table>

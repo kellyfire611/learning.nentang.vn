@@ -27,8 +27,8 @@ if (isset($_POST['btnImport'])) {
         // Kiểm tra các cột dữ liệu có đúng mẫu hay không?
         $arrayCount = count($allDataInSheet);
         $flag = 0;
-        $createArray = array('lsp_ten', 'lsp_mota');
-        $makeArray = array('lsp_ten' => 'lsp_ten', 'lsp_mota' => 'lsp_mota');
+        $createArray = array('lproduct_name', 'lsp_mota');
+        $makeArray = array('lproduct_name' => 'lproduct_name', 'lsp_mota' => 'lsp_mota');
         $SheetDataKey = array();
         foreach ($allDataInSheet as $dataInSheet) {
             foreach ($dataInSheet as $key => $value) {
@@ -47,19 +47,19 @@ if (isset($_POST['btnImport'])) {
         if ($flag == 1) {
             // Đọc dữ liệu từ dòng số 2 (do dòng 1 đã lấy làm tiêu đề cột)
             for ($i = 2; $i <= $arrayCount; $i++) {
-                $lsp_ten = $SheetDataKey['lsp_ten'];
+                $lproduct_name = $SheetDataKey['lproduct_name'];
                 $lsp_mota = $SheetDataKey['lsp_mota'];
 
-                $lsp_ten = filter_var(trim($allDataInSheet[$i][$lsp_ten]), FILTER_SANITIZE_STRING);
+                $lproduct_name = filter_var(trim($allDataInSheet[$i][$lproduct_name]), FILTER_SANITIZE_STRING);
                 $lsp_mota = filter_var(trim($allDataInSheet[$i][$lsp_mota]), FILTER_SANITIZE_STRING);
-                $fetchData[] = array('lsp_ten' => $lsp_ten, 'lsp_mota' => $lsp_mota,);
+                $fetchData[] = array('lproduct_name' => $lproduct_name, 'lsp_mota' => $lsp_mota,);
             }
             $data['dataInfo'] = $fetchData;
             
             // dd($fetchData);
             foreach($fetchData as $row) {
                 // Câu lệnh INSERT
-                $sql = "INSERT INTO `loaisanpham` (lsp_ten, lsp_mota) VALUES ('" . $row['lsp_ten'] . "', '" . $row['lsp_mota'] . "');";
+                $sql = "INSERT INTO `loaisanpham` (lproduct_name, lsp_mota) VALUES ('" . $row['lproduct_name'] . "', '" . $row['lsp_mota'] . "');";
 
                 // Thực thi INSERT
                 mysqli_query($conn, $sql);

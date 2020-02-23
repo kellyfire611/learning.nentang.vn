@@ -19,11 +19,11 @@ $loaisanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-    $tenLoai = $_POST['lsp_ten'];
+    $tenLoai = $_POST['lproduct_name'];
     $mota = $_POST['lsp_mota'];
 
     // Câu lệnh UPDATE
-    $sql = "UPDATE `loaisanpham` SET lsp_ten='$tenLoai', lsp_mota='$mota' WHERE lsp_ma=$lsp_ma;";
+    $sql = "UPDATE `loaisanpham` SET lproduct_name='$tenLoai', lsp_mota='$mota' WHERE lsp_ma=$lsp_ma;";
 
     // Thực thi UPDATE
     mysqli_query($conn, $sql);

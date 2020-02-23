@@ -10,7 +10,7 @@ include_once(__DIR__ . '/../../Paginator.php');
 // Sử dụng HEREDOC của PHP để tạo câu truy vấn SQL với dạng dễ đọc, thân thiện với việc bảo trì code
 $sql = <<<EOT
     SELECT sp.*
-        , lsp.lsp_ten
+        , lsp.lproduct_name
         , nsx.nsx_ten
         , km.km_ten, km.km_noidung, km.km_tungay, km.km_denngay
     FROM `sanpham` sp
@@ -50,19 +50,19 @@ foreach($data as $row)
     }
     $formatedData[] = array(
         'sp_ma' => $row['sp_ma'],
-        'sp_ten' => $row['sp_ten'],
+        'product_name' => $row['product_name'],
         // Sử dụng hàm number_format(số tiền, số lẻ thập phân, dấu phân cách số lẻ, dấu phân cách hàng nghìn) để định dạng số khi hiển thị trên giao diện. Vd: 15800000 -> format thành 15,800,000.66 vnđ
         'sp_gia' => number_format($row['sp_gia'], 2, ".", ",") . ' vnđ',
         'sp_giacu' => number_format($row['sp_giacu'], 2, ".", ",") . ' vnđ',
         'sp_mota_ngan' => $row['sp_mota_ngan'],
         'sp_mota_chitiet' => $row['sp_mota_chitiet'],
         'sp_ngaycapnhat' => date('d/m/Y H:i:s', strtotime($row['sp_ngaycapnhat'])),
-        'sp_soluong' => number_format($row['sp_soluong'], 0, ".", ","),
+        'sp_quantity' => number_format($row['sp_quantity'], 0, ".", ","),
         'lsp_ma' => $row['lsp_ma'],
         'nsx_ma' => $row['nsx_ma'],
         'km_ma' => $row['km_ma'],
         // Các cột dữ liệu lấy từ liên kết khóa ngoại
-        'lsp_ten' => $row['lsp_ten'],
+        'lproduct_name' => $row['lproduct_name'],
         'nsx_ten' => $row['nsx_ten'],
         'km_tomtat' => $km_tomtat,
     );

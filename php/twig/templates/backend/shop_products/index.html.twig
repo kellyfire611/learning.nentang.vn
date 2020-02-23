@@ -39,7 +39,7 @@ Danh sách Sản phẩm
         {% for sanpham in ds_sanpham %}
         <tr>
             <td>{{ sanpham.sp_ma }}</td>
-            <td>{{ sanpham.sp_ten }}</td>
+            <td>{{ sanpham.product_name }}</td>
             <td>{{ sanpham.sp_gia }}</td>
             <td>{{ sanpham.sp_giacu }}</td>
             <td>
@@ -49,8 +49,8 @@ Danh sách Sản phẩm
                 </p>
             </td>
             <td>{{ sanpham.sp_ngaycapnhat }}</td>
-            <td>{{ sanpham.sp_soluong }}</td>
-            <td>{{ sanpham.lsp_ten }}</td>
+            <td>{{ sanpham.sp_quantity }}</td>
+            <td>{{ sanpham.lproduct_name }}</td>
             <td>{{ sanpham.nsx_ten }}</td>
             <td>{{ sanpham.km_tomtat }}</td>
             <td>

@@ -8,7 +8,7 @@ include_once(__DIR__.'/../../dbconnect.php');
 
 // 2. Chuẩn bị câu truy vấn $sql
 $sql = <<<EOT
-    SELECT DATE(ddh.dh_ngaylap) as NgayTaoDonHang, SUM(sp_dh_soluong * sp_dh_dongia) AS TongThanhTien
+    SELECT DATE(ddh.dh_ngaylap) as NgayTaoDonHang, SUM(sp_dh_quantity * sp_dh_dongia) AS Tongamount
     FROM `dondathang` ddh
     JOIN `sanpham_dondathang` spddh ON ddh.dh_ma = spddh.dh_ma
     GROUP BY DATE(ddh.dh_ngaylap)
@@ -25,7 +25,7 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 {
     $data[] = array(
         'NgayTaoDonHang' => date('d/m/Y', strtotime($row['NgayTaoDonHang'])),
-        'TongThanhTien' => $row['TongThanhTien'] 
+        'Tongamount' => $row['Tongamount'] 
     );
 }
 

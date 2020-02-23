@@ -38,8 +38,8 @@ Thêm mới Nhà cung cấp
         <small id="lsp_maHelp" class="form-text text-muted">Mã Nhà cung cấp không được hiệu chỉnh.</small>
     </div>
     <div class="form-group">
-        <label for="lsp_ten">Tên Nhà cung cấp</label>
-        <input type="text" class="form-control" id="lsp_ten" name="lsp_ten" placeholder="Tên Nhà cung cấp" value="{{ lsp_ten_oldvalue }}">
+        <label for="lproduct_name">Tên Nhà cung cấp</label>
+        <input type="text" class="form-control" id="lproduct_name" name="lproduct_name" placeholder="Tên Nhà cung cấp" value="{{ lproduct_name_oldvalue }}">
     </div>
     <div class="form-group">
         <label for="lsp_mota">Mô tả Nhà cung cấp</label>
@@ -55,7 +55,7 @@ Thêm mới Nhà cung cấp
     $(document).ready(function () {
         $("#frmLoaiSanPham").validate({
             rules: {
-                lsp_ten: {
+                lproduct_name: {
                     required: true,
                     minlength: 3,
                     maxlength: 50
@@ -67,7 +67,7 @@ Thêm mới Nhà cung cấp
                 }
             },
             messages: {
-                lsp_ten: {
+                lproduct_name: {
                     required: "Vui lòng nhập tên Nhà cung cấp",
                     minlength: "Tên Nhà cung cấp phải có ít nhất 3 ký tự",
                     maxlength: "Tên Nhà cung cấp không được vượt quá 50 ký tự"

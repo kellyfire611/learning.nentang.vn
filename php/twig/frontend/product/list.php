@@ -8,11 +8,11 @@ include_once(__DIR__.'/../../dbconnect.php');
 
 // 2. Chuẩn bị câu truy vấn $sql
 $sqlDanhSachSanPham = <<<EOT
-    SELECT sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_soluong, lsp.lsp_ten, MAX(hsp.hsp_tentaptin) AS hsp_tentaptin
+    SELECT sp.sp_ma, sp.product_name, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_quantity, lsp.lproduct_name, MAX(hsp.hproduct_nametaptin) AS hproduct_nametaptin
     FROM `sanpham` sp
     JOIN `loaisanpham` lsp ON sp.lsp_ma = lsp.lsp_ma
     LEFT JOIN `hinhsanpham` hsp ON sp.sp_ma = hsp.sp_ma
-    GROUP BY sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_soluong, lsp.lsp_ten
+    GROUP BY sp.sp_ma, sp.product_name, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_quantity, lsp.lproduct_name
 EOT;
 
 // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
@@ -26,13 +26,13 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 {
     $dataDanhSachSanPham[] = array(
         'sp_ma' => $row['sp_ma'],
-        'sp_ten' => $row['sp_ten'],
+        'product_name' => $row['product_name'],
         'sp_gia' => number_format($row['sp_gia'], 2, ".", ",") . ' vnđ',
         'sp_giacu' => number_format($row['sp_giacu'], 2, ".", ","),
         'sp_mota_ngan' => $row['sp_mota_ngan'],
-        'sp_soluong' => $row['sp_soluong'],
-        'lsp_ten' => $row['lsp_ten'],
-        'hsp_tentaptin' => $row['hsp_tentaptin'],
+        'sp_quantity' => $row['sp_quantity'],
+        'lproduct_name' => $row['lproduct_name'],
+        'hproduct_nametaptin' => $row['hproduct_nametaptin'],
     );
 }
 

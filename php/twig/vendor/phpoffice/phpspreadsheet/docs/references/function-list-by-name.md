@@ -434,7 +434,7 @@ STDEVP              | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet
 STDEVPA             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVPA
 STEYX               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STEYX
 SUBSTITUTE          | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SUBSTITUTE
-SUBTOTAL            | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUBTOTAL
+amount            | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::amount
 SUM                 | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUM
 SUMIF               | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMIF
 SUMIFS              | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMIFS

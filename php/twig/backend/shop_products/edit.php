@@ -24,7 +24,7 @@ while($rowLoaiSanPham = mysqli_fetch_array($resultLoaiSanPham, MYSQLI_ASSOC))
 {
     $dataLoaiSanPham[] = array(
         'lsp_ma' => $rowLoaiSanPham['lsp_ma'],
-        'lsp_ten' => $rowLoaiSanPham['lsp_ten'],
+        'lproduct_name' => $rowLoaiSanPham['lproduct_name'],
         'lsp_mota' => $rowLoaiSanPham['lsp_mota'],
     );
 }
@@ -105,19 +105,19 @@ $sanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-    $ten = $_POST['sp_ten'];
+    $ten = $_POST['product_name'];
     $gia = $_POST['sp_gia'];
     $giacu = $_POST['sp_giacu'];
     $motangan = $_POST['sp_mota_ngan'];
     $motachitiet = $_POST['sp_mota_chitiet'];
     $ngaycapnhat = $_POST['sp_ngaycapnhat'];
-    $soluong = $_POST['sp_soluong'];
+    $quantity = $_POST['sp_quantity'];
     $lsp_ma = $_POST['lsp_ma'];
     $nsx_ma = $_POST['nsx_ma'];
     $km_ma = empty($_POST['km_ma']) ? 'NULL' : $_POST['km_ma'];
 
     // Câu lệnh INSERT
-    $sql = "UPDATE `sanpham` SET sp_ten='$ten', sp_gia=$gia, sp_giacu=$giacu, sp_mota_ngan='$motangan', sp_mota_chitiet='$motachitiet', sp_ngaycapnhat='$ngaycapnhat', sp_soluong=$soluong, lsp_ma=$lsp_ma, nsx_ma=$nsx_ma, km_ma=$km_ma WHERE sp_ma=$sp_ma;";
+    $sql = "UPDATE `sanpham` SET product_name='$ten', sp_gia=$gia, sp_giacu=$giacu, sp_mota_ngan='$motangan', sp_mota_chitiet='$motachitiet', sp_ngaycapnhat='$ngaycapnhat', sp_quantity=$quantity, lsp_ma=$lsp_ma, nsx_ma=$nsx_ma, km_ma=$km_ma WHERE sp_ma=$sp_ma;";
     
     // Thực thi INSERT
     mysqli_query($conn, $sql);

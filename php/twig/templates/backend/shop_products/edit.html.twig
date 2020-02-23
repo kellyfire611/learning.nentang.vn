@@ -22,8 +22,8 @@ Sửa Sản phẩm
         <small id="sp_maHelp" class="form-text text-muted">Mã Sản phẩm không được hiệu chỉnh.</small>
     </div>
     <div class="form-group">
-        <label for="sp_ten">Tên Sản phẩm</label>
-        <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên Sản phẩm" value="{{ sanpham.sp_ten }}">
+        <label for="product_name">Tên Sản phẩm</label>
+        <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Tên Sản phẩm" value="{{ sanpham.product_name }}">
     </div>
     <div class="form-group">
         <label for="sp_gia">Giá Sản phẩm</label>
@@ -46,17 +46,17 @@ Sửa Sản phẩm
         <input type="text" class="form-control" id="sp_ngaycapnhat" name="sp_ngaycapnhat" placeholder="Ngày cập nhật Sản phẩm" value="{{ sanpham.sp_ngaycapnhat }}">
     </div>
     <div class="form-group">
-        <label for="sp_soluong">Số lượng</label>
-        <input type="text" class="form-control" id="sp_soluong" name="sp_soluong" placeholder="Số lượng Sản phẩm" value="{{ sanpham.sp_soluong }}">
+        <label for="sp_quantity">Số lượng</label>
+        <input type="text" class="form-control" id="sp_quantity" name="sp_quantity" placeholder="Số lượng Sản phẩm" value="{{ sanpham.sp_quantity }}">
     </div>
     <div class="form-group">
         <label for="lsp_ma">Loại sản phẩm</label>
         <select class="form-control" id="lsp_ma" name="lsp_ma">
             {% for loaisanpham in ds_loaisanpham %}
                 {% if loaisanpham.lsp_ma == sanpham.lsp_ma %}
-                <option value="{{ loaisanpham.lsp_ma }}" selected>{{ loaisanpham.lsp_ten }}</option>
+                <option value="{{ loaisanpham.lsp_ma }}" selected>{{ loaisanpham.lproduct_name }}</option>
                 {% else %}
-                <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</option>
+                <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lproduct_name }}</option>
                 {% endif %}
             {% endfor %}
         </select>

@@ -22,12 +22,12 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 {
     // Sử dụng hàm sprintf() để chuẩn bị mẫu câu với các giá trị truyền vào tương ứng từng vị trí placeholder
     $sp_tomtat = sprintf("Sản phẩm %s, giá: %d", 
-        $row['sp_ten'],
+        $row['product_name'],
         number_format($row['sp_gia'], 2, ".", ",") . ' vnđ');
 
     $data[] = array(
         'hsp_ma' => $row['hsp_ma'],
-        'hsp_tentaptin' => $row['hsp_tentaptin'],
+        'hproduct_nametaptin' => $row['hproduct_nametaptin'],
         'sp_tomtat' => $sp_tomtat,
     );
 }

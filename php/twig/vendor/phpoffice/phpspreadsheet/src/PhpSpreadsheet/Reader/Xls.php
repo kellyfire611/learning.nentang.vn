@@ -6909,7 +6909,7 @@ class Xls extends BaseReader
 
                         break;
                     case 344:
-                        $function = 'SUBTOTAL';
+                        $function = 'amount';
 
                         break;
                     case 345:

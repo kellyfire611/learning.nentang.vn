@@ -24,7 +24,7 @@ while($rowSanPham = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC))
 {
     // Sử dụng hàm sprintf() để chuẩn bị mẫu câu với các giá trị truyền vào tương ứng từng vị trí placeholder
     $sp_tomtat = sprintf("Sản phẩm %s, giá: %d", 
-        $rowSanPham['sp_ten'],
+        $rowSanPham['product_name'],
         number_format($rowSanPham['sp_gia'], 2, ".", ",") . ' vnđ');
 
     $dataSanPham[] = array(
@@ -55,39 +55,39 @@ if(isset($_POST['btnSave']))
     $sp_ma = $_POST['sp_ma'];
 
     // Nếu người dùng có chọn file để upload
-    if (isset($_FILES['hsp_tentaptin']))
+    if (isset($_FILES['hproduct_nametaptin']))
     {
         // Đường dẫn để chứa thư mục upload trên ứng dụng web của chúng ta. Các bạn có thể tùy chỉnh theo ý các bạn.
         // Ví dụ: các file upload sẽ được lưu vào thư mục ../../assets/uploads
         $upload_dir = "./../../assets/uploads/";
 
         // Đối với mỗi file, sẽ có các thuộc tính như sau:
-        // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
-        // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
-        // $_FILES['hsp_tentaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
-        // $_FILES['hsp_tentaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
-        // $_FILES['hsp_tentaptin']['size']     : Kích thước của file chúng ta upload
+        // $_FILES['hproduct_nametaptin']['name']     : Tên của file chúng ta upload
+        // $_FILES['hproduct_nametaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
+        // $_FILES['hproduct_nametaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
+        // $_FILES['hproduct_nametaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
+        // $_FILES['hproduct_nametaptin']['size']     : Kích thước của file chúng ta upload
 
         // Nếu file upload bị lỗi, tức là thuộc tính error > 0
-        if ($_FILES['hsp_tentaptin']['error'] > 0)
+        if ($_FILES['hproduct_nametaptin']['error'] > 0)
         {
             echo 'File Upload Bị Lỗi';die;
         }
         else{
             // Tiến hành di chuyển file từ thư mục tạm trên server vào thư mục chúng ta muốn chứa các file uploads
             // Ví dụ: move file từ C:\xampp\tmp\php6091.tmp -> C:/xampp/htdocs/learning.nentang.vn/assets/uploads/hoahong.jpg
-            $hsp_tentaptin = $_FILES['hsp_tentaptin']['name'];
-            move_uploaded_file($_FILES['hsp_tentaptin']['tmp_name'], $upload_dir.$hsp_tentaptin);
+            $hproduct_nametaptin = $_FILES['hproduct_nametaptin']['name'];
+            move_uploaded_file($_FILES['hproduct_nametaptin']['tmp_name'], $upload_dir.$hproduct_nametaptin);
             
             // Xóa file cũ để tránh rác trong thư mục UPLOADS
-            $old_file = $upload_dir.$hinhsanphamRow['hsp_tentaptin'];
+            $old_file = $upload_dir.$hinhsanphamRow['hproduct_nametaptin'];
             if(file_exists($old_file)) {
                 unlink($old_file);
             }
         }
 
         // Câu lệnh UPDATE
-        $sql = "UPDATE `hinhsanpham` SET hsp_tentaptin='$hsp_tentaptin', sp_ma=$sp_ma WHERE hsp_ma=$hsp_ma;";
+        $sql = "UPDATE `hinhsanpham` SET hproduct_nametaptin='$hproduct_nametaptin', sp_ma=$sp_ma WHERE hsp_ma=$hsp_ma;";
         
         // Thực thi UPDATE
         mysqli_query($conn, $sql);

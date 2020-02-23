@@ -7,19 +7,19 @@ require_once __DIR__ . '/../../bootstrap.php';
 include_once(__DIR__ . '/../../dbconnect.php');
 
 // Lấy thông tin người dùng gởi đến
-$sp_ma = $_POST['sp_ma'];
+$id = $_POST['id'];
 
 // Lưu trữ giỏ hàng trong session
 // Nếu khách hàng đặt hàng cùng sản phẩm đã có trong giỏ hàng => cập nhật lại Số lượng, Thành tiền
-if (isset($_SESSION['giohangdata'])) {
-    $data = $_SESSION['giohangdata'];
+if (isset($_SESSION['cartdata'])) {
+    $data = $_SESSION['cartdata'];
     
-    if(isset($data[$sp_ma])) {
-        unset($data[$sp_ma]);
+    if(isset($data[$id])) {
+        unset($data[$id]);
     }
 
     // lưu dữ liệu giỏ hàng vào session
-    $_SESSION['giohangdata'] = $data;
+    $_SESSION['cartdata'] = $data;
 }
 
-echo json_encode($_SESSION['giohangdata']);
+echo json_encode($_SESSION['cartdata']);

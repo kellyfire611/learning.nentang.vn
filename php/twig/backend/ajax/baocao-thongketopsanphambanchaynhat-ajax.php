@@ -10,12 +10,12 @@ include_once(__DIR__.'/../../dbconnect.php');
 $sql = <<<EOT
     SELECT *
     FROM (
-        SELECT sp.sp_ten, COUNT(*) AS SoLuong
+        SELECT sp.product_name, COUNT(*) AS quantity
         FROM `sanpham_dondathang` spddh
         JOIN `sanpham` sp ON spddh.sp_ma = sp.sp_ma
-        GROUP BY sp.sp_ten
+        GROUP BY sp.product_name
     ) AS ex
-    ORDER BY ex.SoLuong DESC 
+    ORDER BY ex.quantity DESC 
     LIMIT 5
 EOT;
 
@@ -29,8 +29,8 @@ $data = [];
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 {
     $data[] = array(
-        'TenSanPham' => $row['sp_ten'],
-        'SoLuong' => $row['SoLuong'] 
+        'TenSanPham' => $row['product_name'],
+        'quantity' => $row['quantity'] 
     );
 }
 

@@ -1899,9 +1899,9 @@ class Calculation
             'functionCall' => [TextData::class, 'SUBSTITUTE'],
             'argumentCount' => '3,4',
         ],
-        'SUBTOTAL' => [
+        'amount' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SUBTOTAL'],
+            'functionCall' => [MathTrig::class, 'amount'],
             'argumentCount' => '2+',
             'passCellReference' => true,
         ],

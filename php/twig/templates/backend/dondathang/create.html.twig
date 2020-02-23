@@ -22,8 +22,8 @@ Thêm mới Sản phẩm
         <small id="sp_maHelp" class="form-text text-muted">Mã Sản phẩm không được hiệu chỉnh.</small>
     </div>
     <div class="form-group">
-        <label for="sp_ten">Tên Sản phẩm</label>
-        <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên Sản phẩm">
+        <label for="product_name">Tên Sản phẩm</label>
+        <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Tên Sản phẩm">
     </div>
     <div class="form-group">
         <label for="sp_gia">Giá Sản phẩm</label>
@@ -46,14 +46,14 @@ Thêm mới Sản phẩm
         <input type="text" class="form-control" id="sp_ngaycapnhat" name="sp_ngaycapnhat" placeholder="Ngày cập nhật Sản phẩm">
     </div>
     <div class="form-group">
-        <label for="sp_soluong">Số lượng</label>
-        <input type="text" class="form-control" id="sp_soluong" name="sp_soluong" placeholder="Số lượng Sản phẩm">
+        <label for="sp_quantity">Số lượng</label>
+        <input type="text" class="form-control" id="sp_quantity" name="sp_quantity" placeholder="Số lượng Sản phẩm">
     </div>
     <div class="form-group">
         <label for="lsp_ma">Loại sản phẩm</label>
         <select class="form-control" id="lsp_ma" name="lsp_ma">
             {% for loaisanpham in ds_loaisanpham %}
-            <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</option>
+            <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lproduct_name }}</option>
             {% endfor %}
         </select>
     </div>

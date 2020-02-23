@@ -20,8 +20,8 @@ Bảng tin
         <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-primary mb-2">
                 <div class="card-body pb-0">
-                    <div class="text-value" id="baocaoSanPham_SoLuong">
-                        <h1>{{ baocaoSanPham.SoLuong }}</h1>
+                    <div class="text-value" id="baocaoSanPham_quantity">
+                        <h1>{{ baocaoSanPham.quantity }}</h1>
                     </div>
                     <div>Tổng số mặt hàng</div>
                 </div>
@@ -32,8 +32,8 @@ Bảng tin
         <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-success mb-2">
                 <div class="card-body pb-0">
-                    <div class="text-value" id="baocaoKhachHang_SoLuong">
-                        <h1>{{ baocaoKhachHang.SoLuong }}</h1>
+                    <div class="text-value" id="baocaoKhachHang_quantity">
+                        <h1>{{ baocaoKhachHang.quantity }}</h1>
                     </div>
                     <div>Tổng số khách hàng</div>
                 </div>
@@ -44,8 +44,8 @@ Bảng tin
         <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-warning mb-2">
                 <div class="card-body pb-0">
-                    <div class="text-value" id="baocaoDonHang_SoLuong">
-                        <h1>{{ baocaoDonHang.SoLuong }}</h1>
+                    <div class="text-value" id="baocaoDonHang_quantity">
+                        <h1>{{ baocaoDonHang.quantity }}</h1>
                     </div>
                     <div>Tổng số đơn hàng</div>
                 </div>
@@ -56,8 +56,8 @@ Bảng tin
         <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-danger mb-2">
                 <div class="card-body pb-0">
-                    <div class="text-value" id="baocaoGopY_SoLuong">
-                        <h1>{{ baocaoGopY.SoLuong }}</h1>
+                    <div class="text-value" id="baocaoGopY_quantity">
+                        <h1>{{ baocaoGopY.quantity }}</h1>
                     </div>
                     <div>Tổng số góp ý</div>
                 </div>
@@ -103,12 +103,12 @@ Bảng tin
         $.ajax('/backend/ajax/baocao-tongsomathang-ajax', {
             success: function (data) {
                 var dataObj = JSON.parse(data);
-                var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                $('#baocaoSanPham_SoLuong').html(htmlString);
+                var htmlString = `<h1>${dataObj.quantity}</h1>`;
+                $('#baocaoSanPham_quantity').html(htmlString);
             },
             error: function () {
                 var htmlString = `<h1>Không thể xử lý</h1>`;
-                $('#baocaoSanPham_SoLuong').html(htmlString);
+                $('#baocaoSanPham_quantity').html(htmlString);
             }
         });
     });
@@ -118,12 +118,12 @@ Bảng tin
         $.ajax('/backend/ajax/baocao-tongsokhachhang-ajax', {
             success: function (data) {
                 var dataObj = JSON.parse(data);
-                var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                $('#baocaoKhachHang_SoLuong').html(htmlString);
+                var htmlString = `<h1>${dataObj.quantity}</h1>`;
+                $('#baocaoKhachHang_quantity').html(htmlString);
             },
             error: function () {
                 var htmlString = `<h1>Không thể xử lý</h1>`;
-                $('#baocaoKhachHang_SoLuong').html(htmlString);
+                $('#baocaoKhachHang_quantity').html(htmlString);
             }
         });
     };
@@ -138,12 +138,12 @@ Bảng tin
         $.ajax('/backend/ajax/baocao-tongsodonhang-ajax', {
             success: function (data) {
                 var dataObj = JSON.parse(data);
-                var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                $('#baocaoDonHang_SoLuong').html(htmlString);
+                var htmlString = `<h1>${dataObj.quantity}</h1>`;
+                $('#baocaoDonHang_quantity').html(htmlString);
             },
             error: function () {
                 var htmlString = `<h1>Không thể xử lý</h1>`;
-                $('#baocaoDonHang_SoLuong').html(htmlString);
+                $('#baocaoDonHang_quantity').html(htmlString);
             }
         });
     };
@@ -158,12 +158,12 @@ Bảng tin
         $.ajax('/backend/ajax/baocao-tongsogopy-ajax', {
             success: function (data) {
                 var dataObj = JSON.parse(data);
-                var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                $('#baocaoGopY_SoLuong').html(htmlString);
+                var htmlString = `<h1>${dataObj.quantity}</h1>`;
+                $('#baocaoGopY_quantity').html(htmlString);
             },
             error: function () {
                 var htmlString = `<h1>Không thể xử lý</h1>`;
-                $('#baocaoGopY_SoLuong').html(htmlString);
+                $('#baocaoGopY_quantity').html(htmlString);
             }
         });
     };
@@ -188,7 +188,7 @@ Bảng tin
                 var myData = [];
                 $(data).each(function () {
                     myLabels.push((this.TenLoaiSanPham));
-                    myData.push(this.SoLuong);
+                    myData.push(this.quantity);
                 });
                 myData.push(0); // tạo dòng số liệu 0
                 if (typeof $objChartThongKeLoaiSanPham !== "undefined") {
@@ -241,7 +241,7 @@ Bảng tin
                 var myData = [];
                 $(data).each(function () {
                     myLabels.push((this.TenSanPham));
-                    myData.push(this.SoLuong);
+                    myData.push(this.quantity);
                 });
                 myData.push(0); // tạo dòng số liệu 0
                 if (typeof $objChartThongKeTopSanPhamBanChayNhat !== "undefined") {
@@ -294,7 +294,7 @@ Bảng tin
                 var myData = [];
                 $(data).each(function () {
                     myLabels.push((this.NgayTaoDonHang));
-                    myData.push(this.TongThanhTien);
+                    myData.push(this.Tongamount);
                 });
                 myData.push(0); // tạo dòng số liệu 0
                 if (typeof $objChartThongKeDoanhThu !== "undefined") {

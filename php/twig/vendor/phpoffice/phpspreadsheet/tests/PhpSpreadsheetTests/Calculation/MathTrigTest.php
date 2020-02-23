@@ -581,11 +581,11 @@ class MathTrigTest extends TestCase
     }
 
     /**
-     * @dataProvider providerSUBTOTAL
+     * @dataProvider provideramount
      *
      * @param mixed $expectedResult
      */
-    public function testSUBTOTAL($expectedResult, ...$args)
+    public function testamount($expectedResult, ...$args)
     {
         $cell = $this->getMockBuilder(Cell::class)
             ->setMethods(['getValue'])
@@ -609,13 +609,13 @@ class MathTrigTest extends TestCase
             ->willReturn($worksheet);
 
         array_push($args, $cellReference);
-        $result = MathTrig::SUBTOTAL(...$args);
+        $result = MathTrig::amount(...$args);
         self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
-    public function providerSUBTOTAL()
+    public function provideramount()
     {
-        return require 'data/Calculation/MathTrig/SUBTOTAL.php';
+        return require 'data/Calculation/MathTrig/amount.php';
     }
 
     protected function rowVisibility()
@@ -627,11 +627,11 @@ class MathTrigTest extends TestCase
     }
 
     /**
-     * @dataProvider providerHiddenSUBTOTAL
+     * @dataProvider providerHiddenamount
      *
      * @param mixed $expectedResult
      */
-    public function testHiddenSUBTOTAL($expectedResult, ...$args)
+    public function testHiddenamount($expectedResult, ...$args)
     {
         $visibilityGenerator = $this->rowVisibility();
 
@@ -678,13 +678,13 @@ class MathTrigTest extends TestCase
             ->willReturn($worksheet);
 
         array_push($args, $cellReference);
-        $result = MathTrig::SUBTOTAL(...$args);
+        $result = MathTrig::amount(...$args);
         self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
-    public function providerHiddenSUBTOTAL()
+    public function providerHiddenamount()
     {
-        return require 'data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
+        return require 'data/Calculation/MathTrig/amountHIDDEN.php';
     }
 
     protected function cellValues(array $cellValues)
@@ -702,11 +702,11 @@ class MathTrigTest extends TestCase
     }
 
     /**
-     * @dataProvider providerNestedSUBTOTAL
+     * @dataProvider providerNestedamount
      *
      * @param mixed $expectedResult
      */
-    public function testNestedSUBTOTAL($expectedResult, ...$args)
+    public function testNestedamount($expectedResult, ...$args)
     {
         $cellValueGenerator = $this->cellValues(Functions::flattenArray(array_slice($args, 1)));
         $cellIsFormulaGenerator = $this->cellIsFormula(Functions::flattenArray(array_slice($args, 1)));
@@ -746,13 +746,13 @@ class MathTrigTest extends TestCase
 
         array_push($args, $cellReference);
 
-        $result = MathTrig::SUBTOTAL(...$args);
+        $result = MathTrig::amount(...$args);
         self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
-    public function providerNestedSUBTOTAL()
+    public function providerNestedamount()
     {
-        return require 'data/Calculation/MathTrig/SUBTOTALNESTED.php';
+        return require 'data/Calculation/MathTrig/amountNESTED.php';
     }
 
     /**

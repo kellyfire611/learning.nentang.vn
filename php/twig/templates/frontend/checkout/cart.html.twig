@@ -58,13 +58,32 @@ Giỏ hàng
                             <img src="/assets/shared/img/default-image_600.png" class="img-product" />
                             {% endif %}
                         </td>
-                        <td>{{ product.sp_ten }}</td>
-                        <td>{{ product.soluong }}</td>
-                        <td>{{ product.gia }}</td>
-                        <td>{{ product.soluong * product.gia }}</td>
+                        <td>{{ product.product_name }}</td>
+                        <td>
+                            <span class="product-quantity">{{ product.quantity }}</span>
+                        </td>
+                        <td>
+                            {% if product.discount_amount > 0 %}
+                                {% if product.is_fixed %}
+                                <span class="badge badge-danger">Giảm {{ product.discount_amount|number_format(0, '.', ',') }}</span>
+                                {% else %}
+                                <span class="badge badge-danger">Giảm {{ product.discount_amount|number_format(2, '.', ',') }} %</span>
+                                {% endif %}
+                            {% endif %}
+                            {% if product.list_price_after_discount > 0 %}
+                            <span class="product-price">{{ product.list_price_after_discount|number_format(0, '.', ',') }}</span>
+                            <br />
+                            <span class="product-price-old">{{ product.list_price|number_format(0, '.', ',') }}</span>
+                            {% else %}
+                            <span class="product-price">{{ product.list_price|number_format(0, '.', ',') }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="product-amount"><b>{{ (product.quantity * product.list_price)|number_format(0, '.', ',') }}</b></span>
+                        </td>
                         <td>
                             <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `id` -->
-                            <a id="delete_{{ loop.index }}" data-sp-ma="{{ product.id }}" class="btn btn-danger btn-delete-product">
+                            <a id="delete_{{ loop.index }}" data-id="{{ product.id }}" class="btn btn-danger btn-delete-product">
                                 <i class="fa fa-trash" aria-hidden="true"></i> Xóa
                             </a>
                         </td>
@@ -89,13 +108,15 @@ Giỏ hàng
 {% block customscripts %}
 <script>
     $(document).ready(function () {
-        function removeproductVaoGioHang(id) {
+        // Hàm xóa sản phẩm khỏi giỏ hàng
+        function removeProductFromCart(id) {
+            // Chuân bị dữ liệu gởi đến Server
             var dulieugoi = {
                 id: id
             };
 
             $.ajax({
-                url: '/frontend/ajax/giohang-xoaproduct-ajax',
+                url: '/frontend/ajax/cart-removeproduct-ajax',
                 method: "POST",
                 dataType: 'json',
                 data: dulieugoi,
@@ -107,7 +128,7 @@ Giỏ hàng
                     console.log(textStatus, errorThrown);
 
                     var htmlString = `<h1>Không thể xử lý</h1>`;
-                    $('#thongbao').html(htmlString);
+                    $('#errors-container').html(htmlString);
 
                     // Hiện thông báo
                     $('.alert').removeClass('d-none').addClass('show');
@@ -117,10 +138,10 @@ Giỏ hàng
 
         $('.btn-delete-product').on('click', function () {
             event.preventDefault();
-            var id = $(this).data('sp-ma');
+            var id = $(this).data('id');
             console.log(id);
 
-            removeproductVaoGioHang(id);
+            removeProductFromCart(id);
         });
     });
 </script>

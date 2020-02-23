@@ -30,11 +30,11 @@ if (isset($_POST['btnDatHang'])) {
     foreach ($_POST['sanphamgiohang'] as $sanpham) {
         $sp_ma = $sanpham['sp_ma'];
         $gia = $sanpham['gia'];
-        $soluong = $sanpham['soluong'];
+        $quantity = $sanpham['quantity'];
 
         // Insert Sản phẩm Đơn hàng
         // Câu lệnh INSERT
-        $sqlSanPhamDonHang = "INSERT INTO `sanpham_dondathang` (sp_ma, dh_ma, sp_dh_soluong, sp_dh_dongia) VALUES ($sp_ma, $last_donhang_id, $soluong, $gia);";
+        $sqlSanPhamDonHang = "INSERT INTO `sanpham_dondathang` (sp_ma, dh_ma, sp_dh_quantity, sp_dh_dongia) VALUES ($sp_ma, $last_donhang_id, $quantity, $gia);";
 
         // Thực thi INSERT
         mysqli_query($conn, $sqlSanPhamDonHang);
@@ -42,7 +42,7 @@ if (isset($_POST['btnDatHang'])) {
 
     // Thanh toán thành công, xóa Giỏ hàng trong SESSION
     // lưu dữ liệu giỏ hàng vào session
-    $_SESSION['giohangdata'] = [];
+    $_SESSION['cartdata'] = [];
 
     echo $twig->render('frontend/thanhtoan/thanhtoan-finish.html.twig');
 } else {
@@ -95,17 +95,17 @@ if (isset($_POST['btnDatHang'])) {
 
         // Kiểm tra dữ liệu trong session
         $data = [];
-        if (isset($_SESSION['giohangdata'])) {
-            $data = $_SESSION['giohangdata'];
+        if (isset($_SESSION['cartdata'])) {
+            $data = $_SESSION['cartdata'];
         } else {
             $data = [];
         }
 
         // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/thanhtoan/thanhtoan.html.twig`
-        // với dữ liệu truyền vào file giao diện được đặt tên là `giohangdata`
+        // với dữ liệu truyền vào file giao diện được đặt tên là `cartdata`
         // dd($data);
         echo $twig->render('frontend/thanhtoan/thanhtoan.html.twig', [
-            'giohangdata' => $data,
+            'cartdata' => $data,
             'danhsachhinhthucthanhtoan' => $dataHinhThucThanhToan,
             'khachhang' => $dataKhachHang
         ]);

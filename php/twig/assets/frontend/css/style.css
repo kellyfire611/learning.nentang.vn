@@ -200,3 +200,20 @@ body {
 .ribbon.blue:after {
   border-top: 3px solid #115979
 }
+
+/* Style for product */
+.product-price {
+  color: blue;
+}
+
+.product-price-old {
+  text-decoration: line-through;
+}
+
+.product-quantity {
+  color: red;
+}
+
+.product-amount {
+  color: black;
+}

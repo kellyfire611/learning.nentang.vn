@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <td style="border: solid #ff0000;">Tổng thành tiền:</td>
-            <td colspan="4" style="border: solid #ff0000;"><b>{{ dondathang.TongThanhTien }}</b></td>
+            <td colspan="4" style="border: solid #ff0000;"><b>{{ dondathang.Tongamount }}</b></td>
         </tr>
         <tr>
             <td colspan="5" style="border: solid #ff0000;"><b>Chi tiết đơn hàng</b></td>
@@ -52,18 +52,18 @@
         <tr>
             <td style="text-align: center;vertical-align: center;border: solid #ff0000;">{{ loop.index }}</td>
             <td style="text-align: left;vertical-align: center;word-wrap:break-word;width:22px;border: solid #ff0000;">
-                <b>{{ sanpham.sp_ten }}</b><br />
-                <small><i>{{ sanpham.lsp_ten}}</i></small><br />
+                <b>{{ sanpham.product_name }}</b><br />
+                <small><i>{{ sanpham.lproduct_name}}</i></small><br />
                 <small><i>{{ sanpham.nsx_ten}}</i></small>
             </td>
-            <td style="text-align: right;vertical-align: center;border: solid #ff0000;">{{ sanpham.sp_soluong }}</td>
+            <td style="text-align: right;vertical-align: center;border: solid #ff0000;">{{ sanpham.sp_quantity }}</td>
             <td style="text-align: right;vertical-align: center;border: solid #ff0000;">{{ sanpham.sp_gia }}</td>
-            <td style="text-align: right;vertical-align: center;border: solid #ff0000;">{{ sanpham.sp_soluong * sanpham.sp_gia }}</td>
+            <td style="text-align: right;vertical-align: center;border: solid #ff0000;">{{ sanpham.sp_quantity * sanpham.sp_gia }}</td>
         </tr>
         {% endfor %}
         <tr>
             <td colspan="4" style="text-align: right;border: solid #ff0000;"><b>Tổng thành tiền</b></td>
-            <td style="text-align: right;border: solid #ff0000;">{{ dondathang.TongThanhTien }}</td>
+            <td style="text-align: right;border: solid #ff0000;">{{ dondathang.Tongamount }}</td>
         </tr>
         <tr>
             <td style="text-align: center;border: solid #ff0000;" colspan="5">

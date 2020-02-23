@@ -88,7 +88,7 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 {
     $data[] = array(
         'lsp_ma' => $row['lsp_ma'],
-        'lsp_ten' => $row['lsp_ten'],
+        'lproduct_name' => $row['lproduct_name'],
         'lsp_mota' => $row['lsp_mota'],
     );
 }
@@ -142,7 +142,7 @@ Danh sách Loại sản phẩm
         {% for loaisanpham in ds_loaisanpham %}
         <tr>
             <td>{{ loaisanpham.lsp_ma }}</td>
-            <td>{{ loaisanpham.lsp_ten }}</td>
+            <td>{{ loaisanpham.lproduct_name }}</td>
             <td>{{ loaisanpham.lsp_mota }}</td>
             <td>
                 <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `lsp_ma` -->
@@ -186,11 +186,11 @@ include_once(__DIR__.'/../../dbconnect.php');
 if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-    $tenLoai = $_POST['lsp_ten'];
+    $tenLoai = $_POST['lproduct_name'];
     $mota = $_POST['lsp_mota'];
 
     // Câu lệnh INSERT
-    $sql = "INSERT INTO `loaisanpham` (lsp_ten, lsp_mota) VALUES ('" . $tenLoai . "', '". $mota ."');";
+    $sql = "INSERT INTO `loaisanpham` (lproduct_name, lsp_mota) VALUES ('" . $tenLoai . "', '". $mota ."');";
 
     // Thực thi INSERT
     mysqli_query($conn, $sql);
@@ -241,8 +241,8 @@ Thêm mới Loại sản phẩm
         <small id="lsp_maHelp" class="form-text text-muted">Mã loại sản phẩm không được hiệu chỉnh.</small>
     </div>
     <div class="form-group">
-        <label for="lsp_ten">Tên loại sản phẩm</label>
-        <input type="text" class="form-control" id="lsp_ten" name="lsp_ten" placeholder="Tên loại sản phẩm">
+        <label for="lproduct_name">Tên loại sản phẩm</label>
+        <input type="text" class="form-control" id="lproduct_name" name="lproduct_name" placeholder="Tên loại sản phẩm">
     </div>
     <div class="form-group">
         <label for="lsp_mota">Mô tả loại sản phẩm</label>
@@ -286,11 +286,11 @@ $loaisanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-    $tenLoai = $_POST['lsp_ten'];
+    $tenLoai = $_POST['lproduct_name'];
     $mota = $_POST['lsp_mota'];
 
     // Câu lệnh UPDATE
-    $sql = "UPDATE `loaisanpham` SET lsp_ten='$tenLoai', lsp_mota='$mota' WHERE lsp_ma=$lsp_ma;";
+    $sql = "UPDATE `loaisanpham` SET lproduct_name='$tenLoai', lsp_mota='$mota' WHERE lsp_ma=$lsp_ma;";
 
     // Thực thi UPDATE
     mysqli_query($conn, $sql);
@@ -342,8 +342,8 @@ Sửa Loại sản phẩm
         <small id="lsp_maHelp" class="form-text text-muted">Mã loại sản phẩm không được hiệu chỉnh.</small>
     </div>
     <div class="form-group">
-        <label for="lsp_ten">Tên loại sản phẩm</label>
-        <input type="text" class="form-control" id="lsp_ten" name="lsp_ten" placeholder="Tên loại sản phẩm" value="{{ loaisanpham.lsp_ten }}">
+        <label for="lproduct_name">Tên loại sản phẩm</label>
+        <input type="text" class="form-control" id="lproduct_name" name="lproduct_name" placeholder="Tên loại sản phẩm" value="{{ loaisanpham.lproduct_name }}">
     </div>
     <div class="form-group">
         <label for="lsp_mota">Mô tả loại sản phẩm</label>

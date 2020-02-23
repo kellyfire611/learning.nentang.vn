@@ -299,7 +299,7 @@ SIN                 | sin
 SINH                | sinh
 SQRT                | sqrt
 SQRTPI              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SQRTPI
-SUBTOTAL            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUBTOTAL
+amount            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::amount
 SUM                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUM
 SUMIF               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMIF
 SUMIFS              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMIFS

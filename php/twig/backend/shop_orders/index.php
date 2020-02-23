@@ -9,7 +9,7 @@ include_once(__DIR__.'/../../dbconnect.php');
 $sql = <<<EOT
 SELECT 
     ddh.dh_ma, ddh.dh_ngaylap, ddh.dh_ngaygiao, ddh.dh_noigiao, ddh.dh_trangthaithanhtoan, httt.httt_ten, kh.kh_ten, kh.kh_dienthoai
-    , SUM(spddh.sp_dh_soluong * spddh.sp_dh_dongia) AS TongThanhTien
+    , SUM(spddh.sp_dh_quantity * spddh.sp_dh_dongia) AS Tongamount
 FROM `dondathang` ddh
 JOIN `sanpham_dondathang` spddh ON ddh.dh_ma = spddh.dh_ma
 JOIN `khachhang` kh ON ddh.kh_tendangnhap = kh.kh_tendangnhap
@@ -34,7 +34,7 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         'httt_ten' => $row['httt_ten'],
         'kh_ten' => $row['kh_ten'],
         'kh_dienthoai' => $row['kh_dienthoai'],
-        'TongThanhTien' => number_format($row['TongThanhTien'], 2, ".", ",") . ' vnđ',
+        'Tongamount' => number_format($row['Tongamount'], 2, ".", ",") . ' vnđ',
     );
 }
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/dondathang/index.html.twig`

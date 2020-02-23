@@ -9,7 +9,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
 // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
 if (isset($_POST['btnSave'])) {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-    $tenLoai = $_POST['lsp_ten'];
+    $tenLoai = $_POST['lproduct_name'];
     $mota = $_POST['lsp_mota'];
 
     // Kiểm tra ràng buộc dữ liệu (Validation)
@@ -17,7 +17,7 @@ if (isset($_POST['btnSave'])) {
     $errors = [];
     // required
     if (empty($tenLoai)) {
-        $errors['lsp_ten'][] = [
+        $errors['lproduct_name'][] = [
             'rule' => 'required',
             'rule_value' => true,
             'value' => $tenLoai,
@@ -26,7 +26,7 @@ if (isset($_POST['btnSave'])) {
     }
     // minlength 3
     if (!empty($tenLoai) && strlen($tenLoai) < 3) {
-        $errors['lsp_ten'][] = [
+        $errors['lproduct_name'][] = [
             'rule' => 'minlength',
             'rule_value' => 3,
             'value' => $tenLoai,
@@ -35,7 +35,7 @@ if (isset($_POST['btnSave'])) {
     }
     // maxlength 50
     if (!empty($tenLoai) && strlen($tenLoai) > 50) {
-        $errors['lsp_ten'][] = [
+        $errors['lproduct_name'][] = [
             'rule' => 'maxlength',
             'rule_value' => 50,
             'value' => $tenLoai,
@@ -77,12 +77,12 @@ if (isset($_POST['btnSave'])) {
         // kèm theo dữ liệu thông báo lỗi
         echo $twig->render('backend/loaisanpham/create.html.twig', [
             'errors' => $errors,
-            'lsp_ten_oldvalue' => $tenLoai,
+            'lproduct_name_oldvalue' => $tenLoai,
             'lsp_mota_oldvalue' => $mota
         ]);
     } else { // Nếu không có lỗi dữ liệu sẽ thực thi câu lệnh SQL
         // Câu lệnh INSERT
-        $sql = "INSERT INTO `loaisanpham` (lsp_ten, lsp_mota) VALUES ('" . $tenLoai . "', '" . $mota . "');";
+        $sql = "INSERT INTO `loaisanpham` (lproduct_name, lsp_mota) VALUES ('" . $tenLoai . "', '" . $mota . "');";
 
         // Thực thi INSERT
         mysqli_query($conn, $sql);

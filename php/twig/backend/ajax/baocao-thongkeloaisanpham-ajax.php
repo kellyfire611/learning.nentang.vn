@@ -8,7 +8,7 @@ include_once(__DIR__.'/../../dbconnect.php');
 
 // 2. Chuẩn bị câu truy vấn $sql
 $sql = <<<EOT
-    SELECT lsp.lsp_ten, COUNT(*) AS SoLuong
+    SELECT lsp.lproduct_name, COUNT(*) AS quantity
     FROM `sanpham` sp
     JOIN `loaisanpham` lsp ON sp.lsp_ma = lsp.lsp_ma
     GROUP BY sp.lsp_ma
@@ -24,8 +24,8 @@ $data = [];
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 {
     $data[] = array(
-        'TenLoaiSanPham' => $row['lsp_ten'],
-        'SoLuong' => $row['SoLuong'] 
+        'TenLoaiSanPham' => $row['lproduct_name'],
+        'quantity' => $row['quantity'] 
     );
 }
 

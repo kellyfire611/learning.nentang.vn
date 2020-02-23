@@ -26,7 +26,7 @@ $data       = $paginator->getData($limit, $page);
 // while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 //     $data[] = array(
 //         'lsp_ma' => $row['lsp_ma'],
-//         'lsp_ten' => $row['lsp_ten'],
+//         'lproduct_name' => $row['lproduct_name'],
 //         'lsp_mota' => $row['lsp_mota'],
 //     );
 // }

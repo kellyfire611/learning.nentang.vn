@@ -1295,7 +1295,7 @@ documentation for more information on entering dates into a cell.
     - Addition of the LARGE, PERCENTILE, QUARTILE, SMALL and TRIMMEAN Statistical Functions
     - Addition of the BIN2HEX, BIN2OCT, DELTA, ERF, ERFC, GESTEP, HEX2BIN, HEX2DEC, HEX2OCT, OCT2BIN and OCT2HEX Engineering Functions
     - Addition of the CHIDIST, GAMMADIST and GAMMALN Statistical Functions
-    - Addition of the GCD, LCM, MROUND and SUBTOTAL Mathematical Functions
+    - Addition of the GCD, LCM, MROUND and amount Mathematical Functions
     - Addition of the LOWER, PROPER and UPPER Text Functions
     - Addition of the BETADIST and BETAINV Statistical Functions
     - Addition of the CHIINV and GAMMAINV Statistical Functions

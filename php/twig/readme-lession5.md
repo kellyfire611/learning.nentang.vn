@@ -50,7 +50,7 @@ include_once(__DIR__.'/../../dbconnect.php');
 // Sử dụng HEREDOC của PHP để tạo câu truy vấn SQL với dạng dễ đọc, thân thiện với việc bảo trì code
 $sql = <<<EOT
     SELECT sp.*
-        , lsp.lsp_ten
+        , lsp.lproduct_name
         , nsx.nsx_ten
         , km.km_ten, km.km_noidung, km.km_tungay, km.km_denngay
     FROM `sanpham` sp
@@ -81,19 +81,19 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
     }
     $data[] = array(
         'sp_ma' => $row['sp_ma'],
-        'sp_ten' => $row['sp_ten'],
+        'product_name' => $row['product_name'],
         // Sử dụng hàm number_format(số tiền, số lẻ thập phân, dấu phân cách số lẻ, dấu phân cách hàng nghìn) để định dạng số khi hiển thị trên giao diện. Vd: 15800000 -> format thành 15,800,000.66 vnđ
         'sp_gia' => number_format($row['sp_gia'], 2, ".", ",") . ' vnđ',
         'sp_giacu' => number_format($row['sp_giacu'], 2, ".", ",") . ' vnđ',
         'sp_mota_ngan' => $row['sp_mota_ngan'],
         'sp_mota_chitiet' => $row['sp_mota_chitiet'],
         'sp_ngaycapnhat' => date('d/m/Y H:i:s', strtotime($row['sp_ngaycapnhat'])),
-        'sp_soluong' => number_format($row['sp_soluong'], 0, ".", ","),
+        'sp_quantity' => number_format($row['sp_quantity'], 0, ".", ","),
         'lsp_ma' => $row['lsp_ma'],
         'nsx_ma' => $row['nsx_ma'],
         'km_ma' => $row['km_ma'],
         // Các cột dữ liệu lấy từ liên kết khóa ngoại
-        'lsp_ten' => $row['lsp_ten'],
+        'lproduct_name' => $row['lproduct_name'],
         'nsx_ten' => $row['nsx_ten'],
         'km_tomtat' => $km_tomtat,
     );
@@ -155,7 +155,7 @@ Danh sách Sản phẩm
         {% for sanpham in ds_sanpham %}
         <tr>
             <td>{{ sanpham.sp_ma }}</td>
-            <td>{{ sanpham.sp_ten }}</td>
+            <td>{{ sanpham.product_name }}</td>
             <td>{{ sanpham.sp_gia }}</td>
             <td>{{ sanpham.sp_giacu }}</td>
             <td>
@@ -165,8 +165,8 @@ Danh sách Sản phẩm
                 </p>
             </td>
             <td>{{ sanpham.sp_ngaycapnhat }}</td>
-            <td>{{ sanpham.sp_soluong }}</td>
-            <td>{{ sanpham.lsp_ten }}</td>
+            <td>{{ sanpham.sp_quantity }}</td>
+            <td>{{ sanpham.lproduct_name }}</td>
             <td>{{ sanpham.nsx_ten }}</td>
             <td>{{ sanpham.km_tomtat }}</td>
             <td>
@@ -225,7 +225,7 @@ while($rowLoaiSanPham = mysqli_fetch_array($resultLoaiSanPham, MYSQLI_ASSOC))
 {
     $dataLoaiSanPham[] = array(
         'lsp_ma' => $rowLoaiSanPham['lsp_ma'],
-        'lsp_ten' => $rowLoaiSanPham['lsp_ten'],
+        'lproduct_name' => $rowLoaiSanPham['lproduct_name'],
         'lsp_mota' => $rowLoaiSanPham['lsp_mota'],
     );
 }
@@ -292,19 +292,19 @@ while($rowKhuyenMai = mysqli_fetch_array($resultKhuyenMai, MYSQLI_ASSOC))
 if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-    $ten = $_POST['sp_ten'];
+    $ten = $_POST['product_name'];
     $gia = $_POST['sp_gia'];
     $giacu = $_POST['sp_giacu'];
     $motangan = $_POST['sp_mota_ngan'];
     $motachitiet = $_POST['sp_mota_chitiet'];
     $ngaycapnhat = $_POST['sp_ngaycapnhat'];
-    $soluong = $_POST['sp_soluong'];
+    $quantity = $_POST['sp_quantity'];
     $lsp_ma = $_POST['lsp_ma'];
     $nsx_ma = $_POST['nsx_ma'];
     $km_ma = $_POST['km_ma'];
 
     // Câu lệnh INSERT
-    $sql = "INSERT INTO `sanpham` (sp_ten, sp_gia, sp_giacu, sp_mota_ngan, sp_mota_chitiet, sp_ngaycapnhat, sp_soluong, lsp_ma, nsx_ma, km_ma) VALUES ('$ten', $gia, $giacu, '$motangan', '$motachitiet', '$ngaycapnhat', $soluong, $lsp_ma, $nsx_ma, $km_ma);";
+    $sql = "INSERT INTO `sanpham` (product_name, sp_gia, sp_giacu, sp_mota_ngan, sp_mota_chitiet, sp_ngaycapnhat, sp_quantity, lsp_ma, nsx_ma, km_ma) VALUES ('$ten', $gia, $giacu, '$motangan', '$motachitiet', '$ngaycapnhat', $quantity, $lsp_ma, $nsx_ma, $km_ma);";
     
     // Thực thi INSERT
     mysqli_query($conn, $sql);
@@ -359,8 +359,8 @@ Thêm mới Sản phẩm
         <small id="sp_maHelp" class="form-text text-muted">Mã Sản phẩm không được hiệu chỉnh.</small>
     </div>
     <div class="form-group">
-        <label for="sp_ten">Tên Sản phẩm</label>
-        <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên Sản phẩm">
+        <label for="product_name">Tên Sản phẩm</label>
+        <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Tên Sản phẩm">
     </div>
     <div class="form-group">
         <label for="sp_gia">Giá Sản phẩm</label>
@@ -383,14 +383,14 @@ Thêm mới Sản phẩm
         <input type="text" class="form-control" id="sp_ngaycapnhat" name="sp_ngaycapnhat" placeholder="Ngày cập nhật Sản phẩm">
     </div>
     <div class="form-group">
-        <label for="sp_soluong">Số lượng</label>
-        <input type="text" class="form-control" id="sp_soluong" name="sp_soluong" placeholder="Số lượng Sản phẩm">
+        <label for="sp_quantity">Số lượng</label>
+        <input type="text" class="form-control" id="sp_quantity" name="sp_quantity" placeholder="Số lượng Sản phẩm">
     </div>
     <div class="form-group">
         <label for="lsp_ma">Loại sản phẩm</label>
         <select class="form-control" id="lsp_ma" name="lsp_ma">
             {% for loaisanpham in ds_loaisanpham %}
-            <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</option>
+            <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lproduct_name }}</option>
             {% endfor %}
         </select>
     </div>
@@ -454,7 +454,7 @@ while($rowLoaiSanPham = mysqli_fetch_array($resultLoaiSanPham, MYSQLI_ASSOC))
 {
     $dataLoaiSanPham[] = array(
         'lsp_ma' => $rowLoaiSanPham['lsp_ma'],
-        'lsp_ten' => $rowLoaiSanPham['lsp_ten'],
+        'lproduct_name' => $rowLoaiSanPham['lproduct_name'],
         'lsp_mota' => $rowLoaiSanPham['lsp_mota'],
     );
 }
@@ -535,19 +535,19 @@ $sanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
 if(isset($_POST['btnSave'])) 
 {
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-    $ten = $_POST['sp_ten'];
+    $ten = $_POST['product_name'];
     $gia = $_POST['sp_gia'];
     $giacu = $_POST['sp_giacu'];
     $motangan = $_POST['sp_mota_ngan'];
     $motachitiet = $_POST['sp_mota_chitiet'];
     $ngaycapnhat = $_POST['sp_ngaycapnhat'];
-    $soluong = $_POST['sp_soluong'];
+    $quantity = $_POST['sp_quantity'];
     $lsp_ma = $_POST['lsp_ma'];
     $nsx_ma = $_POST['nsx_ma'];
     $km_ma = empty($_POST['km_ma']) ? 'NULL' : $_POST['km_ma'];
 
     // Câu lệnh INSERT
-    $sql = "UPDATE `sanpham` SET sp_ten='$ten', sp_gia=$gia, sp_giacu=$giacu, sp_mota_ngan='$motangan', sp_mota_chitiet='$motachitiet', sp_ngaycapnhat='$ngaycapnhat', sp_soluong=$soluong, lsp_ma=$lsp_ma, nsx_ma=$nsx_ma, km_ma=$km_ma WHERE sp_ma=$sp_ma;";
+    $sql = "UPDATE `sanpham` SET product_name='$ten', sp_gia=$gia, sp_giacu=$giacu, sp_mota_ngan='$motangan', sp_mota_chitiet='$motachitiet', sp_ngaycapnhat='$ngaycapnhat', sp_quantity=$quantity, lsp_ma=$lsp_ma, nsx_ma=$nsx_ma, km_ma=$km_ma WHERE sp_ma=$sp_ma;";
     
     // Thực thi INSERT
     mysqli_query($conn, $sql);
@@ -603,8 +603,8 @@ Sửa Sản phẩm
         <small id="sp_maHelp" class="form-text text-muted">Mã Sản phẩm không được hiệu chỉnh.</small>
     </div>
     <div class="form-group">
-        <label for="sp_ten">Tên Sản phẩm</label>
-        <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên Sản phẩm" value="{{ sanpham.sp_ten }}">
+        <label for="product_name">Tên Sản phẩm</label>
+        <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Tên Sản phẩm" value="{{ sanpham.product_name }}">
     </div>
     <div class="form-group">
         <label for="sp_gia">Giá Sản phẩm</label>
@@ -627,17 +627,17 @@ Sửa Sản phẩm
         <input type="text" class="form-control" id="sp_ngaycapnhat" name="sp_ngaycapnhat" placeholder="Ngày cập nhật Sản phẩm" value="{{ sanpham.sp_ngaycapnhat }}">
     </div>
     <div class="form-group">
-        <label for="sp_soluong">Số lượng</label>
-        <input type="text" class="form-control" id="sp_soluong" name="sp_soluong" placeholder="Số lượng Sản phẩm" value="{{ sanpham.sp_soluong }}">
+        <label for="sp_quantity">Số lượng</label>
+        <input type="text" class="form-control" id="sp_quantity" name="sp_quantity" placeholder="Số lượng Sản phẩm" value="{{ sanpham.sp_quantity }}">
     </div>
     <div class="form-group">
         <label for="lsp_ma">Loại sản phẩm</label>
         <select class="form-control" id="lsp_ma" name="lsp_ma">
             {% for loaisanpham in ds_loaisanpham %}
                 {% if loaisanpham.lsp_ma == sanpham.lsp_ma %}
-                <option value="{{ loaisanpham.lsp_ma }}" selected>{{ loaisanpham.lsp_ten }}</option>
+                <option value="{{ loaisanpham.lsp_ma }}" selected>{{ loaisanpham.lproduct_name }}</option>
                 {% else %}
-                <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</option>
+                <option value="{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lproduct_name }}</option>
                 {% endif %}
             {% endfor %}
         </select>

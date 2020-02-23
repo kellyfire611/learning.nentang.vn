@@ -58,12 +58,12 @@ Liên hệ
                                 {% for loaisanpham in danhsachloaisanpham %}
                                 <div class="custom-control custom-checkbox">
                                     <span
-                                        class="float-right badge badge-light round">{{ loaisanpham.soluongsanpham }}</span>
+                                        class="float-right badge badge-light round">{{ loaisanpham.quantitysanpham }}</span>
                                     <input type="checkbox" class="custom-control-input" name="keyword_loaisanpham[]"
                                         value="{{ loaisanpham.lsp_ma }}" id="chk-loaisanpham-{{ loaisanpham.lsp_ma }}"
                                         {{ (loaisanpham.lsp_ma in keyword_loaisanpham) ? 'checked' : '' }}>
                                     <label class="custom-control-label"
-                                        for="chk-loaisanpham-{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lsp_ten }}</label>
+                                        for="chk-loaisanpham-{{ loaisanpham.lsp_ma }}">{{ loaisanpham.lproduct_name }}</label>
                                 </div> <!-- form-check.// -->
                                 {% endfor %}
                             </div> <!-- card-body.// -->
@@ -80,7 +80,7 @@ Liên hệ
                                 {% for nhasanxuat in danhsachnhasanxuat %}
                                 <div class="custom-control custom-checkbox">
                                     <span
-                                        class="float-right badge badge-light round">{{ nhasanxuat.soluongsanpham }}</span>
+                                        class="float-right badge badge-light round">{{ nhasanxuat.quantitysanpham }}</span>
                                     <input type="checkbox" class="custom-control-input" name="keyword_nhasanxuat[]"
                                         value="{{ nhasanxuat.nsx_ma }}" id="chk-nhasanxuat-{{ nhasanxuat.nsx_ma }}"
                                         {{ (nhasanxuat.nsx_ma in keyword_nhasanxuat) ? 'checked' : '' }}>
@@ -102,7 +102,7 @@ Liên hệ
                                 {% for khuyenmai in danhsachkhuyenmai %}
                                 <div class="custom-control custom-checkbox">
                                     <span
-                                        class="float-right badge badge-light round">{{ khuyenmai.soluongsanpham }}</span>
+                                        class="float-right badge badge-light round">{{ khuyenmai.quantitysanpham }}</span>
                                     <input type="checkbox" class="custom-control-input" name="keyword_khuyenmai[]"
                                         value="{{ khuyenmai.km_ma }}" id="chk-khuyenmai-{{ khuyenmai.km_ma }}"
                                         {{ (khuyenmai.km_ma in keyword_khuyenmai) ? 'checked' : '' }}>
@@ -183,10 +183,10 @@ Liên hệ
                     {% for sanpham in danhsachsanpham %}
                     <div class="col-md-{{ col_class_name }}">
                         <div class="card mb-4 shadow-sm">
-                            {% if sanpham.hsp_tentaptin %}
+                            {% if sanpham.hproduct_nametaptin %}
                             <a href="/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
                                 <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                    src="/assets/uploads/{{ sanpham.hsp_tentaptin }}" />
+                                    src="/assets/uploads/{{ sanpham.hproduct_nametaptin }}" />
                             </a>
                             {% else %}
                             <a href="/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
@@ -196,9 +196,9 @@ Liên hệ
                             {% endif %}
                             <div class="card-body">
                                 <a href="/frontend/sanpham/chitiet?sp_ma={{ sanpham.sp_ma }}">
-                                    <h5>{{ sanpham.sp_ten }}</h5>
+                                    <h5>{{ sanpham.product_name }}</h5>
                                 </a>
-                                <h6>{{ sanpham.lsp_ten }}</h6>
+                                <h6>{{ sanpham.lproduct_name }}</h6>
                                 <p class="card-text">{{ sanpham.sp_mota_ngan }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">

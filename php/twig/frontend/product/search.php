@@ -11,10 +11,10 @@ include_once(__DIR__ . '/../../dbconnect.php');
    --- 
 */
 $sqlSelectLoaiSanPham = <<<EOT
-    SELECT lsp.lsp_ma, lsp.lsp_ten, COUNT(*) soluongsanpham
+    SELECT lsp.lsp_ma, lsp.lproduct_name, COUNT(*) quantitysanpham
     FROM `loaisanpham` lsp
     LEFT JOIN `sanpham` sp ON lsp.lsp_ma = sp.lsp_ma
-    GROUP BY lsp.lsp_ma, lsp.lsp_ten
+    GROUP BY lsp.lsp_ma, lsp.lproduct_name
 EOT;
 
 // Thực thi câu truy vấn SQL để lấy về dữ liệu ban đầu của record 
@@ -27,8 +27,8 @@ $loaisanphamData = [];
 while ($row = mysqli_fetch_array($resultSelectLoaiSanPham, MYSQLI_ASSOC)) {
     $loaisanphamData[] = array(
         'lsp_ma' => $row['lsp_ma'],
-        'lsp_ten' => $row['lsp_ten'],
-        'soluongsanpham' => $row['soluongsanpham'],
+        'lproduct_name' => $row['lproduct_name'],
+        'quantitysanpham' => $row['quantitysanpham'],
     );
 }
 /* --- End Truy vấn dữ liệu Loại Sản phẩm --- */
@@ -38,7 +38,7 @@ while ($row = mysqli_fetch_array($resultSelectLoaiSanPham, MYSQLI_ASSOC)) {
    --- 
 */
 $sqlSelectNhaSanXuat = <<<EOT
-    SELECT nsx.nsx_ma, nsx.nsx_ten, COUNT(*) soluongsanpham
+    SELECT nsx.nsx_ma, nsx.nsx_ten, COUNT(*) quantitysanpham
     FROM `nhasanxuat`nsx
     LEFT JOIN `sanpham` sp ON nsx.nsx_ma = sp.nsx_ma
     GROUP BY nsx.nsx_ma, nsx.nsx_ten
@@ -55,7 +55,7 @@ while ($row = mysqli_fetch_array($resultSelectNhaSanXuat, MYSQLI_ASSOC)) {
     $nhasanxuatData[] = array(
         'nsx_ma' => $row['nsx_ma'],
         'nsx_ten' => $row['nsx_ten'],
-        'soluongsanpham' => $row['soluongsanpham'],
+        'quantitysanpham' => $row['quantitysanpham'],
     );
 }
 /* --- End Truy vấn dữ liệu Nhà sản xuất --- */
@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_array($resultSelectNhaSanXuat, MYSQLI_ASSOC)) {
    --- 
 */
 $sqlSelectKhuyenMai = <<<EOT
-    SELECT km.km_ma, km.km_ten, km_noidung, km_tungay, km_denngay, COUNT(*) soluongsanpham
+    SELECT km.km_ma, km.km_ten, km_noidung, km_tungay, km_denngay, COUNT(*) quantitysanpham
     FROM `khuyenmai` km
     LEFT JOIN `sanpham` sp ON km.km_ma = sp.km_ma
     GROUP BY km.km_ma, km.km_ten, km_noidung, km_tungay, km_denngay
@@ -85,7 +85,7 @@ while ($row = mysqli_fetch_array($resultSelectKhuyenMai, MYSQLI_ASSOC)) {
         'km_noidung' => $row['km_noidung'],
         'km_tungay' => $row['km_tungay'],
         'km_denngay' => $row['km_denngay'],
-        'soluongsanpham' => $row['soluongsanpham'],
+        'quantitysanpham' => $row['quantitysanpham'],
     );
 }
 /* --- End Truy vấn dữ liệu Nhà sản xuất --- */
@@ -104,7 +104,7 @@ $keyword_sotienden = isset($_GET['keyword_sotienden']) ? $_GET['keyword_sotiende
 
 // Câu lệnh query động tùy theo yêu cầu tìm kiếm của người dùng
 $sqlDanhSachSanPham = <<<EOT
-    SELECT sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_soluong, lsp.lsp_ten, MAX(hsp.hsp_tentaptin) AS hsp_tentaptin
+    SELECT sp.sp_ma, sp.product_name, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_quantity, lsp.lproduct_name, MAX(hsp.hproduct_nametaptin) AS hproduct_nametaptin
     FROM `sanpham` sp
     JOIN `loaisanpham` lsp ON sp.lsp_ma = lsp.lsp_ma
     LEFT JOIN `hinhsanpham` hsp ON sp.sp_ma = hsp.sp_ma
@@ -116,7 +116,7 @@ EOT;
 // Tìm theo tên sản phẩm
 $sqlWhereArr = [];
 if (!empty($keyword_tensanpham)) {
-    $sqlWhereArr[] = "sp.sp_ten LIKE '%$keyword_tensanpham%'";
+    $sqlWhereArr[] = "sp.product_name LIKE '%$keyword_tensanpham%'";
 }
 // Tìm theo loại sản phẩm
 if (!empty($keyword_loaisanpham)) {
@@ -144,7 +144,7 @@ if (count($sqlWhereArr) > 0) {
     $sqlDanhSachSanPham .= $sqlWhere;
 }
 $sqlDanhSachSanPham .= <<<EOT
-    GROUP BY sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_soluong, lsp.lsp_ten
+    GROUP BY sp.sp_ma, sp.product_name, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_quantity, lsp.lproduct_name
 EOT;
 
 // Thực thi câu truy vấn SQL để lấy về dữ liệu
@@ -157,13 +157,13 @@ $dataDanhSachSanPham = [];
 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         $dataDanhSachSanPham[] = array(
             'sp_ma' => $row['sp_ma'],
-            'sp_ten' => $row['sp_ten'],
+            'product_name' => $row['product_name'],
             'sp_gia' => number_format($row['sp_gia'], 2, ".", ",") . ' vnđ',
             'sp_giacu' => number_format($row['sp_giacu'], 2, ".", ","),
             'sp_mota_ngan' => $row['sp_mota_ngan'],
-            'sp_soluong' => $row['sp_soluong'],
-            'lsp_ten' => $row['lsp_ten'],
-            'hsp_tentaptin' => $row['hsp_tentaptin'],
+            'sp_quantity' => $row['sp_quantity'],
+            'lproduct_name' => $row['lproduct_name'],
+            'hproduct_nametaptin' => $row['hproduct_nametaptin'],
         );
     }
 // dd($sqlWhereArr, $sqlWhere, $sqlDanhSachSanPham, $dataDanhSachSanPham);

@@ -1090,9 +1090,9 @@ class MathTrig
             function ($index) use ($cellReference) {
                 list(, $row, $column) = explode('.', $index);
                 if ($cellReference->getWorksheet()->cellExists($column . $row)) {
-                    //take this cell out if it contains the SUBTOTAL or AGGREGATE functions in a formula
+                    //take this cell out if it contains the amount or AGGREGATE functions in a formula
                     $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
-                    $cellFormula = !preg_match('/^=.*\b(SUBTOTAL|AGGREGATE)\s*\(/i', $cellReference->getWorksheet()->getCell($column . $row)->getValue());
+                    $cellFormula = !preg_match('/^=.*\b(amount|AGGREGATE)\s*\(/i', $cellReference->getWorksheet()->getCell($column . $row)->getValue());
 
                     return !$isFormula || $cellFormula;
                 }
@@ -1104,12 +1104,12 @@ class MathTrig
     }
 
     /**
-     * SUBTOTAL.
+     * amount.
      *
-     * Returns a subtotal in a list or database.
+     * Returns a amount in a list or database.
      *
      * @param int the number 1 to 11 that specifies which function to
-     *                    use in calculating subtotals within a range
+     *                    use in calculating amounts within a range
      *                    list
      *            Numbers 101 to 111 shadow the functions of 1 to 11
      *                    but ignore any values in the range that are
@@ -1118,21 +1118,21 @@ class MathTrig
      *
      * @return float
      */
-    public static function SUBTOTAL(...$args)
+    public static function amount(...$args)
     {
         $cellReference = array_pop($args);
         $aArgs = Functions::flattenArrayIndexed($args);
-        $subtotal = array_shift($aArgs);
+        $amount = array_shift($aArgs);
 
         // Calculate
-        if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
-            if ($subtotal > 100) {
+        if ((is_numeric($amount)) && (!is_string($amount))) {
+            if ($amount > 100) {
                 $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
-                $subtotal -= 100;
+                $amount -= 100;
             }
 
             $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
-            switch ($subtotal) {
+            switch ($amount) {
                 case 1:
                     return Statistical::AVERAGE($aArgs);
                 case 2:

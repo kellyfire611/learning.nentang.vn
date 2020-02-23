@@ -309,11 +309,14 @@ Sản phẩm {{ product.product_name }}
     <div class="card">
         <div class="container-fliud">
             <form name="frmProductDetail" id="frmProductDetail" method="post" action="/frontend/cart/add-to-cart">
-
+                <!-- Hidden value, dùng để gởi dữ liệu đến Server -->
                 <input type="hidden" name="id" id="id" value="{{ product.id }}" />
                 <input type="hidden" name="product_name" id="product_name" value="{{ product.product_name }}" />
                 <input type="hidden" name="list_price" id="list_price" value="{{ product.list_price }}" />
+                <input type="hidden" name="list_price_after_discount" id="list_price_after_discount" value="{{ product.list_price_after_discount }}" />
                 <input type="hidden" name="image" id="image" value="{{ product.image }}" />
+                <input type="hidden" name="is_fixed" id="is_fixed" value="{{ product.is_fixed }}" />
+                <input type="hidden" name="discount_amount" id="discount_amount" value="{{ product.discount_amount }}" />
 
                 <div class="wrapper row">
                     <div class="preview col-md-6">
@@ -405,13 +408,13 @@ Sản phẩm {{ product.product_name }}
 
                         <!-- Hiển thị Thông tin Giảm giá nếu có -->
                         {% if product.discount_amount %}
-                        {% if product.is_fixed %}
-                        <!-- Thông tin giảm giá theo sô tiền cụ thể -->
-                        <span>Đang giảm giá số tiền <b>{{ product.discount_amount }}</b></span>
-                        {% else %}
-                        <!-- Thông tin giảm giá theo % cụ thể -->
-                        <span>Đang giảm giá <b>{{ product.discount_amount }}%</b></span>
-                        {% endif %}
+                            {% if product.is_fixed %}
+                            <!-- Thông tin giảm giá theo sô tiền cụ thể -->
+                            <span>Đang giảm giá số tiền <b>{{ product.discount_amount }}</b></span>
+                            {% else %}
+                            <!-- Thông tin giảm giá theo % cụ thể -->
+                            <span>Đang giảm giá <b>{{ product.discount_amount }}%</b></span>
+                            {% endif %}
 
                         <small class="text-muted">Giá cũ: <s><span>{{ product.list_price_formatted }}</span></s></small>
                         <h4 class="price">
@@ -440,11 +443,11 @@ Sản phẩm {{ product.product_name }}
                             <span class="color blue"></span>
                         </h5>
                         <div class="form-group">
-                            <label for="soluong">Số lượng đặt mua:</label>
-                            <input type="number" class="form-control" id="soluong" name="soluong">
+                            <label for="quantity">Số lượng đặt mua:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity">
                         </div>
                         <div class="action">
-                            <a class="add-to-cart btn btn-default" id="btnThemVaocart">Thêm vào giỏ hàng</a>
+                            <a class="add-to-cart btn btn-default" id="btnAddToCart">Thêm vào giỏ hàng</a>
                             <a class="like btn btn-default" href="#"><span class="fa fa-heart"></span></a>
                         </div>
                     </div>
@@ -583,35 +586,44 @@ Sản phẩm {{ product.product_name }}
 
 {% block customscripts %}
 <script>
-    function addproductVaocart() {
-        var dulieugoi = {
+    // Hàm thêm Sản phẩm vào Giỏ hàng
+    function addProductToCart() {
+        // 1. Chuẩn bị dữ liệu gởi đến Server
+        // Chuẩn JSON
+        var sendData = {
             id: $('#id').val(),
             product_name: $('#product_name').val(),
             list_price: $('#list_price').val(),
+            list_price_after_discount: $('#list_price_after_discount').val(),
             image: $('#image').val(),
-            soluong: $('#soluong').val(),
+            is_fixed: $('#is_fixed').val(),
+            discount_amount: $('#discount_amount').val(),
+            quantity: $('#quantity').val(),
         };
-        console.log((dulieugoi));
+        console.log((sendData));
 
+        // 2. Sử dụng AJAX để gởi dữ liệu đến `cart-addproduct-ajax.php` xử lý
         $.ajax({
-            url: '/frontend/ajax/cart-themproduct-ajax',
+            url: '/frontend/ajax/cart-addproduct-ajax.php',
             method: "POST",
             dataType: 'json',
-            data: dulieugoi,
+            data: sendData,
             success: function (data) {
+                // Gởi dữ liệu và xử lý thành công
                 console.log(data);
                 var htmlString =
-                    `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/frontend/thanhtoan/cart">Xem Giỏ hàng</a>.`;
-                $('#thongbao').html(htmlString);
+                    `Sản phẩm đã được thêm vào Giỏ hàng. <a href="/frontend/checkout/cart">Xem Giỏ hàng</a>.`;
+                $('#errors-container').html(htmlString);
 
                 // Hiện thông báo
                 $('.alert').removeClass('d-none').addClass('show');
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                // Gởi dữ liệu nhưng bị lỗi
                 console.log(textStatus, errorThrown);
 
                 var htmlString = `<h1>Không thể xử lý</h1>`;
-                $('#thongbao').html(htmlString);
+                $('#errors-container').html(htmlString);
 
                 // Hiện thông báo
                 $('.alert').removeClass('d-none').addClass('show');
@@ -619,9 +631,9 @@ Sản phẩm {{ product.product_name }}
         });
     };
 
-    $('#btnThemVaocart').click(function (event) {
+    $('#btnAddToCart').click(function (event) {
         event.preventDefault();
-        addproductVaocart();
+        addProductToCart();
     });
 </script>
 {% endblock %}

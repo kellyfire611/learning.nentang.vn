@@ -22,7 +22,7 @@ $dh_ma = $_GET['dh_ma'];
 $sqlSelectDonDatHang = <<<EOT
 SELECT 
     ddh.dh_ma, ddh.dh_ngaylap, ddh.dh_ngaygiao, ddh.dh_noigiao, ddh.dh_trangthaithanhtoan, httt.httt_ten, kh.kh_ten, kh.kh_dienthoai
-    , SUM(spddh.sp_dh_soluong * spddh.sp_dh_dongia) AS TongThanhTien
+    , SUM(spddh.sp_dh_quantity * spddh.sp_dh_dongia) AS Tongamount
 FROM `dondathang` ddh
 JOIN `sanpham_dondathang` spddh ON ddh.dh_ma = spddh.dh_ma
 JOIN `khachhang` kh ON ddh.kh_tendangnhap = kh.kh_tendangnhap
@@ -45,15 +45,15 @@ while($row = mysqli_fetch_array($resultSelectDonDatHang, MYSQLI_ASSOC))
         'httt_ten' => $row['httt_ten'],
         'kh_ten' => $row['kh_ten'],
         'kh_dienthoai' => $row['kh_dienthoai'],
-        'TongThanhTien' => number_format($row['TongThanhTien'], 2, ".", ",") . ' vnđ',
+        'Tongamount' => number_format($row['Tongamount'], 2, ".", ",") . ' vnđ',
     );
 }
 
 // Lấy dữ liệu Sản phẩm đơn đặt hàng
 $sqlSelectSanPham = <<<EOT
 SELECT 
-    sp.sp_ten, spddh.sp_dh_dongia, spddh.sp_dh_soluong
-    , lsp.lsp_ten, nsx.nsx_ten
+    sp.product_name, spddh.sp_dh_dongia, spddh.sp_dh_quantity
+    , lsp.lproduct_name, nsx.nsx_ten
 FROM `sanpham_dondathang` spddh
 JOIN `sanpham` sp ON spddh.sp_ma = sp.sp_ma
 JOIN `loaisanpham` lsp ON sp.lsp_ma = lsp.lsp_ma
@@ -67,10 +67,10 @@ $dataSanPham = [];
 while($row = mysqli_fetch_array($resultSelectSanPham, MYSQLI_ASSOC))
 {
     $dataSanPham[] = array(
-        'sp_ten' => $row['sp_ten'],
+        'product_name' => $row['product_name'],
         'sp_gia' => $row['sp_dh_dongia'],
-        'sp_soluong' => $row['sp_dh_soluong'],
-        'lsp_ten' => $row['lsp_ten'],
+        'sp_quantity' => $row['sp_dh_quantity'],
+        'lproduct_name' => $row['lproduct_name'],
         'nsx_ten' => $row['nsx_ten'],
     );
 }

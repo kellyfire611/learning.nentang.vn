@@ -445,7 +445,7 @@ class Parser
         'POWER' => [337, 2, 1, 0],
         'RADIANS' => [342, 1, 1, 0],
         'DEGREES' => [343, 1, 1, 0],
-        'SUBTOTAL' => [344, -1, 0, 0],
+        'amount' => [344, -1, 0, 0],
         'SUMIF' => [345, -1, 0, 0],
         'COUNTIF' => [346, 2, 0, 0],
         'COUNTBLANK' => [347, 1, 0, 0],
