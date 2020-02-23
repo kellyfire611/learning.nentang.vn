@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `shop_customers` (
 -- Dumping data for table netashop.shop_customers: ~100 rows (approximately)
 /*!40000 ALTER TABLE `shop_customers` DISABLE KEYS */;
 INSERT INTO `shop_customers` (`id`, `username`, `password`, `last_name`, `first_name`, `gender`, `email`, `birthday`, `avatar`, `code`, `company`, `phone`, `billing_address`, `shipping_address`, `city`, `state`, `postal_code`, `country`, `remember_token`, `activate_code`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'kellyfire', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Kelly', 'Fire', 0, 'kellyfire611@gmail.com', NULL, 'customers/avatars/kellyfire_20200217161335.jpg', '', 'NenTang', '1-(260)601-5114', '02937 Merrick Avenue', NULL, 'Fort Wayne', 'Indiana', '46805', 'United States', NULL, NULL, 1, NULL, NULL),
+	(1, 'kellyfire', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Dương Nguyễn Phú', 'Cường', 0, 'kellyfire611@gmail.com', '1989-06-11 04:00:00', 'customers/avatars/kellyfire_20200217161335.jpg', '', 'NenTang', '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Cần Thơ', '', '65000', 'Vietnam', NULL, NULL, 1, '2020-02-23 20:31:30', '2020-02-23 20:31:30'),
 	(2, 'customer2', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Cooper', 'Emily', 0, 'ecooper1@macromedia.com', NULL, '', '', 'Skippad', '1-(251)614-5034', '60 Forster Crossing', NULL, 'Mobile', 'Alabama', '36605', 'United States', NULL, NULL, 1, NULL, NULL),
 	(3, 'customer3', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Wilson', 'George', 0, 'gwilson2@xinhuanet.com', NULL, '', '', 'Riffpath', '1-(901)445-9881', '52 Browning Center', NULL, 'Memphis', 'Tennessee', '38181', 'United States', NULL, NULL, 1, NULL, NULL),
 	(4, 'customer4', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Mcdonald', 'Michael', 0, 'mmcdonald3@twitter.com', NULL, '', '', 'Feedfire', '1-(419)743-7314', '85093 Jackson Park', NULL, 'Toledo', 'Ohio', '43610', 'United States', NULL, NULL, 1, NULL, NULL),
@@ -1737,7 +1737,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc sản phẩm',
   `discount_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên Sự kiện Giảm giá',
   `discount_amount` double NOT NULL DEFAULT 0 COMMENT '% giảm giá hoặc số tiền giảm giá cụ thể',
-  `is_fixed` bit(1) NOT NULL DEFAULT b'0' COMMENT '#True: giảm giá theo số tiền cụ thể; #False: giảm giá theo %',
+  `is_fixed` bit(1) NOT NULL DEFAULT b'0' COMMENT '#True 1: giảm giá theo số tiền cụ thể; #False 0: giảm giá theo %',
   `start_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
@@ -1748,7 +1748,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
 -- Dumping data for table netashop.shop_product_discounts: ~2 rows (approximately)
 /*!40000 ALTER TABLE `shop_product_discounts` DISABLE KEYS */;
 INSERT INTO `shop_product_discounts` (`id`, `product_id`, `discount_name`, `discount_amount`, `is_fixed`, `start_date`, `end_date`) VALUES
-	(1, 601, 'Giảm giá dịp lễ Vua Hùng năm 2020', 10, b'0', '2020-03-01 00:00:00', '2020-03-31 23:59:59'),
+	(1, 601, 'Giảm giá dịp lễ Vua Hùng năm 2020', 10, b'0', '2020-02-01 00:00:00', '2020-03-31 23:59:59'),
 	(2, 602, 'Giảm giá dịp lễ 08/03 năm 2020', 15, b'0', '2020-03-01 00:00:00', '2020-03-08 23:59:59');
 /*!40000 ALTER TABLE `shop_product_discounts` ENABLE KEYS */;
 
@@ -1785,14 +1785,16 @@ CREATE TABLE IF NOT EXISTS `shop_product_reviews` (
   KEY `FK_shop_product_reviews_shop_customers` (`customer_id`),
   CONSTRAINT `FK_product_reviews_products` FOREIGN KEY (`product_id`) REFERENCES `shop_products` (`id`),
   CONSTRAINT `FK_shop_product_reviews_shop_customers` FOREIGN KEY (`customer_id`) REFERENCES `shop_customers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table netashop.shop_product_reviews: ~3 rows (approximately)
 /*!40000 ALTER TABLE `shop_product_reviews` DISABLE KEYS */;
 INSERT INTO `shop_product_reviews` (`id`, `product_id`, `customer_id`, `rating`, `comment`, `created_at`, `updated_at`) VALUES
-	(1, 601, 1, 4, 'Chụp ảnh tốt, hình vi diệu... Có điều giá hơi chát, 4s ;P', '2020-02-17 16:03:05', NULL),
+	(1, 601, 1, 3, 'Chụp ảnh tốt, hình vi diệu... Có điều giá hơi chát, 4s ;P', '2020-02-17 16:03:05', NULL),
 	(2, 603, 2, 5, 'Sản phẩm mua mới cách đây 2 tháng, chưa thấy lỗi gì. Đóng gói khá cẩn thận, tốt.', '2020-02-17 16:05:46', NULL),
-	(3, 601, 1, 2, 'Mới mua về, đang khui hộp lỡ tay làm rớt có 1 cái, hư luôn, tệ hết sức, không bảo hành luôn. Cho 1 sao vì số t xui :(', '2020-02-17 16:06:35', NULL);
+	(3, 601, 1, 2, 'Mới mua về, đang khui hộp lỡ tay làm rớt có 1 cái, hư luôn, tệ hết sức, không bảo hành luôn. Cho 1 sao vì số t xui :(', '2020-02-17 16:06:35', NULL),
+	(4, 601, 4, 3, 'Có vẻ tốt, đợi thời gian nữa xem sao :V', '2020-02-23 18:26:57', NULL),
+	(5, 601, 3, 5, 'Tuyệt vời, mình mua được ngay lúc giảm giá còn 20%. Xài thoải mái, xứng đáng giá tiền sau khi giảm giá ;P', '2020-02-23 19:42:06', NULL);
 /*!40000 ALTER TABLE `shop_product_reviews` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_product_vouchers
