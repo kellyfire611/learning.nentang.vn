@@ -30,9 +30,9 @@ if (!isset($_POST['btnSave'])) {
         echo $twig->render('backend/errors/404.html.twig', ['errors' => $errors]);
     }
 
-    // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/loaisanpham/edit.html.twig`
-    // với dữ liệu truyền vào file giao diện được đặt tên là `loaisanpham`
-    echo $twig->render('backend/loaisanpham/edit.html.twig', ['loaisanpham' => $loaisanphamRow]);
+    // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/shop_suppliers/edit.html.twig`
+    // với dữ liệu truyền vào file giao diện được đặt tên là `shop_suppliers`
+    echo $twig->render('backend/shop_suppliers/edit.html.twig', ['shop_suppliers' => $shop_suppliersRow]);
     return;
 }
 
