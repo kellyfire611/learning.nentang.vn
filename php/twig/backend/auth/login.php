@@ -11,11 +11,11 @@ include_once(__DIR__ . '/../../dbconnect.php');
 // => hiển thị Form nhập liệu
 if (!isset($_POST['btnLogin'])) {
     // Nếu trong SESSION có giá trị của key 'email' <-> người dùng đã đăng nhập rồi
-    // Điều hướng người dùng về trang chủ
+    // Điều hướng người dùng về trang Dashboard Backend
     if (isset($_SESSION['backend']['email'])) {
         // echo "<h1>Xin chào mừng ". $_SESSION['backend']['email'] ."</h1>";
         // echo session_save_path();
-        header('location:home.php');
+        header('location:../pages/dashboard.php');
     } else {
         // Biến dùng lưu thông báo lỗi
         $errors = [];
@@ -36,7 +36,7 @@ $password = sha1($_POST['password']); // mã hóa password với giải thuật 
 // Câu lệnh SELECT
 $sql = <<<EOT
     SELECT username, last_name, first_name, email, avatar, status
-    FROM `shop_customers`
+    FROM `acl_users`
     WHERE email = '$email' AND password = '$password'
     LIMIT 1;
 EOT;

@@ -1,5 +1,5 @@
 {# Kế thừa layout backend #}
-{% extends "backend/layouts/layout-fullpage.html.twig" %}
+{% extends "backend/layouts/layout.html.twig" %}
 
 {# Nội dung trong block title #}
 {% block title %}
@@ -15,12 +15,12 @@
 
 {# Nội dung trong block content #}
 {% block content %}
-<div class="container">
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col">
             <h1>Đăng ký tài khoản thành công!</h1>
-            <h2>Xin chào {{ khachhang.kh_ten }}. Vui lòng kiểm tra hộp thư để kích hoạt tài khoản.</h2>
-            <a href="/backend/pages/dashboard">Quay về Trang chủ</a>
+            <p>Xin chào <b>{{ customer.last_name }} {{ customer.first_name }}</b>. Vui lòng kiểm tra hộp thư <b>{{ customer.email }}</b> để kích hoạt tài khoản.<p>
+            <a href="/">Quay về Trang chủ</a>
         </div>
     </div>
 </div>
