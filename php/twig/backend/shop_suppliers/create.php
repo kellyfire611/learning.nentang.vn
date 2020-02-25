@@ -6,6 +6,9 @@ require_once __DIR__ . '/../../bootstrap.php';
 // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
 include_once(__DIR__ . '/../../dbconnect.php');
 
+// Include thư viện các hàm tiện ích
+include_once(__DIR__ . '/../../app/helpers.php');
+
 // Kiểm tra có đăng nhập hay chưa? (Xác thực Authentication)
 // Nếu trong SESSION có giá trị của key 'email' <-> người dùng đã đăng nhập thành công
 // Nếu chưa đăng nhập thì chuyển hướng về trang đăng nhập của Backend
@@ -18,80 +21,21 @@ if (!isset($_SESSION['backend']['email'])) {
 $email = $_SESSION['backend']['email'];
 
 // 2. Chuẩn bị câu truy vấn $sql
-$sqlPermissions = <<<EOT
-    -- Kiểm tra quyền
-    -- 1. Tạo biến và gán giá trị
-    SET @email := '$email' COLLATE utf8mb4_unicode_ci;
+// Gọi hàm Kiểm tra email đã đăng nhập có quyền truy cập chức năng XEM hay không?
+$allow_permission_backend_shop_suppliers_view = backend_check_email_has_permission($email, StaticData::$PERMISSION_BACKEND_SHOP_SUPPLIERS_VIEW);
+// dd($allow_permission_backend_shop_suppliers_view);
 
-    -- Người dùng vời điều kiện @email có ID bao nhiêu?
-    SET @user_id := 
-        (SELECT id
-        FROM `acl_users`
-        WHERE email = @email
-        LIMIT 1);
-    -- SELECT @user_id;
-
-    -- 1. Người dùng thuộc những vai trò nào?
-    SET @list_role_ids = (
-        SELECT GROUP_CONCAT(ar.id)
-        FROM `acl_model_has_roles` amhr
-        JOIN `acl_roles` ar ON amhr.role_id = ar.id
-        WHERE amhr.model_type = 'App\\Models\\Auth\\User' -- Tài khoản Backend
-            AND model_id = @user_id);
-    SELECT @list_role_ids;
-
-    -- 2. Vai trò đó có quyền gì?
-    DROP TABLE IF EXISTS `tmp_list_permissions_via_roles`;
-    CREATE TEMPORARY TABLE IF NOT EXISTS `tmp_list_permissions_via_roles` AS (
-        SELECT ap.*
-        FROM `acl_role_has_permissions` arhp
-        JOIN `acl_permissions` ap ON arhp.permission_id = ap.id
-        WHERE FIND_IN_SET(arhp.role_id, @list_role_ids) > 0
-    );
-
-    -- 3. Người dùng có những quyền gì được cấp riêng biệt không?
-    SET @list_permission_ids = (
-        SELECT GROUP_CONCAT(ap.id)
-        FROM `acl_model_has_permissions` amhp
-        JOIN `acl_permissions` ap ON amhp.permission_id = ap.id
-        WHERE amhp.model_type = 'App\\Models\\Auth\\User' -- Tài khoản Backend
-            AND model_id = @user_id);
-    SELECT @list_permission_ids;
-
-    DROP TABLE IF EXISTS `tmp_list_individual_permissions`;
-    CREATE TEMPORARY TABLE IF NOT EXISTS `tmp_list_individual_permissions` AS (
-        SELECT ap.*
-        FROM `acl_permissions` ap
-        WHERE FIND_IN_SET(ap.id, @list_permission_ids) > 0
-    );
-
-    -- 4. Tổng hợp danh sách các Quyền của người dùng
-    SELECT * FROM `tmp_list_permissions_via_roles`
-    UNION ALL
-    SELECT * FROM `tmp_list_individual_permissions`;
-EOT;
-
-// 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
-$resultPermissions = mysqli_query($conn, $sqlPermissions);
-
-// 4. Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tách để sử dụng
-// Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
-// Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
-$dataPermissions = [];
-while ($row = mysqli_fetch_array($resultPermissions, MYSQLI_ASSOC)) {
-    $dataPermissions[] = array(
-        'id' => $row['id'],
-        'name' => $row['name'],
-        'display_name' => $row['display_name'],
-        'guard_name' => $row['guard_name'],
-    );
+// Nếu không có quyền thì chuyển hướng sang trang 403
+if(!$allow_permission_backend_shop_suppliers_view) {
+    // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/errors/403.html.twig`
+    // với dữ liệu truyền vào file giao diện được đặt tên là `error`
+    $error = [
+        'msg' => 'Xin lỗi. Bạn không có quyền truy cập vào chức năng này.',
+        'previous_url' => '/backend/pages/dashboard.php',
+    ];
+    echo $twig->render('backend/errors/403.html.twig', ['error' => $error]);
+    return;
 }
-
-$allow_permission_backend_view = false;
-foreach($dataPermissions as $permission) {
-    if($permission['name'] == )
-}
-
 
 // 2. Người dùng mới truy cập trang lần đầu tiên (người dùng chưa gởi dữ liệu `btnSave` - chưa nhấn nút Save) về Server
 // có nghĩa là biến $_POST['btnSave'] chưa được khởi tạo hoặc chưa có giá trị

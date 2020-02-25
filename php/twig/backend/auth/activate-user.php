@@ -19,7 +19,7 @@ $sqlSelect = <<<EOT
 EOT;
 
 // Thực thi SELECT
-$result = mysqli_query($conn, $sqlSelect) or die("<b>Có lỗi khi thực thi câu lệnh SQL: </b>" . mysqli_error($conn) . "<br /><b>Câu lệnh vừa thực thi:</b></br>$sqlSelect");;
+$result = mysqli_query($conn, $sqlSelect) or die("<b>Có lỗi khi thực thi câu lệnh SQL: </b>" . mysqli_error($conn) . "<br /><b>Câu lệnh vừa thực thi:</b></br>$sqlSelect");
 
 // Sử dụng hàm `mysqli_num_rows()` để đếm số dòng SELECT được
 // Nếu có bất kỳ dòng dữ liệu nào SELECT được <-> Người dùng có tồn tại và đã đúng thông tin EMAIL, activate_code

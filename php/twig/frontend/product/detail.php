@@ -225,7 +225,7 @@ $dataSelectProduct['review_statistics'] = $dataReviewStatistics;
 $dataSelectProduct['list_images'] = $dataSelectProductImages;
 
 // Lấy dữ liệu Config
-$configBootstrapRatingClass = Config::$bootstrapRatingClass;
+$configBootstrapRatingClass = Config::$BOOTSTRAP_RATING_CLASS;
 
 // dd($dataSelectProduct);
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/product/detail.html.twig`

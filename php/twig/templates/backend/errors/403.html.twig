@@ -1,0 +1,40 @@
+{# Kế thừa layout backend #}
+{% extends "backend/layouts/layout-fullpage.html.twig" %}
+
+{# Nội dung trong block title #}
+{% block title %}
+403 Không có quyền truy cập
+{% endblock %}
+{# End Nội dung trong block title #}
+
+{# Nội dung trong block headline #}
+{% block headline %}
+403 Không có quyền truy cập
+{% endblock %}
+{# End Nội dung trong block headline #}
+
+{# Nội dung trong block content #}
+{% block content %}
+
+<div class="container h-100 d-flex justify-content-center">
+    <div class="my-auto">
+        <img src="/assets/shared/img/logo-nentang.jpg" style="width:300px; height: 300px;"/>
+        <div id="errorpage">
+            <div class="errorpage">
+                <div class="errorpage-403">
+                    <h1>Oops!</h1>
+                    <h2>{{ error.msg }}</h2>
+                </div>
+                <a href="{{ error.previous_url }}">Quay về Trang chủ</a>
+                <p>Vui lòng liên hệ Quản trị Hệ thống để được giải quyết.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+{{ include('backend/layouts/includes/footer.html.twig') }}
+<!-- end footer -->
+
+{% endblock %}
+{# End Nội dung trong block content #}

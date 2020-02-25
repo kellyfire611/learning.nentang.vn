@@ -1,4 +1,7 @@
 <?php
+// Include cấu hình
+include_once __DIR__ . '/../config.php';
+
 // Hàm lấy full đường dẫn trang web
 if (!function_exists('siteURL')) {
     function siteURL()
@@ -56,16 +59,6 @@ if (!function_exists('group_by')) {
     }
 }
 
-if (!function_exists('print_mysqli_error')) {
-    function print_mysqli_error()
-    {
-        if (!$resultSelectSanPham) {
-            printf("Error: %s\n", mysqli_error($conn));
-            exit();
-        }
-    }
-}
-
 if (!function_exists('is_active')) {
     function is_active($currect_page)
     {
@@ -75,4 +68,47 @@ if (!function_exists('is_active')) {
             echo 'active'; //class name in css 
         }
     }
+}
+
+
+// Hàm lấy full đường dẫn trang web
+
+function backend_check_email_has_permission($email, $permissionKey)
+{
+    // Tạo kết nối
+    $conn = mysqli_connect(Config::$DB_CONNECTION_HOST, Config::$DB_CONNECTION_USERNAME, Config::$DB_CONNECTION_PASSWORD, Config::$DB_CONNECTION_DATABASE_NAME) or die('Xin lỗi, database không kết nối được.');
+    $conn->query("SET NAMES 'utf8mb4'"); 
+    $conn->query("SET CHARACTER SET UTF8MB4");  
+    $conn->query("SET SESSION collation_connection = 'utf8mb4_unicode_ci'"); 
+
+    // Gọi Store Procedure `get_permissions_by_email` trong MYSQL
+    $sqlPermissions = "CALL `get_permissons_by_email`('$email');";
+
+    // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
+    $resultPermissions = mysqli_query($conn, $sqlPermissions) or die("<b>Có lỗi khi thực thi câu lệnh SQL: </b>" . mysqli_error($conn) . "<br /><b>Câu lệnh vừa thực thi:</b></br>$sqlPermissions");
+
+    // 4. Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tách để sử dụng
+    // Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
+    // Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
+    // $dataPermissions = [];
+    while ($row = mysqli_fetch_array($resultPermissions, MYSQLI_ASSOC)) {
+        $dataPermissions[] = array(
+            "id" => $row["id"],
+            'name' => $row['name'],
+            'display_name' => $row['display_name'],
+            'guard_name' => $row['guard_name'],
+            'created_at' => $row['created_at'],
+            'updated_at' => $row['updated_at'],
+        );
+    }
+
+    $allow = false;
+    foreach ($dataPermissions as $permission) {
+        if ($permission['name'] == $permissionKey) {
+            $allow = true;
+            break;
+        }
+    }
+
+    return $allow;
 }

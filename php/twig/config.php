@@ -1,10 +1,15 @@
 <?php
 class Config
 {
-    public static $limit = 5;
-    public static $page = 1;
+    public static $DB_CONNECTION_HOST           = 'localhost';
+    public static $DB_CONNECTION_USERNAME       = 'root';
+    public static $DB_CONNECTION_PASSWORD       = 'root';
+    public static $DB_CONNECTION_DATABASE_NAME  = 'netashop';
 
-    public static $bootstrapRatingClass = array(
+    public static $LIMIT = 5;
+    public static $PAGE = 1;
+
+    public static $BOOTSTRAP_RATING_CLASS = array(
         5 => array(
             'class' => 'bg-success',    // 5 sao, class quy định màu mặc định (Bootstrap)
         ),

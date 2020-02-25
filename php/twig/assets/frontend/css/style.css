@@ -217,3 +217,10 @@ body {
 .product-amount {
   color: black;
 }
+
+/* Avatar */
+.avatar-img-container {
+  border: 1px dashed blue;
+  width: 210px;
+  text-align: center;
+}

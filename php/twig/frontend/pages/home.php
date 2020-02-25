@@ -127,8 +127,8 @@ $sql = <<<EOT
 EOT;
 
 // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu (Có phân trang - Pagination)
-$limit        = (isset($_GET['limit'])) ? $_GET['limit'] : Config::$limit;
-$page         = (isset($_GET['page'])) ? $_GET['page'] : Config::$page;
+$limit        = (isset($_GET['limit'])) ? $_GET['limit'] : Config::$LIMIT;
+$page         = (isset($_GET['page'])) ? $_GET['page'] : Config::$PAGE;
 $paginator    = new Paginator($twig, $conn, $sql);
 $dataProducts = $paginator->getData($limit, $page);
 

@@ -22,12 +22,12 @@ if (!isset($_POST['btnSave'])) {
     // Nếu không tìm thấy dòng dữ liệu thì chuyển sang trang báo lỗi không tìm thấy (404 status code)
     if(empty($updateRow)) {
         // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/errors/404.html.twig`
-        // với dữ liệu truyền vào file giao diện được đặt tên là `errors`
-        $errors = [
+        // với dữ liệu truyền vào file giao diện được đặt tên là `error`
+        $error = [
             'msg' => 'Không tìm thấy dòng dữ liệu bạn muốn hiệu chỉnh. Vui lòng kiểm tra lại giá trị ID !!!',
             'previous_url' => 'index.php',
         ];
-        echo $twig->render('backend/errors/404.html.twig', ['errors' => $errors]);
+        echo $twig->render('backend/errors/404.html.twig', ['error' => $error]);
     }
 
     // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/shop_suppliers/edit.html.twig`
