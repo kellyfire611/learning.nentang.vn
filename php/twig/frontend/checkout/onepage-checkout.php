@@ -10,7 +10,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
 if (!isset($_POST['btnDatHang'])) {
     // Nếu trong SESSION có giá trị của key 'email' <-> người dùng đã đăng nhập thành công
     // Nếu chưa đăng nhập thì chuyển hướng về trang đăng nhập
-    if (!isset($_SESSION['email'])) {
+    if (!isset($_SESSION['frontend']['email'])) {
         header('location:../auth/login.php');
         return;
     }
@@ -25,7 +25,7 @@ if (!isset($_POST['btnDatHang'])) {
 
     // Thực thi SELECT
     $resultSelectHinhThucThanhToan = mysqli_query($conn, $sqlSelectHinhThucThanhToan);
-    $dataPaymentTypes;
+    $dataPaymentTypes = [];
     while ($row = mysqli_fetch_array($resultSelectHinhThucThanhToan, MYSQLI_ASSOC)) {
         $dataPaymentTypes[] = array(
             'id' => $row['id'],
@@ -40,7 +40,7 @@ if (!isset($_POST['btnDatHang'])) {
 
     // Lấy thông tin khách hàng
     // Lấy dữ liệu người dùng đã đăng nhập từ SESSION
-    $email = $_SESSION['email'];
+    $email = $_SESSION['frontend']['email'];
 
     // Câu lệnh SELECT
     $sqlSelect = <<<EOT

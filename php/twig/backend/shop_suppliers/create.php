@@ -8,14 +8,14 @@ include_once(__DIR__ . '/../../dbconnect.php');
 
 // Kiểm tra có đăng nhập hay chưa? (Xác thực Authentication)
 // Nếu trong SESSION có giá trị của key 'email' <-> người dùng đã đăng nhập thành công
-// Nếu chưa đăng nhập thì chuyển hướng về trang đăng nhập
-if (!isset($_SESSION['email'])) {
+// Nếu chưa đăng nhập thì chuyển hướng về trang đăng nhập của Backend
+if (!isset($_SESSION['backend']['email'])) {
     header('location:../auth/login.php');
     return;
 }
 
 // Kiểm tra có Quyền vào chức năng này không? (Xác thực Authorization)
-$email = $_SESSION['email'];
+$email = $_SESSION['backend']['email'];
 
 // 2. Chuẩn bị câu truy vấn $sql
 $sqlPermissions = <<<EOT

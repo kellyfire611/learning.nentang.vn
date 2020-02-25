@@ -12,8 +12,8 @@ include_once(__DIR__ . '/../../dbconnect.php');
 if (!isset($_POST['btnLogin'])) {
     // Nếu trong SESSION có giá trị của key 'email' <-> người dùng đã đăng nhập rồi
     // Điều hướng người dùng về trang chủ
-    if (isset($_SESSION['frontend']['email'])) {
-        // echo "<h1>Xin chào mừng ". $_SESSION['frontend']['email'] ."</h1>";
+    if (isset($_SESSION['backend']['email'])) {
+        // echo "<h1>Xin chào mừng ". $_SESSION['backend']['email'] ."</h1>";
         // echo session_save_path();
         header('location:home.php');
     } else {
@@ -21,9 +21,9 @@ if (!isset($_POST['btnLogin'])) {
         $errors = [];
 
         // Nếu chưa đăng nhập trước đó
-        // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/auth/login.html.twig`
+        // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/auth/login.html.twig`
         // với dữ liệu truyền vào file giao diện được đặt tên là `errors`
-        echo $twig->render('frontend/auth/login.html.twig', ['errors' => $errors]);
+        echo $twig->render('backend/auth/login.html.twig', ['errors' => $errors]);
     }
     return;
 }
@@ -74,14 +74,14 @@ if (mysqli_num_rows($result) > 0) {
         ];
 
         // Nếu chưa kích hoạt tài khoản thì hiển thị giao diện yêu cầu kích hoạt tài khoản
-        // Yêu cầu `Twig` vẽ giao diện được viết trong file `frontend/auth/user-not-activated.html.twig`
+        // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/auth/user-not-activated.html.twig`
         // với dữ liệu truyền vào file giao diện được đặt tên là `errors`
-        echo $twig->render('frontend/auth/user-not-activated.html.twig', ['errors' => $errors]);
+        echo $twig->render('backend/auth/user-not-activated.html.twig', ['errors' => $errors]);
     } else { 
         // Đã kích hoạt -> Đăng nhập thành công
         // Lưu thông tin Đăng nhập vào Session
-        $_SESSION['frontend']['email'] = $email;
-        $_SESSION['frontend']['is_logged'] = true; // #True: Đăng nhập thành công; #False: Thất bại
+        $_SESSION['backend']['email'] = $email;
+        $_SESSION['backend']['is_logged'] = true; // #True: Đăng nhập thành công; #False: Thất bại
 
         // Điều hướng về Trang chủ
         header("location:./../pages/home.php");
@@ -101,5 +101,5 @@ if (mysqli_num_rows($result) > 0) {
 
     // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/shop_suppliers/create.html.twig`
     // kèm theo dữ liệu thông báo lỗi
-    echo $twig->render('frontend/auth/login.html.twig', ['errors' => $errors]);
+    echo $twig->render('backend/auth/login.html.twig', ['errors' => $errors]);
 }

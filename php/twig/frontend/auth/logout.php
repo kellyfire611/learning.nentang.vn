@@ -7,8 +7,8 @@ require_once __DIR__.'/../../bootstrap.php';
 
 // Nếu trong SESSION có giá trị của key 'email' <-> người dùng đã đăng nhập thành công
 // Điều hướng người dùng về trang DASHBOARD
-if(isset($_SESSION['email'])) {
-    unset($_SESSION['email']);
+if(isset($_SESSION['frontend']['email'])) {
+    unset($_SESSION['frontend']['email']);
     header('location:login.php');
 }
 else {
