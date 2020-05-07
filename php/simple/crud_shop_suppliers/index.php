@@ -77,12 +77,12 @@
                         <td><?php echo $row['updated_at']; ?></td>
                         <td>
                             <!-- Button Sửa -->
-                            <a href="" id="btnUpdate" class="btn btn-primary">
+                            <a href="edit.php?id=<?php echo $row['id']; ?>" id="btnUpdate" class="btn btn-primary">
                                 <i class="fas fa-edit"></i>
                             </a>
 
                             <!-- Button Xóa -->
-                            <a href="" id="btnDelete" class="btn btn-danger">
+                            <a href="delete.php?id=<?php echo $row['id']; ?>" id="btnDelete" class="btn btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>

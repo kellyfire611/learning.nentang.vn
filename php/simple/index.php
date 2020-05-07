@@ -18,7 +18,7 @@
             <p class="lead">Học về Thao tác Kết nối dữ liệu với MySQL bằng PHP</p>
             <hr class="my-4">
             <p>Thao tác Kết nối và Xử lý dữ liệu với MySQL</p>
-            <a class="btn btn-primary btn-lg" href="crud_shop_suppliers/index.php" role="button">Danh sách Nhà cung cấp</a>
+            <a class="btn btn-primary btn-lg" href="/php/simple/crud_shop_suppliers/index.php" role="button">Danh sách Nhà cung cấp</a>
         </div>
     </div>
 
