@@ -377,7 +377,8 @@ if(isset($_POST['btnSave']))
             // Tiến hành di chuyển file từ thư mục tạm trên server vào thư mục chúng ta muốn chứa các file uploads
             // Ví dụ: move file từ C:\xampp\tmp\php6091.tmp -> C:/xampp/htdocs/learning.nentang.vn/php/twig/assets/uploads/hoahong.jpg
             $hsp_tentaptin = $_FILES['hsp_tentaptin']['name'];
-            move_uploaded_file($_FILES['hsp_tentaptin']['tmp_name'], $upload_dir.$hsp_tentaptin);
+            $tentaptin = date('YmdHis') . '_' .$hsp_tentaptin; //20200530154922_hoahong.jpg
+            move_uploaded_file($_FILES['hsp_tentaptin']['tmp_name'], $upload_dir.$tentaptin);
             
             // Xóa file cũ để tránh rác trong thư mục UPLOADS
             $old_file = $upload_dir.$hinhsanphamRow['hsp_tentaptin'];
@@ -387,7 +388,7 @@ if(isset($_POST['btnSave']))
         }
 
         // Câu lệnh UPDATE
-        $sql = "UPDATE `hinhsanpham` SET hsp_tentaptin='$hsp_tentaptin', sp_ma=$sp_ma WHERE hsp_ma=$hsp_ma;";
+        $sql = "UPDATE `hinhsanpham` SET hsp_tentaptin='$tentaptin', sp_ma=$sp_ma WHERE hsp_ma=$hsp_ma;";
         
         // Thực thi UPDATE
         mysqli_query($conn, $sql);
