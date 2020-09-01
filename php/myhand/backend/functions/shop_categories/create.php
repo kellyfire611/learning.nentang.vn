@@ -47,101 +47,157 @@
           <button class="btn btn-primary" name="btnSave">Lưu dữ liệu</button>
         </form>
 
-
         <?php
         // Truy vấn database
         // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
-        include_once(__DIR__ . '/../../dbconnect.php');
+        include_once(__DIR__ . '/../../../dbconnect.php');
 
-        // 2. Nếu người dùng có bấm nút Đăng ký thì thực thi câu lệnh UPDATE
+        // 2. Nếu người dùng có bấm nút "Lưu dữ liệu" thì kiểm tra VALIDATE dữ liệu
         if (isset($_POST['btnSave'])) {
           // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-          $tenLoai = $_POST['category_name'];
-          $mota = $_POST['description'];
+          $category_code = $_POST['category_code'];
+          $category_name = $_POST['category_name'];
+          $description = $_POST['description'];
 
           // Kiểm tra ràng buộc dữ liệu (Validation)
           // Tạo biến lỗi để chứa thông báo lỗi
           $errors = [];
+
+          // Validate Mã loại Sản phẩm
           // required
-          if (empty($tenLoai)) {
+          if (empty($category_code)) {
+            $errors['category_code'][] = [
+              'rule' => 'required',
+              'rule_value' => true,
+              'value' => $category_code,
+              'msg' => 'Vui lòng nhập Mã Loại sản phẩm'
+            ];
+          }
+          // minlength 3
+          if (!empty($category_code) && strlen($category_code) < 3) {
+            $errors['category_code'][] = [
+              'rule' => 'minlength',
+              'rule_value' => 3,
+              'value' => $category_code,
+              'msg' => 'Mã sản phẩm phải có ít nhất 3 ký tự'
+            ];
+          }
+          // maxlength 50
+          if (!empty($category_code) && strlen($category_code) > 50) {
+            $errors['category_code'][] = [
+              'rule' => 'maxlength',
+              'rule_value' => 50,
+              'value' => $category_code,
+              'msg' => 'Mã Loại sản phẩm không được vượt quá 50 ký tự'
+            ];
+          }
+
+          // Validate Tên loại Sản phẩm
+          // required
+          if (empty($category_name)) {
             $errors['category_name'][] = [
               'rule' => 'required',
               'rule_value' => true,
-              'value' => $tenLoai,
+              'value' => $category_name,
               'msg' => 'Vui lòng nhập tên Loại sản phẩm'
             ];
           }
           // minlength 3
-          if (!empty($tenLoai) && strlen($tenLoai) < 3) {
+          if (!empty($category_name) && strlen($category_name) < 3) {
             $errors['category_name'][] = [
               'rule' => 'minlength',
               'rule_value' => 3,
-              'value' => $tenLoai,
+              'value' => $category_name,
               'msg' => 'Tên Loại sản phẩm phải có ít nhất 3 ký tự'
             ];
           }
           // maxlength 50
-          if (!empty($tenLoai) && strlen($tenLoai) > 50) {
+          if (!empty($category_name) && strlen($category_name) > 50) {
             $errors['category_name'][] = [
               'rule' => 'maxlength',
               'rule_value' => 50,
-              'value' => $tenLoai,
+              'value' => $category_name,
               'msg' => 'Tên Loại sản phẩm không được vượt quá 50 ký tự'
             ];
           }
 
+          // Validate Diễn giải
           // required
-          if (empty($mota)) {
+          if (empty($description)) {
             $errors['description'][] = [
               'rule' => 'required',
               'rule_value' => true,
-              'value' => $mota,
+              'value' => $description,
               'msg' => 'Vui lòng nhập mô tả Loại sản phẩm'
             ];
           }
           // minlength 3
-          if (!empty($mota) && strlen($mota) < 3) {
+          if (!empty($description) && strlen($description) < 3) {
             $errors['description'][] = [
               'rule' => 'minlength',
               'rule_value' => 3,
-              'value' => $mota,
+              'value' => $description,
               'msg' => 'Mô tả loại sản phẩm phải có ít nhất 3 ký tự'
             ];
           }
           // maxlength 255
-          if (!empty($mota) && strlen($mota) > 255) {
+          if (!empty($description) && strlen($description) > 255) {
             $errors['description'][] = [
               'rule' => 'maxlength',
               'rule_value' => 255,
-              'value' => $mota,
+              'value' => $description,
               'msg' => 'Mô tả loại sản phẩm không được vượt quá 255 ký tự'
             ];
           }
         }
         ?>
 
-        <?php 
-        // if (!empty($errors)) {
-        //   // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/loaisanpham/create.html.twig`
-        //   // kèm theo dữ liệu thông báo lỗi
-        //   echo $twig->render('backend/loaisanpham/create.html.twig', [
-        //     'errors' => $errors,
-        //     'category_name_oldvalue' => $tenLoai,
-        //     'description_oldvalue' => $mota
-        //   ]);
-        // } else { // Nếu không có lỗi dữ liệu sẽ thực thi câu lệnh SQL
-        //   // Câu lệnh INSERT
-        //   $sql = "INSERT INTO `loaisanpham` (category_name, description) VALUES ('" . $tenLoai . "', '" . $mota . "');";
+        <!-- Nếu có lỗi VALIDATE dữ liệu thì hiển thị ra màn hình 
+        - Sử dụng thành phần (component) Alert của Bootstrap
+        - Mỗi một lỗi hiển thị sẽ in theo cấu trúc Danh sách không thứ tự UL > LI
+        -->
+        <?php if (
+          isset($_POST['btnSave'])  // Nếu người dùng có bấm nút "Lưu dữ liệu"
+          && isset($errors)         // Nếu biến $errors có tồn tại
+          && (!empty($errors))      // Nếu giá trị của biến $errors không rỗng
+        ) : ?>
+          <div id="errors-container" class="alert alert-danger face my-2" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <ul>
+              <?php foreach ($errors as $fields) : ?>
+                <?php foreach ($fields as $field) : ?>
+                  <li><?php echo $field['msg']; ?></li>
+                <?php endforeach; ?>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endif; ?>
 
-        //   // Thực thi INSERT
-        //   mysqli_query($conn, $sql);
+        <?php
+        // Nếu không có lỗi VALIDATE dữ liệu (tức là dữ liệu đã hợp lệ)
+        // Tiến hành thực thi câu lệnh SQL Query Database
+        // => giá trị của biến $errors là rỗng
+        if (
+          isset($_POST['btnSave'])  // Nếu người dùng có bấm nút "Lưu dữ liệu"
+          && (!isset($errors) || (empty($errors))) // Nếu biến $errors không tồn tại Hoặc giá trị của biến $errors rỗng
+        ) {
+          // VALIDATE dữ liệu đã hợp lệ
+          // Thực thi câu lệnh SQL QUERY
+          // Câu lệnh INSERT
+          $sql = "INSERT INTO `shop_categories` (category_code, category_name, description) VALUES ('$category_code', '$category_name', '$description');";
 
-        //   // Đóng kết nối
-        //   mysqli_close($conn);
+          // Thực thi INSERT
+          mysqli_query($conn, $sql) or die("<b>Có lỗi khi thực thi câu lệnh SQL: </b>" . mysqli_error($conn) . "<br /><b>Câu lệnh vừa thực thi:</b></br>$sql");
 
-        //   // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
-        //   header('location:index.php');
-        // }
+          // Đóng kết nối
+          mysqli_close($conn);
+
+          // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
+          // Điều hướng bằng Javascript
+          echo '<script>location.href = "index.php";</script>';
+        }
         ?>
         <!-- End block content -->
       </main>
@@ -158,6 +214,7 @@
   <!-- Các file Javascript sử dụng riêng cho trang này, liên kết tại đây -->
   <!-- <script src="..."></script> -->
   <script>
+    // VALIDATE dữ liệu trong form
     $(document).ready(function() {
       $("#frmLoaiSanPham").validate({
         rules: {
