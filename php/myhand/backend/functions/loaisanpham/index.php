@@ -33,7 +33,7 @@
 
         // 2. Chuẩn bị câu truy vấn $sql
         $stt = 1;
-        $sql = "select * from `shop_categories`";
+        $sql = "select * from `loaisanpham`";
 
         // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
         $result = mysqli_query($conn, $sql);
@@ -41,16 +41,12 @@
         // 4. Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tích để sử dụng
         // Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
         // Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
-        $categories = [];
+        $ds_loaisanpham = [];
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-          $categories[] = array(
-            'id' => $row['id'],
-            'category_code' => $row['category_code'],
-            'category_name' => $row['category_name'],
-            'description' => $row['description'],
-            'image' => $row['image'],
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at'],
+          $ds_loaisanpham[] = array(
+            'lsp_ma' => $row['lsp_ma'],
+            'lsp_ten' => $row['lsp_ten'],
+            'lsp_mota' => $row['lsp_mota'],
           );
         }
         ?>
@@ -62,34 +58,30 @@
         <table class="table table-bordered table-hover mt-2">
           <thead class="thead-dark">
             <tr>
-              <th>Ảnh đại diện</th>
-              <th>Mã chuyên mục</th>
-              <th>Tên chuyên mục</th>
-              <th>Mô tả chuyên mục</th>
+              <th>Mã loại sản phẩm</th>
+              <th>Tên loại sản phẩm</th>
+              <th>Mô tả loại sản phẩm</th>
               <th>Hành động</th>
             </tr>
           </thead>
           <tbody>
-            <?php foreach($categories as $category): ?>
-            <tr>
-              <td>
-                <img src="/assets/uploads/{{ category.image }}" class="img-thumbnail" />
-              </td>
-              <td><?= $category['category_code'] ?></td>
-              <td><?= $category['category_name'] ?></td>
-              <td><?= $category['description'] ?></td>
-              <td>
-                <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `id` -->
-                <a href="edit?id=<?= $category['id'] ?>" class="btn btn-warning">
-                  <span data-feather="edit"></span> Sửa
-                </a>
+            <?php foreach ($ds_loaisanpham as $loaisanpham) : ?>
+              <tr>
+                <td><?= $loaisanpham['lsp_ma'] ?></td>
+                <td><?= $loaisanpham['lsp_ten'] ?></td>
+                <td><?= $loaisanpham['lsp_mota'] ?></td>
+                <td>
+                  <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `lsp_ma` -->
+                  <a href="edit.php?lsp_ma=<?= $loaisanpham['lsp_ma'] ?>" class="btn btn-warning">
+                    <span data-feather="edit"></span> Sửa
+                  </a>
 
-                <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `id` -->
-                <a href="delete?id=<? $category['id'] ?>" class="btn btn-danger">
-                  <span data-feather="delete"></span> Xóa
-                </a>
-              </td>
-            </tr>
+                  <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `lsp_ma` -->
+                  <a href="delete.php?lsp_ma=<?= $loaisanpham['lsp_ma'] ?>" class="btn btn-danger">
+                    <span data-feather="delete"></span> Xóa
+                  </a>
+                </td>
+              </tr>
             <?php endforeach; ?>
           </tbody>
         </table>

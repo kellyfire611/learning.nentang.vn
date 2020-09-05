@@ -3,8 +3,8 @@ class Config
 {
     public static $DB_CONNECTION_HOST           = 'localhost';
     public static $DB_CONNECTION_USERNAME       = 'root';
-    public static $DB_CONNECTION_PASSWORD       = '';
-    public static $DB_CONNECTION_DATABASE_NAME  = 'netashop';
+    public static $DB_CONNECTION_PASSWORD       = 'root';
+    public static $DB_CONNECTION_DATABASE_NAME  = 'u883604362_php';
 
     public static $LIMIT = 5;
     public static $PAGE = 1;
