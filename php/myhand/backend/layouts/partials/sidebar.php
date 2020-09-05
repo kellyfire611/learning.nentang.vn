@@ -13,21 +13,38 @@
       <li class="nav-item sidebar-heading">
         <span>Danh mục</span>
       </li>
-      <!-- Menu Chuyên mục sản phẩm -->
+      <!-- Menu Loại sản phẩm -->
       <li class="nav-item">
-        <a href="#shop_categoriesSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-          Chuyên mục sản phẩm
+        <a href="#loaisanphamSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          Loại sản phẩm
         </a>
-        <ul class="collapse" id="shop_categoriesSubMenu">
+        <ul class="collapse" id="loaisanphamSubMenu">
           <li class="nav-item">
-            <a href="/backend/functions/shop_categories/index.php">Danh sách</a>
+            <a href="/backend/functions/loaisanpham/index.php">Danh sách</a>
           </li>
           <li class="nav-item">
-            <a href="/backend/functions/shop_categories/create.php">Thêm mới</a>
+            <a href="/backend/functions/loaisanpham/create.php">Thêm mới</a>
           </li>
         </ul>
       </li>
-      <!-- End Menu Chuyên mục sản phẩm -->
+      <!-- End Loại sản phẩm -->
+
+      <!-- Menu Sản phẩm -->
+      <li class="nav-item">
+        <a href="#sanphamSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          Sản phẩm
+        </a>
+        <ul class="collapse" id="sanphamSubMenu">
+          <li class="nav-item">
+            <a href="/backend/functions/sanpham/index.php">Danh sách</a>
+          </li>
+          <li class="nav-item">
+            <a href="/backend/functions/sanpham/create.php">Thêm mới</a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Sản phẩm -->
+
       <!-- #################### End Menu chức năng Danh mục #################### -->
     </ul>
   </div>
