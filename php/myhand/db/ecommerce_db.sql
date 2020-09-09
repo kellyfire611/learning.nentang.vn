@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- Host:                         sql167.main-hosting.eu.
--- Server version:               10.2.23-MariaDB - MariaDB Server
--- Server OS:                    Linux
--- HeidiSQL Version:             10.2.0.5599
+-- Host:                         127.0.0.1
+-- Server version:               10.4.11-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             11.0.0.5919
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `dondathang` (
   CONSTRAINT `dondathang_khachhang` FOREIGN KEY (`kh_tendangnhap`) REFERENCES `khachhang` (`kh_tendangnhap`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.dondathang: ~5 rows (approximately)
+-- Dumping data for table u883604362_php.dondathang: ~2 rows (approximately)
 /*!40000 ALTER TABLE `dondathang` DISABLE KEYS */;
 INSERT INTO `dondathang` (`dh_ma`, `dh_ngaylap`, `dh_ngaygiao`, `dh_noigiao`, `dh_trangthaithanhtoan`, `httt_ma`, `kh_tendangnhap`) VALUES
 	(4, '2019-06-11 20:48:10', '2019-06-15 00:00:00', 'Cần Thơ', 0, 1, 'dnpcuong'),
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `hinhsanpham` (
   CONSTRAINT `fk_hinhsanpham_sanpham1` FOREIGN KEY (`sp_ma`) REFERENCES `sanpham` (`sp_ma`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.hinhsanpham: ~6 rows (approximately)
+-- Dumping data for table u883604362_php.hinhsanpham: ~10 rows (approximately)
 /*!40000 ALTER TABLE `hinhsanpham` DISABLE KEYS */;
 INSERT INTO `hinhsanpham` (`hsp_ma`, `hsp_tentaptin`, `sp_ma`) VALUES
 	(25, 'samsung-galaxy-tab.jpg', 7),
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `hinhthucthanhtoan` (
   PRIMARY KEY (`httt_ma`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.hinhthucthanhtoan: ~0 rows (approximately)
+-- Dumping data for table u883604362_php.hinhthucthanhtoan: ~3 rows (approximately)
 /*!40000 ALTER TABLE `hinhthucthanhtoan` DISABLE KEYS */;
 INSERT INTO `hinhthucthanhtoan` (`httt_ma`, `httt_ten`) VALUES
 	(1, 'Tiền mặt'),
@@ -147,10 +147,12 @@ CREATE TABLE IF NOT EXISTS `khuyenmai` (
   `km_tungay` date DEFAULT NULL,
   `km_denngay` date DEFAULT NULL,
   PRIMARY KEY (`km_ma`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table u883604362_php.khuyenmai: ~0 rows (approximately)
 /*!40000 ALTER TABLE `khuyenmai` DISABLE KEYS */;
+INSERT INTO `khuyenmai` (`km_ma`, `km_ten`, `km_noidung`, `km_tungay`, `km_denngay`) VALUES
+	(1, 'ten', '333', '2020-09-05', '2020-09-05');
 /*!40000 ALTER TABLE `khuyenmai` ENABLE KEYS */;
 
 -- Dumping structure for table u883604362_php.loaisanpham
@@ -161,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `loaisanpham` (
   PRIMARY KEY (`lsp_ma`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.loaisanpham: ~5 rows (approximately)
+-- Dumping data for table u883604362_php.loaisanpham: ~4 rows (approximately)
 /*!40000 ALTER TABLE `loaisanpham` DISABLE KEYS */;
 INSERT INTO `loaisanpham` (`lsp_ma`, `lsp_ten`, `lsp_mota`) VALUES
 	(1, 'Máy tính bảng', '0'),
@@ -206,15 +208,15 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
   CONSTRAINT `sanpham_khuyenmai` FOREIGN KEY (`km_ma`) REFERENCES `khuyenmai` (`km_ma`),
   CONSTRAINT `sanpham_loaisanpham` FOREIGN KEY (`lsp_ma`) REFERENCES `loaisanpham` (`lsp_ma`),
   CONSTRAINT `sanpham_nhasanxuat` FOREIGN KEY (`nsx_ma`) REFERENCES `nhasanxuat` (`nsx_ma`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.sanpham: ~0 rows (approximately)
+-- Dumping data for table u883604362_php.sanpham: ~8 rows (approximately)
 /*!40000 ALTER TABLE `sanpham` DISABLE KEYS */;
 INSERT INTO `sanpham` (`sp_ma`, `sp_ten`, `sp_gia`, `sp_giacu`, `sp_mota_ngan`, `sp_mota_chitiet`, `sp_ngaycapnhat`, `sp_soluong`, `lsp_ma`, `nsx_ma`, `km_ma`) VALUES
 	(1, 'Samsung Galaxy S3', 12000000.00, 12600000.00, 'Sản phẩm của Samsung năm 2013', 'Cấu hình: CPU Dual Core – Ram 1 GB', '2012-12-22 11:20:30', 17, 3, 2, NULL),
 	(2, 'Apple Ipad 4 Wifi 16GB', 11800000.00, 12000000.00, 'CPU  Dual-core Cortex-A9 tốc độ 1GHz', 'Màn hình 9.7 inch, cảm ứng điện dung đa điểm', '2013-01-12 10:04:45', 100, 1, 1, NULL),
 	(3, 'Apple iPhone 5 16GB', 14890000.00, NULL, 'CPU: Dual-core 1 GHz', 'Chi tiết iPhone 5', '2013-01-16 17:13:45', 0, 3, 1, NULL),
-	(4, 'Apple iPhone 5 16GB White', 14990000.00, NULL, 'CPU: Dual-core 1 GHz - Màu trắng', 'Chi tiết iPhone 5', '2013-01-16 17:14:55', 10, 3, 1, NULL),
+	(4, 'Apple iPhone 5 16GB White', 14990000.00, NULL, 'CPU: Dual-core 1 GHz - Màu trắng', 'Chi tiết iPhone 5', '2013-01-16 17:14:55', 10, 3, 1, 1),
 	(5, 'Samsung Galaxy Tab 10.1 3G 16G', 10990000.00, 12000000.00, 'Màn hình 10.1 inch cảm ứng đa điểm', 'Vi xử lý Dual-core 1 Cortex-A9 tốc độ 1GHz', '2013-01-17 14:18:03', 6, 1, 2, NULL),
 	(6, 'Nokia Asha 311', 2699000.00, 3000000.00, 'Điện thoại di động Nokia Asha 311', 'Màn hình QVGA, 3.0 inches', '2013-01-17 14:19:10', 25, 3, 3, NULL),
 	(7, 'Samsung Galaxy Tab 2 7.0', 7500000.00, 7950000.00, 'Máy tính bảng Samsung Galaxy Tab 2 7.0 ', 'Màn hình 7 inch Cảm ứng điện dung', '2013-01-28 10:42:08', 13, 1, 2, NULL);
@@ -233,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `sanpham_dondathang` (
   CONSTRAINT `sanpham_donhang_sanpham` FOREIGN KEY (`sp_ma`) REFERENCES `sanpham` (`sp_ma`) ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u883604362_php.sanpham_dondathang: ~0 rows (approximately)
+-- Dumping data for table u883604362_php.sanpham_dondathang: ~3 rows (approximately)
 /*!40000 ALTER TABLE `sanpham_dondathang` DISABLE KEYS */;
 INSERT INTO `sanpham_dondathang` (`sp_ma`, `dh_ma`, `sp_dh_soluong`, `sp_dh_dongia`) VALUES
 	(1, 5, 3, 12000000.00),

@@ -10,6 +10,7 @@
     <h1>Nền Tảng - Hành trang tới Tương lai</h1>
     <h2>Danh sách các Khóa học</h2>
     <ul>
+        <li><a href="/php/myhand">Thiết kế Web PHP & MySQL bằng PHP thuần</a></li>
         <li><a href="/php/twig">Thiết kế Web PHP & MySQL với Template Engine TWIG</a></li>
     </ul>
 </body>

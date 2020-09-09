@@ -7,6 +7,10 @@
 <head>
     <!-- Nhúng file quản lý phần HEAD -->
     <?php include_once(__DIR__ . '/../../layouts/head.php'); ?>
+
+    <!-- DataTable CSS -->
+    <link href="/php/myhand/assets/vendor/DataTables/datatables.min.css" type="text/css" rel="stylesheet" />
+    <link href="/php/myhand/assets/vendor/DataTables/Buttons-1.6.3/css/buttons.bootstrap4.min.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -57,7 +61,7 @@ EOT;
                     if (!empty($row['km_ten'])) {
                         // Sử dụng hàm sprintf() để chuẩn bị mẫu câu với các giá trị truyền vào tương ứng từng vị trí placeholder
                         $km_tomtat = sprintf(
-                            "Khuyến mãi %s, nội dung: %s, thời gian: %s-%s",
+                            "Khuyến mãi <b>%s</b>, nội dung: <b>%s</b>, thời gian: <i>%s - %s</i>",
                             $row['km_ten'],
                             $row['km_noidung'],
                             // Sử dụng hàm date($format, $timestamp) để chuyển đổi ngày thành định dạng Việt Nam (ngày/tháng/năm)
@@ -94,7 +98,7 @@ EOT;
                 <a href="create.php" class="btn btn-primary">
                     Thêm mới
                 </a>
-                <table class="table table-bordered table-hover mt-2">
+                <table id="tblDanhSach" class="table table-bordered table-hover table-sm table-responsive mt-2">
                     <thead class="thead-dark">
                         <tr>
                             <th>Mã Sản phẩm</th>
@@ -135,9 +139,7 @@ EOT;
                                 </a>
 
                                 <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
-                                <a href="delete.php?sp_ma=<?= $sanpham['sp_ma'] ?>" class="btn btn-danger">
-                                    Xóa
-                                </a>
+                                <button class="btn btn-danger btnDelete" data-sp_ma="<?= $sp['sp_ma'] ?>">Xóa</button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -156,7 +158,55 @@ EOT;
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
 
     <!-- Các file Javascript sử dụng riêng cho trang này, liên kết tại đây -->
-    <!-- <script src="..."></script> -->
+    <!-- DataTable JS -->
+    <script src="/php/myhand/assets/vendor/DataTables/datatables.min.js"></script>
+    <script src="/php/myhand/assets/vendor/DataTables/Buttons-1.6.3/js/buttons.bootstrap4.min.js"></script>
+    <script src="/php/myhand/assets/vendor/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
+    <script src="/php/myhand/assets/vendor/DataTables/pdfmake-0.1.36/vfs_fonts.js"></script>
+    
+    <!-- SweetAlert -->
+    <script src="/php/myhand/assets/vendor/sweetalert/sweetalert.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Yêu cầu DataTable quản lý datatable #tblDanhSach
+        $('#tblDanhSach').DataTable({
+            dom: 'Blfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ]
+        });
+
+        // Cảnh báo khi xóa
+        // 1. Đăng ký sự kiện click cho các phần tử (element) đang áp dụng class .btnDelete
+        $('.btnDelete').click(function() {
+            // Click hanlder
+            // 2. Sử dụng thư viện SweetAlert để hiện cảnh báo khi bấm nút xóa
+            swal({
+                title: "Bạn có chắc chắn muốn xóa?",
+                text: "Một khi đã xóa, không thể phục hồi....",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) { // Nếu đồng ý xóa
+                    
+                    // 3. Lấy giá trị của thuộc tính (custom attribute HTML) 'sp_ma'
+                    // var sp_ma = $(this).attr('data-sp_ma');
+                    var sp_ma = $(this).data('sp_ma');
+                    var url = "delete.php?sp_ma=" + sp_ma;
+                    
+                    // Điều hướng qua trang xóa với REQUEST GET, có tham số sp_ma=...
+                    location.href = url;
+                } else { // Nếu không đồng ý xóa
+                    swal("Cẩn thận hơn nhé!");
+                }
+            });
+           
+        });
+    });
+    </script>
+
 </body>
 
 </html>
