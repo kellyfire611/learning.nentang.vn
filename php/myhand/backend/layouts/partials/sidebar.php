@@ -45,6 +45,22 @@
       </li>
       <!-- End Sản phẩm -->
 
+      <!-- Menu Hình Sản phẩm -->
+      <li class="nav-item">
+        <a href="#hinhsanphamSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          Hình Sản phẩm
+        </a>
+        <ul class="collapse" id="hinhsanphamSubMenu">
+          <li class="nav-item">
+            <a href="/php/myhand/backend/functions/hinhsanpham/index.php">Danh sách</a>
+          </li>
+          <li class="nav-item">
+            <a href="/php/myhand/backend/functions/hinhsanpham/create.php">Thêm mới</a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Sản phẩm -->
+
       <!-- #################### End Menu chức năng Danh mục #################### -->
     </ul>
   </div>

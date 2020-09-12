@@ -1,12 +1,13 @@
-<!-- Nhúng file cấu hình để xác định được Tên và Tiêu đề của trang hiện tại người dùng đang truy cập -->
-<?php include_once(__DIR__ . '/../../layouts/config.php'); ?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-    <!-- Nhúng file quản lý phần HEAD -->
-    <?php include_once(__DIR__ . '/../../layouts/head.php'); ?>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NenTang.vn</title>
+
+    <!-- Nhúng file Quản lý các Liên kết CSS dùng chung cho toàn bộ trang web -->
+    <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
 
     <!-- DataTable CSS -->
     <link href="/php/myhand/assets/vendor/DataTables/datatables.min.css" type="text/css" rel="stylesheet" />
@@ -115,33 +116,33 @@ EOT;
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($formatedData as $sanpham): ?>
-                        <tr>
-                            <td><?= $sanpham['sp_ma'] ?></td>
-                            <td><?= $sanpham['sp_ten'] ?></td>
-                            <td><?= $sanpham['sp_gia'] ?></td>
-                            <td><?= $sanpham['sp_giacu'] ?></td>
-                            <td>
-                                <?= $sanpham['sp_mota_ngan'] ?>
-                                <p>
-                                    <?= $sanpham['sp_mota_chitiet'] ?>
-                                </p>
-                            </td>
-                            <td><?= $sanpham['sp_ngaycapnhat'] ?></td>
-                            <td><?= $sanpham['sp_soluong'] ?></td>
-                            <td><?= $sanpham['lsp_ten'] ?></td>
-                            <td><?= $sanpham['nsx_ten'] ?></td>
-                            <td><?= $sanpham['km_tomtat'] ?></td>
-                            <td>
-                                <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `sp_ma` -->
-                                <a href="edit.php?sp_ma=<?= $sanpham['sp_ma'] ?>" class="btn btn-warning">
-                                    Sửa
-                                </a>
+                        <?php foreach ($formatedData as $sanpham) : ?>
+                            <tr>
+                                <td><?= $sanpham['sp_ma'] ?></td>
+                                <td><?= $sanpham['sp_ten'] ?></td>
+                                <td><?= $sanpham['sp_gia'] ?></td>
+                                <td><?= $sanpham['sp_giacu'] ?></td>
+                                <td>
+                                    <?= $sanpham['sp_mota_ngan'] ?>
+                                    <p>
+                                        <?= $sanpham['sp_mota_chitiet'] ?>
+                                    </p>
+                                </td>
+                                <td><?= $sanpham['sp_ngaycapnhat'] ?></td>
+                                <td><?= $sanpham['sp_soluong'] ?></td>
+                                <td><?= $sanpham['lsp_ten'] ?></td>
+                                <td><?= $sanpham['nsx_ten'] ?></td>
+                                <td><?= $sanpham['km_tomtat'] ?></td>
+                                <td>
+                                    <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `sp_ma` -->
+                                    <a href="edit.php?sp_ma=<?= $sanpham['sp_ma'] ?>" class="btn btn-warning">
+                                        Sửa
+                                    </a>
 
-                                <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
-                                <button class="btn btn-danger btnDelete" data-sp_ma="<?= $sp['sp_ma'] ?>">Xóa</button>
-                            </td>
-                        </tr>
+                                    <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
+                                    <button class="btn btn-danger btnDelete" data-sp_ma="<?= $sp['sp_ma'] ?>">Xóa</button>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -163,48 +164,48 @@ EOT;
     <script src="/php/myhand/assets/vendor/DataTables/Buttons-1.6.3/js/buttons.bootstrap4.min.js"></script>
     <script src="/php/myhand/assets/vendor/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
     <script src="/php/myhand/assets/vendor/DataTables/pdfmake-0.1.36/vfs_fonts.js"></script>
-    
+
     <!-- SweetAlert -->
     <script src="/php/myhand/assets/vendor/sweetalert/sweetalert.min.js"></script>
     <script>
-    $(document).ready(function() {
-        // Yêu cầu DataTable quản lý datatable #tblDanhSach
-        $('#tblDanhSach').DataTable({
-            dom: 'Blfrtip',
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ]
-        });
-
-        // Cảnh báo khi xóa
-        // 1. Đăng ký sự kiện click cho các phần tử (element) đang áp dụng class .btnDelete
-        $('.btnDelete').click(function() {
-            // Click hanlder
-            // 2. Sử dụng thư viện SweetAlert để hiện cảnh báo khi bấm nút xóa
-            swal({
-                title: "Bạn có chắc chắn muốn xóa?",
-                text: "Một khi đã xóa, không thể phục hồi....",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) { // Nếu đồng ý xóa
-                    
-                    // 3. Lấy giá trị của thuộc tính (custom attribute HTML) 'sp_ma'
-                    // var sp_ma = $(this).attr('data-sp_ma');
-                    var sp_ma = $(this).data('sp_ma');
-                    var url = "delete.php?sp_ma=" + sp_ma;
-                    
-                    // Điều hướng qua trang xóa với REQUEST GET, có tham số sp_ma=...
-                    location.href = url;
-                } else { // Nếu không đồng ý xóa
-                    swal("Cẩn thận hơn nhé!");
-                }
+        $(document).ready(function() {
+            // Yêu cầu DataTable quản lý datatable #tblDanhSach
+            $('#tblDanhSach').DataTable({
+                dom: 'Blfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ]
             });
-           
+
+            // Cảnh báo khi xóa
+            // 1. Đăng ký sự kiện click cho các phần tử (element) đang áp dụng class .btnDelete
+            $('.btnDelete').click(function() {
+                // Click hanlder
+                // 2. Sử dụng thư viện SweetAlert để hiện cảnh báo khi bấm nút xóa
+                swal({
+                        title: "Bạn có chắc chắn muốn xóa?",
+                        text: "Một khi đã xóa, không thể phục hồi....",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) { // Nếu đồng ý xóa
+
+                            // 3. Lấy giá trị của thuộc tính (custom attribute HTML) 'sp_ma'
+                            // var sp_ma = $(this).attr('data-sp_ma');
+                            var sp_ma = $(this).data('sp_ma');
+                            var url = "delete.php?sp_ma=" + sp_ma;
+
+                            // Điều hướng qua trang xóa với REQUEST GET, có tham số sp_ma=...
+                            location.href = url;
+                        } else { // Nếu không đồng ý xóa
+                            swal("Cẩn thận hơn nhé!");
+                        }
+                    });
+
+            });
         });
-    });
     </script>
 
 </body>

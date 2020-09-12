@@ -1,12 +1,13 @@
-<!-- Nhúng file cấu hình để xác định được Tên và Tiêu đề của trang hiện tại người dùng đang truy cập -->
-<?php include_once(__DIR__ . '/../../layouts/config.php'); ?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-  <!-- Nhúng file quản lý phần HEAD -->
-  <?php include_once(__DIR__ . '/../../layouts/head.php'); ?>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NenTang.vn</title>
+
+  <!-- Nhúng file Quản lý các Liên kết CSS dùng chung cho toàn bộ trang web -->
+  <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -83,25 +84,25 @@ EOT;
             </tr>
           </thead>
           <tbody>
-            <?php foreach($data as $hinhsanpham): ?>
-            <tr>
-              <td><?= $hinhsanpham['hsp_ma'] ?></td>
-              <td>
-                <img src="/php/myhand/assets/uploads/products/<?= $hinhsanpham['hsp_tentaptin'] ?>" class="img-fluid" width="100px" />
-              </td>
-              <td><?= $hinhsanpham['sp_tomtat'] ?></td>
-              <td>
-                <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `hsp_ma` -->
-                <a href="edit.php?hsp_ma=<?= $hinhsanpham['hsp_ma'] ?>" class="btn btn-warning">
-                  Sửa
-                </a>
+            <?php foreach ($data as $hinhsanpham) : ?>
+              <tr>
+                <td><?= $hinhsanpham['hsp_ma'] ?></td>
+                <td>
+                  <img src="/php/myhand/assets/uploads/products/<?= $hinhsanpham['hsp_tentaptin'] ?>" class="img-fluid" width="100px" />
+                </td>
+                <td><?= $hinhsanpham['sp_tomtat'] ?></td>
+                <td>
+                  <!-- Nút sửa, bấm vào sẽ hiển thị form hiệu chỉnh thông tin dựa vào khóa chính `hsp_ma` -->
+                  <a href="edit.php?hsp_ma=<?= $hinhsanpham['hsp_ma'] ?>" class="btn btn-warning">
+                    Sửa
+                  </a>
 
-                <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
-                <a href="delete.php?hsp_ma=<?= $hinhsanpham['hsp_ma'] ?>" class="btn btn-danger">
-                  Xóa
-                </a>
-              </td>
-            </tr>
+                  <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
+                  <a href="delete.php?hsp_ma=<?= $hinhsanpham['hsp_ma'] ?>" class="btn btn-danger">
+                    Xóa
+                  </a>
+                </td>
+              </tr>
             <?php endforeach; ?>
           </tbody>
         </table>

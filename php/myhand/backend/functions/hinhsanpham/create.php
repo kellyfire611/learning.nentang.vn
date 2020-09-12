@@ -1,12 +1,13 @@
-<!-- Nhúng file cấu hình để xác định được Tên và Tiêu đề của trang hiện tại người dùng đang truy cập -->
-<?php include_once(__DIR__ . '/../../layouts/config.php'); ?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-  <!-- Nhúng file quản lý phần HEAD -->
-  <?php include_once(__DIR__ . '/../../layouts/head.php'); ?>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NenTang.vn</title>
+
+  <!-- Nhúng file Quản lý các Liên kết CSS dùng chung cho toàn bộ trang web -->
+  <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -118,7 +119,8 @@
             // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
             // Nếu file upload bị lỗi, tức là thuộc tính error > 0
             if ($_FILES['hsp_tentaptin']['error'] > 0) {
-              echo 'File Upload Bị Lỗi'; die;
+              echo 'File Upload Bị Lỗi';
+              die;
             } else {
               // Để tránh trường hợp có 2 người dùng cùng lúc upload tập tin trùng tên nhau
               // Ví dụ:
