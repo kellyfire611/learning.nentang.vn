@@ -132,7 +132,7 @@ if (session_id() === '') {
         event.preventDefault();
         getDuLieuBaoCaoTongSoMatHang();
       });
-      
+
       // ----------------- Tổng số khách hàng --------------------------
       function getDuLieuBaoCaoTongSoKhachHang() {
         $.ajax('/php/myhand/backend/api/baocao-tongsokhachhang.php', {
@@ -192,6 +192,7 @@ if (session_id() === '') {
 
 
       // ------------------ Vẽ biểu đồ thống kê Loại sản phẩm -----------------
+      // Ví dụ 10 loại: https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/
       // Vẽ biểu đổ Thống kê Loại sản phẩm sử dụng ChartJS
       var $objChartThongKeLoaiSanPham;
       var $chartOfobjChartThongKeLoaiSanPham = document.getElementById("chartOfobjChartThongKeLoaiSanPham").getContext(
@@ -205,6 +206,8 @@ if (session_id() === '') {
             var data = JSON.parse(response);
             var myLabels = [];
             var myData = [];
+
+            // Duyệt vòng lặp qua các dòng API trả về
             $(data).each(function() {
               myLabels.push((this.TenLoaiSanPham));
               myData.push(this.SoLuong);
