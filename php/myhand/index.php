@@ -4,4 +4,5 @@
 
 <ul>
     <li><a href="backend/">Trang chủ Backend</a></li>
+    <li><a href="frontend/">Trang chủ Frontend</a></li>
 </ul>

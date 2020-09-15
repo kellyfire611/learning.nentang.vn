@@ -132,7 +132,7 @@ if (session_id() === '') {
         event.preventDefault();
         getDuLieuBaoCaoTongSoMatHang();
       });
-
+      
       // ----------------- Tổng số khách hàng --------------------------
       function getDuLieuBaoCaoTongSoKhachHang() {
         $.ajax('/php/myhand/backend/api/baocao-tongsokhachhang.php', {

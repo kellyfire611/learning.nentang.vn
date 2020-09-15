@@ -7,7 +7,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/php/myhand/frontend/index.php">Trang chủ Frontend</a>
+        <a class="nav-link" href="/php/myhand/backend/pages/dashboard.php">Quản trị</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/php/myhand/frontend/pages/about.php">Giới thiệu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/php/myhand/frontend/pages/contact.php">Liên hệ</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/php/myhand/frontend/thanhtoan/giohang.php">Giỏ hàng</a>
       </li>
     </ul>
 
