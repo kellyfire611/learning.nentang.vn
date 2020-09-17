@@ -61,6 +61,22 @@
       </li>
       <!-- End Sản phẩm -->
 
+      <!-- Menu Đơn đặt hàng -->
+      <li class="nav-item">
+        <a href="#dondathangSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          Đơn đặt hàng
+        </a>
+        <ul class="collapse" id="dondathangSubMenu">
+          <li class="nav-item">
+            <a href="/php/myhand/backend/functions/dondathang/index.php">Danh sách</a>
+          </li>
+          <li class="nav-item">
+            <a href="/php/myhand/backend/functions/dondathang/create.php">Thêm mới</a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Sản phẩm -->
+
       <!-- #################### End Menu chức năng Danh mục #################### -->
     </ul>
   </div>
