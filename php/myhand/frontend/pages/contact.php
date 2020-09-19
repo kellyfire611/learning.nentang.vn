@@ -35,7 +35,7 @@ if (session_id() === '') {
                     <img src="/php/myhand/assets/frontend/img/marketing-1.png" class="img-fluid" />
                 </div>
                 <div class="col col-md-6">
-                    <form method="post" action="/frontend/pages/lienhe">
+                    <form method="post" action="">
                         <div class="form-group">
                             <label for="email">Email của bạn</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Email của bạn">
@@ -58,6 +58,79 @@ if (session_id() === '') {
                 </div>
             </div>
         </div>
+
+        <?php
+        // Load các thư viện (packages) do Composer quản lý vào chương trình
+        require_once __DIR__.'/../../vendor/autoload.php';
+
+        // Sử dụng thư viện PHP Mailer
+        use PHPMailer\PHPMailer\PHPMailer;
+        use PHPMailer\PHPMailer\Exception;
+
+        if (isset($_POST['btnGoiLoiNhan'])) {
+            // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
+            $email = $_POST['email'];
+            $title = $_POST['title'];
+            $message = $_POST['message'];
+
+            // Gởi mail kích hoạt tài khoản
+            $mail = new PHPMailer(true);                                // Passing `true` enables exceptions
+            try {
+                //Server settings
+                $mail->SMTPDebug = 2;                                   // Enable verbose debug output
+                $mail->isSMTP();                                        // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com';                         // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true;                                 // Enable SMTP authentication
+                $mail->Username = 'hotro.nentangtoituonglai@gmail.com'; // SMTP username
+                $mail->Password = 'yjkkdiyfjwksktot';                   // SMTP password
+                $mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 587;                                      // TCP port to connect to
+                $mail->CharSet = "UTF-8";
+
+                // Bật chế bộ tự mình mã hóa SSL
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+
+                //Recipients
+                $mail->setFrom('hotro.nentangtoituonglai@gmail.com', 'Mail Liên hệ');
+                $mail->addAddress('phucuong@ctu.edu.vn');               // Add a recipient
+                $mail->addReplyTo($email);
+                // $mail->addCC('cc@example.com');
+                // $mail->addBCC('bcc@example.com');
+
+                //Attachments
+                // $mail->addAttachment('/var/tmp/file.tar.gz');        // Add attachments
+                // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');   // Optional name
+
+                //Content
+                $mail->isHTML(true);                                    // Set email format to HTML
+
+                // Tiêu đề Mail
+                $mail->Subject = "[Có người liên hệ] - $title";         
+
+                // Nội dung Mail
+                // Lưu ý khi thiết kế Mẫu gởi mail
+                // - Chỉ nên sử dụng TABLE, TR, TD, và các định dạng cơ bản của CSS để thiết kế
+                // - Các đường link/hình ảnh có sử dụng trong mẫu thiết kế MAIL phải là đường dẫn WEB có thật, ví dụ như logo,banner,...
+                $body = <<<EOT
+    Có người liên hệ cần giúp đỡ. <br />
+    Email của khách: $email <br />
+    Nội dung: <br />
+    $message
+EOT;
+                $mail->Body    = $body;
+
+                $mail->send();
+            } catch (Exception $e) {
+                echo 'Lỗi khi gởi mail: ', $mail->ErrorInfo;
+            }
+        }
+        ?>
         <!-- End block content -->
     </main>
 
