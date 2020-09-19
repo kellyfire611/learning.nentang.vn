@@ -19,7 +19,7 @@ sequenceDiagram
   note right of S: cung cấp các thông tin về EMAIL như Tiêu đề<br/>sử dụng email nào để gởi đi, gởi đến email nào, nội dung gì...
   P ->> +G: yêu cầu GMAIL gởi đi email
   G -->> -P: GMAIL trả về thông báo Thành công hay Thất bại
-  P ->> -S: PHPMailer trả về thông báo cho Server
+  P -->> -S: PHPMailer trả về thông báo cho Server
   S -->> -C: trả về phản hồi cho Người dùng (Response)
 
   
