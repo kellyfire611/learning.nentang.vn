@@ -345,11 +345,7 @@ EOT;
                 <div class="container-fliud">
                     <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post" action="">
                         <?php
-                        // var_dump($sanphamRow['danhsachhinhanh'][0]);die;
-                        // var_dump(empty($sanphamRow['danhsachhinhanh'][0]));
                         $hinhsanphamdautien = empty($sanphamRow['danhsachhinhanh'][0]) ? '' : $sanphamRow['danhsachhinhanh'][0];
-                        // var_dump($hinhsanphamdautien);
-                        // die;
                         ?>
                         <input type="hidden" name="sp_ma" id="sp_ma" value="<?= $sanphamRow['sp_ma'] ?>" />
                         <input type="hidden" name="sp_ten" id="sp_ten" value="<?= $sanphamRow['sp_ten'] ?>" />

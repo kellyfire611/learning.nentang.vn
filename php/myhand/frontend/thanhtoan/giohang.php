@@ -76,10 +76,6 @@ if (session_id() === '') {
                             <tbody id="datarow">
                                 <?php $stt = 1; ?>
                                 <?php foreach ($giohangdata as $sanpham) : ?>
-                                    <?php
-                                    // print_r(    empty($sanpham['hinhdaidien'])      );
-                                    // print_r($sanpham['hinhdaidien']);die;
-                                    ?>
                                     <tr>
                                         <td><?= $stt ?></td>
                                         <td>

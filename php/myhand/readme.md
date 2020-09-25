@@ -39,3 +39,8 @@
 - Hiệu chỉnh Thông tin Cá nhân (Họ tên / Email / SĐT; Mật khẩu; ...)
 - Xem Giỏ hàng
 - Xem lịch sử thanh toán.
+
+# Workflow xử lý
+```mermaid
+a -> b
+```
