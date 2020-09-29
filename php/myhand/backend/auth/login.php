@@ -110,7 +110,9 @@ if (session_id() === '') {
                     if (isset($_POST['btnLogin'])) {
                         // Phân tách thông tin từ người dùng gởi đến qua Request POST
                         $kh_tendangnhap = $_POST['kh_tendangnhap'];
-                        $kh_matkhau = $_POST['kh_matkhau'];
+                        $kh_matkhau = sha1($_POST['kh_matkhau']);
+                        // var_dump($kh_tendangnhap);
+                        // var_dump($kh_matkhau);die;
 
                         // Câu lệnh SELECT Kiểm tra đăng nhập...
                         $sqlSelect = <<<EOT
