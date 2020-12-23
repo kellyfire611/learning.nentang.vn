@@ -116,6 +116,16 @@
             // $_FILES['hsp_tentaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
             // $_FILES['hsp_tentaptin']['size']     : Kích thước của file chúng ta upload
 
+            if($_FILES['hsp_tentaptin']['size'] > 555555) {
+              // ...
+            }
+
+            if($_FILES['hsp_tentaptin']['type'] == '*.jpg' 
+              || $_FILES['hsp_tentaptin']['type'] == '*.png'
+              || $_FILES['hsp_tentaptin']['type'] == '*.gif') {
+              //...
+            }
+
             // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
             // Nếu file upload bị lỗi, tức là thuộc tính error > 0
             if ($_FILES['hsp_tentaptin']['error'] > 0) {
