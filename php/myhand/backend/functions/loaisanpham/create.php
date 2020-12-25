@@ -1,13 +1,12 @@
+<!-- Nhúng file cấu hình để xác định được Tên và Tiêu đề của trang hiện tại người dùng đang truy cập -->
+<?php include_once(__DIR__ . '/../../layouts/config.php'); ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NenTang.vn</title>
-
-  <!-- Nhúng file Quản lý các Liên kết CSS dùng chung cho toàn bộ trang web -->
-  <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
+  <!-- Nhúng file quản lý phần HEAD -->
+  <?php include_once(__DIR__ . '/../../layouts/head.php'); ?>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -29,21 +28,17 @@
         <!-- Block content -->
         <form name="frmLoaiSanPham" id="frmLoaiSanPham" method="post" action="">
           <div class="form-group">
-            <label for="id">ID loại sản phẩm</label>
-            <input type="text" class="form-control" id="id" name="id" placeholder="ID loại sản phẩm" readonly>
-            <small id="idHelp" class="form-text text-muted">ID loại sản phẩm không được hiệu chỉnh.</small>
+            <label for="lsp_ma">Mã loại sản phẩm</label>
+            <input type="text" class="form-control" id="lsp_ma" name="lsp_ma" placeholder="Mã loại sản phẩm" readonly>
+            <small id="idHelp" class="form-text text-muted">Mã loại sản phẩm không được hiệu chỉnh.</small>
           </div>
           <div class="form-group">
-            <label for="category_code">Mã loại sản phẩm</label>
-            <input type="text" class="form-control" id="category_code" name="category_code" placeholder="Mã loại sản phẩm" value="">
+            <label for="lsp_ten">Tên loại sản phẩm</label>
+            <input type="text" class="form-control" id="lsp_ten" name="lsp_ten" placeholder="Tên loại sản phẩm" value="">
           </div>
           <div class="form-group">
-            <label for="category_name">Tên loại sản phẩm</label>
-            <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Tên loại sản phẩm" value="">
-          </div>
-          <div class="form-group">
-            <label for="description">Mô tả loại sản phẩm</label>
-            <textarea class="form-control" id="description" name="description" placeholder="Mô tả loại sản phẩm"></textarea>
+            <label for="lsp_mota">Mô tả loại sản phẩm</label>
+            <textarea class="form-control" id="lsp_mota" name="lsp_mota" placeholder="Mô tả loại sản phẩm"></textarea>
           </div>
           <button class="btn btn-primary" name="btnSave">Lưu dữ liệu</button>
         </form>
@@ -53,100 +48,70 @@
         // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
         include_once(__DIR__ . '/../../../dbconnect.php');
 
-        // 2. Nếu người dùng có bấm nút "Lưu dữ liệu" thì kiểm tra VALIDATE dữ liệu
+        // 2. Nếu người dùng có bấm nút "Lưu dữ liệu"
         if (isset($_POST['btnSave'])) {
           // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
-          $category_code = $_POST['category_code'];
-          $category_name = $_POST['category_name'];
-          $description = $_POST['description'];
+          $lsp_ten = $_POST['lsp_ten'];
+          $lsp_mota = $_POST['lsp_mota'];
 
           // Kiểm tra ràng buộc dữ liệu (Validation)
           // Tạo biến lỗi để chứa thông báo lỗi
           $errors = [];
 
-          // Validate Mã loại Sản phẩm
-          // required
-          if (empty($category_code)) {
-            $errors['category_code'][] = [
-              'rule' => 'required',
-              'rule_value' => true,
-              'value' => $category_code,
-              'msg' => 'Vui lòng nhập Mã Loại sản phẩm'
-            ];
-          }
-          // minlength 3
-          if (!empty($category_code) && strlen($category_code) < 3) {
-            $errors['category_code'][] = [
-              'rule' => 'minlength',
-              'rule_value' => 3,
-              'value' => $category_code,
-              'msg' => 'Mã sản phẩm phải có ít nhất 3 ký tự'
-            ];
-          }
-          // maxlength 50
-          if (!empty($category_code) && strlen($category_code) > 50) {
-            $errors['category_code'][] = [
-              'rule' => 'maxlength',
-              'rule_value' => 50,
-              'value' => $category_code,
-              'msg' => 'Mã Loại sản phẩm không được vượt quá 50 ký tự'
-            ];
-          }
-
           // Validate Tên loại Sản phẩm
           // required
-          if (empty($category_name)) {
-            $errors['category_name'][] = [
+          if (empty($lsp_ten)) {
+            $errors['lsp_ten'][] = [
               'rule' => 'required',
               'rule_value' => true,
-              'value' => $category_name,
+              'value' => $lsp_ten,
               'msg' => 'Vui lòng nhập tên Loại sản phẩm'
             ];
           }
           // minlength 3
-          if (!empty($category_name) && strlen($category_name) < 3) {
-            $errors['category_name'][] = [
+          if (!empty($lsp_ten) && strlen($lsp_ten) < 3) {
+            $errors['lsp_ten'][] = [
               'rule' => 'minlength',
               'rule_value' => 3,
-              'value' => $category_name,
+              'value' => $lsp_ten,
               'msg' => 'Tên Loại sản phẩm phải có ít nhất 3 ký tự'
             ];
           }
           // maxlength 50
-          if (!empty($category_name) && strlen($category_name) > 50) {
-            $errors['category_name'][] = [
+          if (!empty($lsp_ten) && strlen($lsp_ten) > 50) {
+            $errors['lsp_ten'][] = [
               'rule' => 'maxlength',
               'rule_value' => 50,
-              'value' => $category_name,
+              'value' => $lsp_ten,
               'msg' => 'Tên Loại sản phẩm không được vượt quá 50 ký tự'
             ];
           }
 
           // Validate Diễn giải
           // required
-          if (empty($description)) {
-            $errors['description'][] = [
+          if (empty($lsp_mota)) {
+            $errors['lsp_mota'][] = [
               'rule' => 'required',
               'rule_value' => true,
-              'value' => $description,
+              'value' => $lsp_mota,
               'msg' => 'Vui lòng nhập mô tả Loại sản phẩm'
             ];
           }
           // minlength 3
-          if (!empty($description) && strlen($description) < 3) {
-            $errors['description'][] = [
+          if (!empty($lsp_mota) && strlen($lsp_mota) < 3) {
+            $errors['lsp_mota'][] = [
               'rule' => 'minlength',
               'rule_value' => 3,
-              'value' => $description,
+              'value' => $lsp_mota,
               'msg' => 'Mô tả loại sản phẩm phải có ít nhất 3 ký tự'
             ];
           }
           // maxlength 255
-          if (!empty($description) && strlen($description) > 255) {
-            $errors['description'][] = [
+          if (!empty($lsp_mota) && strlen($lsp_mota) > 255) {
+            $errors['lsp_mota'][] = [
               'rule' => 'maxlength',
               'rule_value' => 255,
-              'value' => $description,
+              'value' => $lsp_mota,
               'msg' => 'Mô tả loại sản phẩm không được vượt quá 255 ký tự'
             ];
           }
@@ -187,7 +152,7 @@
           // VALIDATE dữ liệu đã hợp lệ
           // Thực thi câu lệnh SQL QUERY
           // Câu lệnh INSERT
-          $sql = "INSERT INTO `shop_categories` (category_code, category_name, description) VALUES ('$category_code', '$category_name', '$description');";
+          $sql = "INSERT INTO `loaisanpham` (lsp_ten, lsp_mota) VALUES ('$lsp_ten', '$lsp_mota');";
 
           // Thực thi INSERT
           mysqli_query($conn, $sql) or die("<b>Có lỗi khi thực thi câu lệnh SQL: </b>" . mysqli_error($conn) . "<br /><b>Câu lệnh vừa thực thi:</b></br>$sql");
@@ -215,38 +180,27 @@
   <!-- Các file Javascript sử dụng riêng cho trang này, liên kết tại đây -->
   <!-- <script src="..."></script> -->
   <script>
-    // VALIDATE dữ liệu trong form
     $(document).ready(function() {
       $("#frmLoaiSanPham").validate({
         rules: {
-          category_code: {
+          lsp_ten: {
             required: true,
             minlength: 3,
             maxlength: 50
           },
-          category_name: {
-            required: true,
-            minlength: 3,
-            maxlength: 50
-          },
-          description: {
+          lsp_mota: {
             required: true,
             minlength: 3,
             maxlength: 255
           }
         },
         messages: {
-          category_code: {
-            required: "Vui lòng nhập Mã Loại sản phẩm",
-            minlength: "Mã Loại sản phẩm phải có ít nhất 3 ký tự",
-            maxlength: "Mã Loại sản phẩm không được vượt quá 50 ký tự"
-          },
-          category_name: {
+          lsp_ten: {
             required: "Vui lòng nhập tên Loại sản phẩm",
             minlength: "Tên Loại sản phẩm phải có ít nhất 3 ký tự",
             maxlength: "Tên Loại sản phẩm không được vượt quá 50 ký tự"
           },
-          description: {
+          lsp_mota: {
             required: "Vui lòng nhập mô tả cho Loại sản phẩm",
             minlength: "Mô tả cho Loại sản phẩm phải có ít nhất 3 ký tự",
             maxlength: "Mô tả cho Loại sản phẩm không được vượt quá 255 ký tự"

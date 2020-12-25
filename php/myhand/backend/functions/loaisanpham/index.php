@@ -1,13 +1,12 @@
+<!-- Nhúng file cấu hình để xác định được Tên và Tiêu đề của trang hiện tại người dùng đang truy cập -->
+<?php include_once(__DIR__ . '/../../layouts/config.php'); ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NenTang.vn</title>
-
-  <!-- Nhúng file Quản lý các Liên kết CSS dùng chung cho toàn bộ trang web -->
-  <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
+  <!-- Nhúng file quản lý phần HEAD -->
+  <?php include_once(__DIR__ . '/../../layouts/head.php'); ?>
 </head>
 
 <body class="d-flex flex-column h-100">
