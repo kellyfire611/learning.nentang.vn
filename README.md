@@ -3,6 +3,8 @@
 - Học web PHP - Learning PHP
 - Xem nhiều hơn tại [https://nentang.vn](https://nentang.vn)
 
+# Học là phải THỰC HÀNH ❤🧡💛💚💙💜
+
 # Danh sách các bài học
 - Học về Twig - Template Engine quản lý giao diện của Symfony PHP.
   - [Vi du 1](./php/twig/readme.md)
