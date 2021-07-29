@@ -108,6 +108,10 @@
             $upload_dir = __DIR__ . "/../../../assets/uploads/";
             // Các hình ảnh sẽ được lưu trong thư mục con `products` để tiện quản lý
             $subdir = 'products/';
+            // Nếu thư mục chưa tồn tại thì tạo mới thư mục
+            if(!file_exists($upload_dir . $subdir)) {
+              mkdir($upload_dir . $subdir, 0777, true);
+            }
 
             // Đối với mỗi file, sẽ có các thuộc tính như sau:
             // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
