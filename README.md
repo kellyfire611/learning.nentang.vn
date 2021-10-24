@@ -46,3 +46,7 @@ composer install
 ## Step 3: thử nghiệm
 - Start service Apache của XAMPP hay WAMPP
 - Chạy đường dẫn sau để kiểm tra: [http://localhost/learning.nentang.vn/php/twig/](http://localhost/learning.nentang.vn/php/twig/)
+
+# Đóng góp
+Cám ơn bạn Jiahuang đã góp ý về bảo mật file trên hosting.
+[![docs/DongGopCuaBan_Jiahuang](docs/DongGopCuaBan_Jiahuang.png)](docs/DongGopCuaBan_Jiahuang.png)
