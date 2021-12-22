@@ -1,10 +1,10 @@
 <?php
 class Config
 {
-    public static $DB_CONNECTION_HOST           = 'localhost';
-    public static $DB_CONNECTION_USERNAME       = 'admin_salomon';
-    public static $DB_CONNECTION_PASSWORD       = 'Db@#123-$%^';
-    public static $DB_CONNECTION_DATABASE_NAME  = 'admin_salomon';
+    public static $DB_CONNECTION_HOST           = $_ENV['DB_HOST'];
+    public static $DB_CONNECTION_USERNAME       = $_ENV['DB_USERNAME'];
+    public static $DB_CONNECTION_PASSWORD       = $_ENV['DB_PASSWORD'];
+    public static $DB_CONNECTION_DATABASE_NAME  = $_ENV['DB_DATABASE'];
 
     public static $LIMIT = 5;
     public static $PAGE = 1;
