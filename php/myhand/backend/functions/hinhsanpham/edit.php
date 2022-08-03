@@ -123,66 +123,66 @@
           // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
           $hsp_ma = $_GET['hsp_ma'];
 
-          // Nếu người dùng có chọn file để upload
-          if (isset($_FILES['hsp_tentaptin'])) {
-            // Đường dẫn để chứa thư mục upload trên ứng dụng web của chúng ta. Các bạn có thể tùy chỉnh theo ý các bạn.
-            // Ví dụ: các file upload sẽ được lưu vào thư mục ../../../assets/uploads
-            $upload_dir = __DIR__ . "/../../../assets/uploads/";
-            // Các hình ảnh sẽ được lưu trong thư mục con `products` để tiện quản lý
-            $subdir = 'products/';
+          // // Nếu người dùng có chọn file để upload
+          // if (isset($_FILES['hsp_tentaptin'])) {
+          //   // Đường dẫn để chứa thư mục upload trên ứng dụng web của chúng ta. Các bạn có thể tùy chỉnh theo ý các bạn.
+          //   // Ví dụ: các file upload sẽ được lưu vào thư mục ../../../assets/uploads
+          //   $upload_dir = __DIR__ . "/../../../assets/uploads/";
+          //   // Các hình ảnh sẽ được lưu trong thư mục con `products` để tiện quản lý
+          //   $subdir = 'products/';
 
-            // Đối với mỗi file, sẽ có các thuộc tính như sau:
-            // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
-            // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
-            // $_FILES['hsp_tentaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
-            // $_FILES['hsp_tentaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
-            // $_FILES['hsp_tentaptin']['size']     : Kích thước của file chúng ta upload
+          //   // Đối với mỗi file, sẽ có các thuộc tính như sau:
+          //   // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
+          //   // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
+          //   // $_FILES['hsp_tentaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
+          //   // $_FILES['hsp_tentaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
+          //   // $_FILES['hsp_tentaptin']['size']     : Kích thước của file chúng ta upload
 
-            // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
-            // Nếu file upload bị lỗi, tức là thuộc tính error > 0
-            if ($_FILES['hsp_tentaptin']['error'] > 0) {
-              echo 'File Upload Bị Lỗi';
-              die;
-            } else {
-              // Xóa file cũ để tránh rác trong thư mục UPLOADS
-              // Kiểm tra nếu file có tổn tại thì xóa file đi
-              $old_file = $upload_dir . $subdir . $hinhsanphamRow['hsp_tentaptin'];
-              if (file_exists($old_file)) {
-                // Hàm unlink(filepath) dùng để xóa file trong PHP
-                unlink($old_file);
-              }
+          //   // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
+          //   // Nếu file upload bị lỗi, tức là thuộc tính error > 0
+          //   if ($_FILES['hsp_tentaptin']['error'] > 0) {
+          //     echo 'File Upload Bị Lỗi';
+          //     die;
+          //   } else {
+          //     // Xóa file cũ để tránh rác trong thư mục UPLOADS
+          //     // Kiểm tra nếu file có tổn tại thì xóa file đi
+          //     $old_file = $upload_dir . $subdir . $hinhsanphamRow['hsp_tentaptin'];
+          //     if (file_exists($old_file)) {
+          //       // Hàm unlink(filepath) dùng để xóa file trong PHP
+          //       unlink($old_file);
+          //     }
 
-              // Để tránh trường hợp có 2 người dùng cùng lúc upload tập tin trùng tên nhau
-              // Ví dụ:
-              // - Người 1: upload tập tin hình ảnh tên `hoahong.jpg`
-              // - Người 2: cũng upload tập tin hình ảnh tên `hoahong.jpg`
-              // => dẫn đến tên tin trong thư mục chỉ còn lại tập tin người dùng upload cuối cùng
-              // Cách giải quyết đơn giản là chúng ta sẽ ghép thêm ngày giờ vào tên file
-              $hsp_tentaptin = $_FILES['hsp_tentaptin']['name'];
-              $tentaptin = date('YmdHis') . '_' . $hsp_tentaptin; //20200530154922_hoahong.jpg
+          //     // Để tránh trường hợp có 2 người dùng cùng lúc upload tập tin trùng tên nhau
+          //     // Ví dụ:
+          //     // - Người 1: upload tập tin hình ảnh tên `hoahong.jpg`
+          //     // - Người 2: cũng upload tập tin hình ảnh tên `hoahong.jpg`
+          //     // => dẫn đến tên tin trong thư mục chỉ còn lại tập tin người dùng upload cuối cùng
+          //     // Cách giải quyết đơn giản là chúng ta sẽ ghép thêm ngày giờ vào tên file
+          //     $hsp_tentaptin = $_FILES['hsp_tentaptin']['name'];
+          //     $tentaptin = date('YmdHis') . '_' . $hsp_tentaptin; //20200530154922_hoahong.jpg
 
-              // Tiến hành di chuyển file từ thư mục tạm trên server vào thư mục chúng ta muốn chứa các file uploads
-              // Ví dụ: move file từ C:\xampp\tmp\php6091.tmp -> C:/xampp/htdocs/learning.nentang.vn/php/twig/assets/uploads/hoahong.jpg
-              // var_dump($_FILES['hsp_tentaptin']['tmp_name']);
-              // var_dump($upload_dir . $subdir . $tentaptin);
+          //     // Tiến hành di chuyển file từ thư mục tạm trên server vào thư mục chúng ta muốn chứa các file uploads
+          //     // Ví dụ: move file từ C:\xampp\tmp\php6091.tmp -> C:/xampp/htdocs/learning.nentang.vn/php/twig/assets/uploads/hoahong.jpg
+          //     // var_dump($_FILES['hsp_tentaptin']['tmp_name']);
+          //     // var_dump($upload_dir . $subdir . $tentaptin);
 
-              move_uploaded_file($_FILES['hsp_tentaptin']['tmp_name'], $upload_dir . $subdir . $tentaptin);
-            }
+          //     move_uploaded_file($_FILES['hsp_tentaptin']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+          //   }
 
-            // 3.2. Lưu thông tin file upload vào database
-            // Câu lệnh UPDATE
-            $sql = "UPDATE `hinhsanpham` SET hsp_tentaptin='$tentaptin' WHERE hsp_ma=$hsp_ma;";
-            // print_r($sql); die;
+          //   // 3.2. Lưu thông tin file upload vào database
+          //   // Câu lệnh UPDATE
+          //   $sql = "UPDATE `hinhsanpham` SET hsp_tentaptin='$tentaptin' WHERE hsp_ma=$hsp_ma;";
+          //   // print_r($sql); die;
 
-            // Thực thi
-            mysqli_query($conn, $sql);
+          //   // Thực thi
+          //   mysqli_query($conn, $sql);
 
-            // Đóng kết nối
-            mysqli_close($conn);
+          //   // Đóng kết nối
+          //   mysqli_close($conn);
 
-            // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
-            echo '<script>location.href = "index.php";</script>';
-          }
+          //   // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
+          //   echo '<script>location.href = "index.php";</script>';
+          // }
         }
         ?>
         <!-- End block content -->

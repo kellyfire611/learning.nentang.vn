@@ -126,42 +126,42 @@
               //...
             }
 
-            // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
-            // Nếu file upload bị lỗi, tức là thuộc tính error > 0
-            if ($_FILES['hsp_tentaptin']['error'] > 0) {
-              echo 'File Upload Bị Lỗi';
-              die;
-            } else {
-              // Để tránh trường hợp có 2 người dùng cùng lúc upload tập tin trùng tên nhau
-              // Ví dụ:
-              // - Người 1: upload tập tin hình ảnh tên `hoahong.jpg`
-              // - Người 2: cũng upload tập tin hình ảnh tên `hoahong.jpg`
-              // => dẫn đến tên tin trong thư mục chỉ còn lại tập tin người dùng upload cuối cùng
-              // Cách giải quyết đơn giản là chúng ta sẽ ghép thêm ngày giờ vào tên file
-              $hsp_tentaptin = $_FILES['hsp_tentaptin']['name'];
-              $tentaptin = date('YmdHis') . '_' . $hsp_tentaptin; //20200530154922_hoahong.jpg
+            // // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
+            // // Nếu file upload bị lỗi, tức là thuộc tính error > 0
+            // if ($_FILES['hsp_tentaptin']['error'] > 0) {
+            //   echo 'File Upload Bị Lỗi';
+            //   die;
+            // } else {
+            //   // Để tránh trường hợp có 2 người dùng cùng lúc upload tập tin trùng tên nhau
+            //   // Ví dụ:
+            //   // - Người 1: upload tập tin hình ảnh tên `hoahong.jpg`
+            //   // - Người 2: cũng upload tập tin hình ảnh tên `hoahong.jpg`
+            //   // => dẫn đến tên tin trong thư mục chỉ còn lại tập tin người dùng upload cuối cùng
+            //   // Cách giải quyết đơn giản là chúng ta sẽ ghép thêm ngày giờ vào tên file
+            //   $hsp_tentaptin = $_FILES['hsp_tentaptin']['name'];
+            //   $tentaptin = date('YmdHis') . '_' . $hsp_tentaptin; //20200530154922_hoahong.jpg
 
-              // Tiến hành di chuyển file từ thư mục tạm trên server vào thư mục chúng ta muốn chứa các file uploads
-              // Ví dụ: move file từ C:\xampp\tmp\php6091.tmp -> C:/xampp/htdocs/learning.nentang.vn/php/twig/assets/uploads/hoahong.jpg
-              // var_dump($_FILES['hsp_tentaptin']['tmp_name']);
-              // var_dump($upload_dir . $subdir . $tentaptin);
+            //   // Tiến hành di chuyển file từ thư mục tạm trên server vào thư mục chúng ta muốn chứa các file uploads
+            //   // Ví dụ: move file từ C:\xampp\tmp\php6091.tmp -> C:/xampp/htdocs/learning.nentang.vn/php/twig/assets/uploads/hoahong.jpg
+            //   // var_dump($_FILES['hsp_tentaptin']['tmp_name']);
+            //   // var_dump($upload_dir . $subdir . $tentaptin);
 
-              move_uploaded_file($_FILES['hsp_tentaptin']['tmp_name'], $upload_dir . $subdir . $tentaptin);
-            }
+            //   move_uploaded_file($_FILES['hsp_tentaptin']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+            // }
 
-            // 3.2. Lưu thông tin file upload vào database
-            // Câu lệnh INSERT
-            $sql = "INSERT INTO `hinhsanpham` (hsp_tentaptin, sp_ma) VALUES ('$tentaptin', $sp_ma);";
-            // print_r($sql); die;
+            // // 3.2. Lưu thông tin file upload vào database
+            // // Câu lệnh INSERT
+            // $sql = "INSERT INTO `hinhsanpham` (hsp_tentaptin, sp_ma) VALUES ('$tentaptin', $sp_ma);";
+            // // print_r($sql); die;
 
-            // Thực thi INSERT
-            mysqli_query($conn, $sql);
+            // // Thực thi INSERT
+            // mysqli_query($conn, $sql);
 
-            // Đóng kết nối
-            mysqli_close($conn);
+            // // Đóng kết nối
+            // mysqli_close($conn);
 
-            // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
-            echo '<script>location.href = "index.php";</script>';
+            // // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
+            // echo '<script>location.href = "index.php";</script>';
           }
         }
         ?>

@@ -30,10 +30,10 @@ $result = mysqli_query($conn, $sql);
 // Ví dụ: các file upload sẽ được lưu vào thư mục ../../assets/uploads
 $upload_dir = "./../../assets/uploads/";
 
-$old_file = $upload_dir.$hinhsanphamRow['hproduct_nametaptin'];
-if(file_exists($old_file)) {
-    unlink($old_file);
-}
+// $old_file = $upload_dir.$hinhsanphamRow['hproduct_nametaptin'];
+// if(file_exists($old_file)) {
+//     unlink($old_file);
+// }
 
 // 6. Đóng kết nối
 mysqli_close($conn);

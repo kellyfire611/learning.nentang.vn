@@ -40,45 +40,45 @@ if(isset($_POST['btnSave']))
     // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
     $sp_ma = $_POST['sp_ma'];
 
-    // Nếu người dùng có chọn file để upload
-    if (isset($_FILES['hproduct_nametaptin']))
-    {
-        // Đường dẫn để chứa thư mục upload trên ứng dụng web của chúng ta. Các bạn có thể tùy chỉnh theo ý các bạn.
-        // Ví dụ: các file upload sẽ được lưu vào thư mục ../../assets/uploads
-        $upload_dir = "./../../assets/uploads/";
+    // // Nếu người dùng có chọn file để upload
+    // if (isset($_FILES['hproduct_nametaptin']))
+    // {
+    //     // Đường dẫn để chứa thư mục upload trên ứng dụng web của chúng ta. Các bạn có thể tùy chỉnh theo ý các bạn.
+    //     // Ví dụ: các file upload sẽ được lưu vào thư mục ../../assets/uploads
+    //     $upload_dir = "./../../assets/uploads/";
 
-        // Đối với mỗi file, sẽ có các thuộc tính như sau:
-        // $_FILES['hproduct_nametaptin']['name']     : Tên của file chúng ta upload
-        // $_FILES['hproduct_nametaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
-        // $_FILES['hproduct_nametaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
-        // $_FILES['hproduct_nametaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
-        // $_FILES['hproduct_nametaptin']['size']     : Kích thước của file chúng ta upload
+    //     // Đối với mỗi file, sẽ có các thuộc tính như sau:
+    //     // $_FILES['hproduct_nametaptin']['name']     : Tên của file chúng ta upload
+    //     // $_FILES['hproduct_nametaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
+    //     // $_FILES['hproduct_nametaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
+    //     // $_FILES['hproduct_nametaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
+    //     // $_FILES['hproduct_nametaptin']['size']     : Kích thước của file chúng ta upload
 
-        // Nếu file upload bị lỗi, tức là thuộc tính error > 0
-        if ($_FILES['hproduct_nametaptin']['error'] > 0)
-        {
-            echo 'File Upload Bị Lỗi';die;
-        }
-        else{
-            // Tiến hành di chuyển file từ thư mục tạm trên server vào thư mục chúng ta muốn chứa các file uploads
-            // Ví dụ: move file từ C:\xampp\tmp\php6091.tmp -> C:/xampp/htdocs/learning.nentang.vn/assets/uploads/hoahong.jpg
-            $hproduct_nametaptin = $_FILES['hproduct_nametaptin']['name'];
-            move_uploaded_file($_FILES['hproduct_nametaptin']['tmp_name'], $upload_dir.$hproduct_nametaptin);
-            echo 'File Uploaded';
-        }
+    //     // Nếu file upload bị lỗi, tức là thuộc tính error > 0
+    //     if ($_FILES['hproduct_nametaptin']['error'] > 0)
+    //     {
+    //         echo 'File Upload Bị Lỗi';die;
+    //     }
+    //     else{
+    //         // Tiến hành di chuyển file từ thư mục tạm trên server vào thư mục chúng ta muốn chứa các file uploads
+    //         // Ví dụ: move file từ C:\xampp\tmp\php6091.tmp -> C:/xampp/htdocs/learning.nentang.vn/assets/uploads/hoahong.jpg
+    //         $hproduct_nametaptin = $_FILES['hproduct_nametaptin']['name'];
+    //         move_uploaded_file($_FILES['hproduct_nametaptin']['tmp_name'], $upload_dir.$hproduct_nametaptin);
+    //         echo 'File Uploaded';
+    //     }
 
-        // Câu lệnh INSERT
-        $sql = "INSERT INTO `hinhsanpham` (hproduct_nametaptin, sp_ma) VALUES ('$hproduct_nametaptin', $sp_ma);";
+    //     // Câu lệnh INSERT
+    //     $sql = "INSERT INTO `hinhsanpham` (hproduct_nametaptin, sp_ma) VALUES ('$hproduct_nametaptin', $sp_ma);";
         
-        // Thực thi INSERT
-        mysqli_query($conn, $sql);
+    //     // Thực thi INSERT
+    //     mysqli_query($conn, $sql);
             
-        // Đóng kết nối
-        mysqli_close($conn);
+    //     // Đóng kết nối
+    //     mysqli_close($conn);
 
-        // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
-        header('location:index.php');
-    }
+    //     // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
+    //     header('location:index.php');
+    // }
 }
 
 // Yêu cầu `Twig` vẽ giao diện được viết trong file `backend/hinhsanpham/create.html.twig`

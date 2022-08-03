@@ -34,11 +34,11 @@ $upload_dir = __DIR__ . "/../../../assets/uploads/";
 $subdir = 'products/';
 
 // Kiểm tra nếu file có tổn tại thì xóa file đi
-$old_file = $upload_dir . $subdir . $hinhsanphamRow['hsp_tentaptin'];
-if (file_exists($old_file)) {
-    // Hàm unlink(filepath) dùng để xóa file trong PHP
-    unlink($old_file);
-}
+// $old_file = $upload_dir . $subdir . $hinhsanphamRow['hsp_tentaptin'];
+// if (file_exists($old_file)) {
+//     // Hàm unlink(filepath) dùng để xóa file trong PHP
+//     unlink($old_file);
+// }
 
 // 4. Chuẩn bị câu truy vấn $sql
 // Lấy giá trị khóa chính được truyền theo dạng QueryString Parameter key1=value1&key2=value2...
