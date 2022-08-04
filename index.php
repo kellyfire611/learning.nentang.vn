@@ -12,6 +12,7 @@
     <ul>
         <li><a href="/php/myhand">Thiết kế Web PHP & MySQL bằng PHP thuần</a></li>
         <li><a href="/php/twig">Thiết kế Web PHP & MySQL với Template Engine TWIG</a></li>
+        <li><a href="/project-nentang">Trang web Quản lý Đọc Truyện Tranh & Tiểu Thuyết Online</a></li>
     </ul>
 </body>
 </html>
