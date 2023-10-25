@@ -1,0 +1,4 @@
+2023-10-25 00:00:00 GET /sanpham Danh sách sản phẩm
+2023-10-25 00:07:00 POST /sanpham/create Thêm mới sản phẩm ID 273
+2023-10-25 00:07:03 EDIT /sanpham/create Sửa sản phẩm ID 222
+
